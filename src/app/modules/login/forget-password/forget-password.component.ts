@@ -61,4 +61,8 @@ export class ForgetPasswordComponent implements OnInit {
       this.forgetPasswordFormGroup.get('email').setErrors({ required: true });
     }
   }
+
+  redirectTo(url: string) {
+    this.router.navigate([url]).then();
+  }
 }

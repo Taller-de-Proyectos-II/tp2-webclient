@@ -147,4 +147,8 @@ export class RegisterComponent implements OnInit {
         .setErrors({ incorrect: true });
     }
   }
+
+  redirectTo(url: string) {
+    this.router.navigate([url]).then();
+  }
 }

@@ -7,7 +7,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MAT_DIALOG_DEFAULT_OPTIONS,
-  MatDialogModule,
+  MatDialogModule, MatDialogRef 
 } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -62,6 +62,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
+    MatDialogModule
   ],
   exports: [
     MatToolbarModule,
@@ -88,6 +89,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
+    MatDialogModule
   ],
 })
 export class MaterialModule {}

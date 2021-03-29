@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PsychologistService } from 'src/app/core/services/psychologistService.service';
+import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,8 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private psychologistService: PsychologistService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +68,12 @@ export class ProfileComponent implements OnInit {
       email: '',
       phone: '',
       description: '',
+    });
+  }
+
+  openPasswordDialog() {
+    this.matDialog.open(DialogPasswordComponent, {
+      disableClose: true,
     });
   }
 }

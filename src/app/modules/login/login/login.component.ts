@@ -103,4 +103,8 @@ export class LoginComponent implements OnInit {
       this.loginFormGroup.get('password').setErrors({ required: true });
     }
   }
+
+  redirectTo(url: string) {
+    this.router.navigate([url]).then();
+  }
 }
