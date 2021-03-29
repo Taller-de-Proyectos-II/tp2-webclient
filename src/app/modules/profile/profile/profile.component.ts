@@ -72,8 +72,10 @@ export class ProfileComponent implements OnInit {
   }
 
   openPasswordDialog() {
+    var psychologist = this.psychologistFormGroup.value;
     this.matDialog.open(DialogPasswordComponent, {
       disableClose: true,
+      data: psychologist,
     });
   }
 }

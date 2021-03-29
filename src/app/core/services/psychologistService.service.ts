@@ -16,6 +16,13 @@ export class PsychologistService {
     );
   }
 
+  update(psychologistDTO) {
+    return this.http.put(
+      `https://app-tp2-api.herokuapp.com/psychologist/`,
+      psychologistDTO
+    );
+  }
+
   listByDni(dni) {
     return this.http.get(
       `https://app-tp2-api.herokuapp.com/psychologist/?dni=${dni}`
