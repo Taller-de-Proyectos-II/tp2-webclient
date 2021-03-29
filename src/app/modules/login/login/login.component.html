@@ -1,0 +1,46 @@
+<div class="login" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <div class="login__logo"></div>
+    <br />
+    <h2>Aplicación TP2</h2>
+    <br />
+    <form [formGroup]="loginFormGroup">
+      <mat-form-field class="grow-width" appearance="outline">
+        <mat-label>Dni</mat-label>
+        <input matInput formControlName="dni" maxlength="8" />
+        <mat-error *ngIf="loginFormGroup.get('dni').hasError('required')">
+          <strong> Ingrese Dni </strong>
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="grow-width" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          maxlength="20"
+        />
+        <mat-error *ngIf="loginFormGroup.get('password').hasError('required')">
+          <strong> Ingrese Contraseña </strong>
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <br />
+      <button
+        class="grow-width"
+        mat-raised-button
+        color="primary"
+        (click)="login()"
+      >
+        Ingresar
+      </button>
+    </form>
+    <br />
+    <br />
+    <a href="/register/">Registrarse</a>
+    <br />
+    <br />
+    <a href="/forgetPassword/">¿Olvidó su contraseña?</a>
+  </mat-card>
+</div>

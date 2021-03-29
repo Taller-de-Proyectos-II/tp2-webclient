@@ -1,0 +1,164 @@
+<div class="login" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <div class="login__logo"></div>
+    <br />
+    <form [formGroup]="registerFormGroup">
+      <h2>Registro</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Dni</mat-label>
+              <input matInput formControlName="dni" maxlength="8" />
+              <mat-error *ngIf="registerFormGroup.get('dni').hasError('required')">
+                <strong> Ingrese Dni </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Contraseña</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="password"
+                maxlength="20"
+              />
+              <mat-error *ngIf="registerFormGroup.get('password').hasError('required')">
+                <strong> Ingrese Contraseña </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Confirmar contraseña</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="confirmPassword"
+                maxlength="20"
+              />
+              <mat-error *ngIf="registerFormGroup.get('confirmPassword').hasError('required')">
+                <strong> Confirme Contraseña </strong>
+              </mat-error>
+              <mat-error *ngIf="registerFormGroup.get('confirmPassword').hasError('incorrect')">
+                <strong> La contraseña no coincide </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <br />
+        <div class="row" style="display: flex; width: auto">
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Nombres</mat-label>
+              <input matInput formControlName="names" maxlength="30" />
+              <mat-error *ngIf="registerFormGroup.get('names').hasError('required')">
+                <strong> Ingrese Nombres </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Apellidos</mat-label>
+              <input matInput formControlName="lastNames" maxlength="30" />
+              <mat-error *ngIf="registerFormGroup.get('lastNames').hasError('required')">
+                <strong> Ingrese Apellidos </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="birthday" data-date-format='dd-MM-yyyy'/>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="registerFormGroup.get('birthday').hasError('required')">
+                <strong> Ingrese Fecha de Nacimiento </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Reg. C.Ps.P</mat-label>
+              <input matInput formControlName="cpsp" maxlength="20" />
+              <mat-error *ngIf="registerFormGroup.get('cpsp').hasError('required')">
+                <strong> Ingrese Reg. C.Ps.P </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Correo electrónico</mat-label>
+              <input matInput formControlName="email" maxlength="30" />
+              <mat-error *ngIf="registerFormGroup.get('email').hasError('required')">
+                <strong> Ingrese Correo electrónico </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field
+              class="grow-width"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Teléfono</mat-label>
+              <input matInput formControlName="phone" maxlength="20" />
+              <mat-error *ngIf="registerFormGroup.get('phone').hasError('required')">
+                <strong> Ingrese Número de teléfono </strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <button #login class="grow-width" mat-raised-button color="primary" (click)="register()">
+        Registrar
+      </button>
+    </form>
+
+    <br />
+    <br />
+    <a href="/">Volver</a>
+  </mat-card>
+</div>

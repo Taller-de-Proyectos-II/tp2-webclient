@@ -1,0 +1,177 @@
+<div clas="row">
+  <div class="col-3" style="display: inline-block">
+    <img
+      src="../../../assets/images/photo.jpg"
+      style="border-radius: 50%; width: 200px; height: 200px; display: block"
+    />
+  </div>
+  <div class="col-9" style="display: inline-block">
+    <form [formGroup]="psychologistFormGroup">
+      <h2>
+        Mi Perfil
+        <button
+          mat-icon-button
+          color="primary"
+          style="position: absolute; right: 1rem"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+      </h2>
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Nombres</mat-label>
+            <input matInput formControlName="names" />
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="lastNames" />
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthday"/>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Reg. C.Ps.P</mat-label>
+            <input matInput formControlName="cpsp" />
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Número de Teléfono</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="description" />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<br />
+<div>
+  <h2>Experiencia Laboral</h2>
+  <mat-card style="background-color: #e8eaf6">
+    <button
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <mat-card-title>Universidad de Piura</mat-card-title>
+    <mat-card-subtitle
+      >Gerente de Selección de Talentos - 05/08/2018 -
+      Actualidad</mat-card-subtitle
+    >
+    <label
+      >Encargada del proceso de selección de los postulantes a distintos cargos
+      en la universidad.</label
+    >
+  </mat-card>
+</div>
+<br /><br />
+<div>
+  <h2>Educación</h2>
+  <mat-card style="background-color: #e8eaf6">
+    <button
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <mat-card-title>Universidad Ricardo Palma</mat-card-title>
+    <mat-card-subtitle
+      >Bachiller en Psicología - 05/08/2015 - 05/08/2020
+    </mat-card-subtitle>
+    <label>Graduada con primer puesto y mención en Innovación.</label>
+  </mat-card>
+</div>
+<br /><br />
+<div>
+  <h2>Cursos</h2>
+  <mat-card style="background-color: #e8eaf6">
+    <button
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <mat-card-title>Curso de Administración y Marketing</mat-card-title>
+    <mat-card-subtitle>Coursera</mat-card-subtitle>
+    <label>Certificación en administración y marketing digital.</label>
+  </mat-card>
+</div>
+<br /><br />
+<div>
+  <h2>Seminarios y Conferencias</h2>
+  <mat-card style="background-color: #e8eaf6">
+    <button
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <mat-card-title>Seminario Anual de Psicología Peruana</mat-card-title>
+    <mat-card-subtitle>Universidad San Marcos </mat-card-subtitle>
+    <label>Seminario de distintos expositores.</label>
+  </mat-card>
+</div>

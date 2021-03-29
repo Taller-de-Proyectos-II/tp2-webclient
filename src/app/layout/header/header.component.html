@@ -1,0 +1,58 @@
+<mat-toolbar color="primary">
+  <img
+    src="../../../assets/images/logo.png"
+    style="height: 2rem; width: 2rem; margin-right: 10px"
+  />
+  <span> Aplicación TP2</span>
+  <button
+    mat-button
+    color="primary"
+    mat-raised-button
+    style="border: 0ch; box-shadow: none; margin-left: 60px"
+    (click)="redirectTo('/welcome/')"
+  >
+    Inicio
+  </button>
+  <button
+    mat-button
+    color="primary"
+    mat-raised-button
+    style="border: 0ch; box-shadow: none; margin-left: 30px"
+    (click)="redirectTo('/myprofile/')"
+  >
+    Mi Perfil
+  </button>
+  <button
+    mat-button
+    color="primary"
+    mat-raised-button
+    style="border: 0ch; box-shadow: none; margin-left: 30px"
+  >
+    Pacientes
+  </button>
+  <button
+    mat-button
+    color="primary"
+    mat-raised-button
+    style="border: 0ch; box-shadow: none; margin-left: 30px"
+  >
+    Horarios
+  </button>
+  <button
+    mat-button
+    color="primary"
+    mat-raised-button
+    style="border: 0ch; box-shadow: none; margin-left: 30px"
+  >
+    Solicitudes
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon"
+    style="position: absolute; right: 1rem"
+    (click)="redirectTo('/')"
+  >
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+<br />
