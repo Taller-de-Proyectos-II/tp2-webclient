@@ -6,10 +6,11 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { LayoutComponent } from './layout.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
-  declarations: [LayoutComponent, FooterComponent, HeaderComponent],
+  declarations: [LayoutComponent, FooterComponent, HeaderComponent, LoadingComponent],
   imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [LayoutComponent],
+  exports: [LayoutComponent, LoadingComponent],
 })
 export class LayoutModule {}

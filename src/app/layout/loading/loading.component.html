@@ -1,0 +1,12 @@
+<div
+    class="main secondary-color-02_background text-color_for_primary-color-2-background"
+    [ngClass]="{
+      'main--show': !toggleMenu,
+      'main--scroll-hidden': showLoading
+    }"
+  >
+    <router-outlet></router-outlet>
+    <div class="spinner" *ngIf="showLoading">
+      <mat-spinner color="accent"></mat-spinner>
+    </div>
+  </div>

@@ -1,0 +1,71 @@
+.layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-x: hidden;
+}
+
+.header {
+  width: 100%;
+  height: 7%;
+}
+
+.content {
+  width: 100%;
+  height: 93%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.menu {
+  width: 100%;
+  height: 100%;
+  transition-property: width, opacity;
+  transition-duration: 0.3s, 1s;
+  overflow: none;
+}
+
+.menu--hide {
+  transition-property: width, opacity;
+  transition-duration: 0.3s, 0s;
+  position: relative;
+  left: -100vw;
+  width: 0;
+  opacity: 0;
+}
+
+.main {
+  height: 100%;
+  overflow-y: scroll;
+  display: none;
+  position: relative;
+}
+
+.main--show {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.main--scroll-hidden {
+  overflow-y: hidden;
+}
+
+.spinner {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #0000004f;
+}

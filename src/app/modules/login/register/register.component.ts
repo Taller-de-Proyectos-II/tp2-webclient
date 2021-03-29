@@ -2,6 +2,7 @@ import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologistService.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { PsychologistDTO } from '../../../core/models/psychologistDTO.model';
@@ -17,9 +18,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private datePipe: DatePipe,
     private psychologistService: PsychologistService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -61,12 +62,16 @@ export class RegisterComponent implements OnInit {
         email: this.registerFormGroup.get('email').value,
         description: '',
       };
-
+      this.loadingService.changeStateShowLoading(true);
       this.psychologistService
         .register(psychologistDTO)
         .subscribe((data: any) => {
+          this.loadingService.changeStateShowLoading(false);
           this.snackBarService.info(data.message);
           if (data.status == 1) this.router.navigate(['/']).then();
+        },(error) => {
+          this.loadingService.changeStateShowLoading(false);
+          this.snackBarService.info('Error en el servidor');
         });
     }
   }
