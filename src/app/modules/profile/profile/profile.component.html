@@ -1,7 +1,7 @@
 <div clas="row">
   <div class="col-3" style="display: inline-block">
     <img
-      src="../../../assets/images/photo.jpg"
+      src="../../../assets/images/photo.png"
       style="border-radius: 50%; width: 200px; height: 200px; display: block"
     />
   </div>
@@ -13,7 +13,7 @@
           mat-icon-button
           color="primary"
           style="position: absolute; right: 1rem"
-          (click) = "openPasswordDialog()"
+          (click)="openPasswordDialog()"
         >
           <mat-icon>save</mat-icon>
         </button>
@@ -46,7 +46,11 @@
             style="width: 100%"
           >
             <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="birthday"/>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="birthday"
+            />
             <mat-datepicker-toggle
               matSuffix
               [for]="picker"
@@ -106,73 +110,131 @@
 </div>
 <br />
 <div>
-  <h2>Experiencia Laboral</h2>
-  <mat-card style="background-color: #e8eaf6">
+  <h2>
+    Experiencia Laboral
     <button
       mat-icon-button
       color="primary"
-      style="position: absolute; right: 1rem"
+      style="position: absolute; right: 6rem"
+      (click)="openDialog('workExperience', 'create', {})"
     >
-      <mat-icon>edit</mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
-    <mat-card-title>Universidad de Piura</mat-card-title>
-    <mat-card-subtitle
-      >Gerente de Selección de Talentos - 05/08/2018 -
-      Actualidad</mat-card-subtitle
-    >
-    <label
-      >Encargada del proceso de selección de los postulantes a distintos cargos
-      en la universidad.</label
-    >
-  </mat-card>
+  </h2>
+  <div *ngFor="let workExperience of workExperiences">
+    <mat-card style="background-color: #e8eaf6">
+      <button
+        mat-icon-button
+        color="primary"
+        style="position: absolute; right: 1rem"
+        (click)="openDialog('workExperience', 'edit', workExperience)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <mat-card-title>{{ workExperience.place }}</mat-card-title>
+      <mat-card-subtitle
+        >{{ workExperience.occupation }} · {{ workExperience.workingDayType }} ·
+        {{ workExperience.startDate }} -
+        {{
+          workExperience.current == true ? "Actualidad" : workExperience.endDate
+        }}</mat-card-subtitle
+      >
+      <label> {{ workExperience.description }}</label>
+    </mat-card>
+    <br />
+  </div>
 </div>
-<br /><br />
+<br />
 <div>
-  <h2>Educación</h2>
-  <mat-card style="background-color: #e8eaf6">
+  <h2>
+    Educación
     <button
       mat-icon-button
       color="primary"
-      style="position: absolute; right: 1rem"
+      style="position: absolute; right: 6rem"
+      (click)="openDialog('study', 'create', {})"
     >
-      <mat-icon>edit</mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
-    <mat-card-title>Universidad Ricardo Palma</mat-card-title>
-    <mat-card-subtitle
-      >Bachiller en Psicología - 05/08/2015 - 05/08/2020
-    </mat-card-subtitle>
-    <label>Graduada con primer puesto y mención en Innovación.</label>
-  </mat-card>
+  </h2>
+  <div *ngFor="let study of studies">
+    <mat-card style="background-color: #e8eaf6">
+      <button
+        mat-icon-button
+        color="primary"
+        style="position: absolute; right: 1rem"
+        (click)="openDialog('study', 'edit', study)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <mat-card-title>{{ study.studyCenter }}</mat-card-title>
+      <mat-card-subtitle
+        >{{ study.title }}, {{ study.academicDiscipline }} ·
+        {{ study.startDate }} -
+        {{ study.complete != true ? "Actualidad" : study.endDate }}
+      </mat-card-subtitle>
+      <label>{{ study.description }}</label>
+    </mat-card>
+    <br />
+  </div>
 </div>
-<br /><br />
+<br />
 <div>
-  <h2>Cursos</h2>
-  <mat-card style="background-color: #e8eaf6">
+  <h2>
+    Cursos
     <button
       mat-icon-button
       color="primary"
-      style="position: absolute; right: 1rem"
+      style="position: absolute; right: 6rem"
+      (click)="openDialog('course', 'create', {})"
     >
-      <mat-icon>edit</mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
-    <mat-card-title>Curso de Administración y Marketing</mat-card-title>
-    <mat-card-subtitle>Coursera</mat-card-subtitle>
-    <label>Certificación en administración y marketing digital.</label>
-  </mat-card>
+  </h2>
+  <div *ngFor="let course of courses">
+    <mat-card style="background-color: #e8eaf6">
+      <button
+        mat-icon-button
+        color="primary"
+        style="position: absolute; right: 1rem"
+        (click)="openDialog('course', 'edit', course)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <mat-card-title>{{ course.name }}</mat-card-title>
+      <mat-card-subtitle>{{ course.studyCenter }}</mat-card-subtitle>
+      <label>{{ course.description }}</label>
+    </mat-card>
+    <br />
+  </div>
 </div>
-<br /><br />
+<br />
 <div>
-  <h2>Seminarios y Conferencias</h2>
-  <mat-card style="background-color: #e8eaf6">
+  <h2>
+    Seminarios
     <button
       mat-icon-button
       color="primary"
-      style="position: absolute; right: 1rem"
+      style="position: absolute; right: 6rem"
+      (click)="openDialog('conference', 'create', {})"
     >
-      <mat-icon>edit</mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
-    <mat-card-title>Seminario Anual de Psicología Peruana</mat-card-title>
-    <mat-card-subtitle>Universidad San Marcos </mat-card-subtitle>
-    <label>Seminario de distintos expositores.</label>
-  </mat-card>
+  </h2>
+  <div *ngFor="let conference of conferences">
+    <mat-card style="background-color: #e8eaf6">
+      <button
+        mat-icon-button
+        color="primary"
+        style="position: absolute; right: 1rem"
+        (click)="openDialog('conference', 'edit', conference)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <mat-card-title>{{ conference.name }}</mat-card-title>
+      <mat-card-subtitle>{{ conference.place }}</mat-card-subtitle>
+      <label>{{ conference.description }}</label>
+    </mat-card>
+    <br />
+  </div>
 </div>

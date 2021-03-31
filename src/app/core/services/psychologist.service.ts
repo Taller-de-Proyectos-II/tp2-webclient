@@ -1,13 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { PsychologistDTO } from '../models/psychologistDTO.model';
+import { ExperienceDTO } from '../models/experienceDTO.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PsychologistService {
   psychologist: PsychologistDTO = null;
-  constructor(private http: HttpClient) {}
+  experience: ExperienceDTO = null;
+
+  constructor(private http: HttpClient) {
+  }
 
   register(psychologistDTO) {
     return this.http.post(
@@ -29,11 +34,41 @@ export class PsychologistService {
     );
   }
 
+  listExperienceByDni(dni) {
+    return this.http.get(
+      `https://app-tp2-api.herokuapp.com/psychologist/experience/?dni=${dni}`
+    );
+  }
+
   setPsychologist(psychologist: PsychologistDTO) {
     this.psychologist = psychologist;
   }
 
   getPsychologist() {
     return this.psychologist;
+  }
+
+  getExperience() {
+    return this.experience;
+  }
+
+  setExperience(experience) {
+    this.experience = experience;
+  }
+
+  setConferences(conferences) {
+    this.experience.conferences = conferences;
+  }
+
+  setStudies(studies) {
+    this.experience.studies = studies;
+  }
+
+  setWorkExperiences(workExperiences) {
+    this.experience.workExperiences = workExperiences;
+  }
+
+  setCourses(courses) {
+    this.experience.courses = courses;
   }
 }

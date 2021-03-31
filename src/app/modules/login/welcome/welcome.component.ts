@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PsychologistService } from 'src/app/core/services/psychologistService.service';
+import { PsychologistService } from 'src/app/core/services/psychologist.service';
 
 @Component({
   selector: 'app-welcome',

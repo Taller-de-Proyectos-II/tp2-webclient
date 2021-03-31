@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { PsychologistService } from 'src/app/core/services/psychologistService.service';
+import { PsychologistService } from 'src/app/core/services/psychologist.service';
 
 import { UserLoginDTO } from '../../../core/models/userLoginDTO.model';
 import { LoginService } from '../../../core/services/login.service';

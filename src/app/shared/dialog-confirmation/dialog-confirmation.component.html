@@ -1,0 +1,14 @@
+<mat-card style="text-align: center; padding-left: 20px; padding-right: 20px">
+  <h2>{{ message }}</h2>
+  <button
+    class="grow-width"
+    mat-raised-button
+    color="primary"
+    (click)="confirm()"
+  >
+    Aceptar
+  </button>
+  <br />
+  <br />
+  <a (click)="cancel()"> Cancelar </a>
+</mat-card>

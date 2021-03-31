@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { PsychologistService } from 'src/app/core/services/psychologistService.service';
+import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
@@ -26,6 +26,9 @@ export class DialogPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.psychologistService.getPsychologist() == null) {
+      this.router.navigate(['/']).then();
+    }
     this.loadPasswordFormGroup();
   }
 

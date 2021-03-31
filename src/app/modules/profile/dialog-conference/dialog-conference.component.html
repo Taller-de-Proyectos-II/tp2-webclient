@@ -1,0 +1,62 @@
+<mat-card
+  style="
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 400px;
+  "
+>
+  <h2>
+    {{ title }}
+
+    <button
+      *ngIf="data.action != 'create'"
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+      (click)="delete()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </h2>
+  <form [formGroup]="conferenceFormGroup">
+    <mat-form-field class="grow-width" appearance="outline" style="width: 100%">
+      <mat-label>Seminario</mat-label>
+      <input matInput formControlName="name" maxlength="30" />
+      <mat-error *ngIf="conferenceFormGroup.get('name').hasError('required')">
+        <strong> Ingrese Seminario</strong>
+      </mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="grow-width" appearance="outline" style="width: 100%">
+      <mat-label>Lugar</mat-label>
+      <input matInput formControlName="place" maxlength="30" />
+      <mat-error *ngIf="conferenceFormGroup.get('place').hasError('required')">
+        <strong> Ingrese Lugar </strong>
+      </mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="grow-width" appearance="outline" style="width: 100%">
+      <mat-label>Descripción</mat-label>
+      <textarea
+        style="height: 60px"
+        matInput
+        formControlName="description"
+        maxlength="100"
+      ></textarea>
+    </mat-form-field>
+    <br />
+    <br />
+    <button
+      class="grow-width"
+      mat-raised-button
+      color="primary"
+      (click)="save()"
+    >
+      {{ button }}
+    </button>
+    <br />
+    <br />
+    <a (click)="cancel()">Volver</a>
+  </form>
+</mat-card>
