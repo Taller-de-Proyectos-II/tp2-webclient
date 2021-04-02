@@ -1,8 +1,9 @@
 <div clas="row">
   <div class="col-3" style="display: inline-block">
     <img
-      src="../../../assets/images/photo.png"
+      [src]="retrieveURL"
       style="border-radius: 50%; width: 200px; height: 200px; display: block"
+      (click)="openPhotoDialog()"
     />
   </div>
   <div class="col-9" style="display: inline-block">

@@ -151,7 +151,7 @@ export class PatientComponent implements OnInit {
 
   openDialog(patient: PatientDTO) {
     this.matDialog.open(DialogPatientComponent, {
-      disableClose: false,
+      disableClose: true,
       data: patient,
     });
   }

@@ -1,0 +1,16 @@
+<mat-card style="text-align: center; padding-left: 20px; padding-right: 20px">
+  <input type="file" (change)="onFileSelected($event)" />
+  <br />
+  <br />
+  <button
+    class="grow-width"
+    mat-raised-button
+    color="primary"
+    (click)="onUpload()"
+  >
+    Actualizar foto
+  </button>
+  <br />
+  <br />
+  <a (click)="cancel()">Volver</a>
+</mat-card>

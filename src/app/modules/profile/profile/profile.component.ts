@@ -8,6 +8,7 @@ import { CourseDTO } from 'src/app/core/models/courseDTO.model';
 import { StudyDTO } from 'src/app/core/models/studyDTO.model';
 import { WorkExperienceDTO } from 'src/app/core/models/workExperienceDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { ImageService } from 'src/app/core/services/image.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogConferenceComponent } from '../dialog-conference/dialog-conference.component';
@@ -15,6 +16,7 @@ import { DialogCourseComponent } from '../dialog-course/dialog-course.component'
 import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
 import { DialogStudyComponent } from '../dialog-study/dialog-study.component';
 import { DialogWorkExperienceComponent } from '../dialog-workExperience/dialog-workExperience.component';
+import { DialogPhotoComponent } from '../dialog-photo/dialog-photo.component';
 
 @Component({
   selector: 'app-profile',
@@ -28,6 +30,7 @@ export class ProfileComponent implements OnInit {
   conferences: CourseDTO[] = [];
   studies: StudyDTO[] = [];
   workExperiences: WorkExperienceDTO[] = [];
+  retrieveURL: any = '../../../assets/images/loading.gif';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +39,8 @@ export class ProfileComponent implements OnInit {
     private datePipe: DatePipe,
     private matDialog: MatDialog,
     private loadingService: LoadingService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private imageService: ImageService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +49,11 @@ export class ProfileComponent implements OnInit {
     if (this.psychologistService.getPsychologist() == null) {
       this.router.navigate(['/']).then();
     } else {
+      if (this.imageService.getPsychologistImage() == null) {
+        this.loadPhoto();
+      } else {
+        this.retrieveURL = this.imageService.getPsychologistImage();
+      }
       this.loadFromService();
       if (this.psychologistService.getExperience() == null) {
         this.getExperience();
@@ -52,7 +61,29 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  loadPhoto() {
+    this.retrieveURL = '../../../assets/images/loading.gif';
+    this.imageService
+      .getPsychologistImageFromApi(
+        this.psychologistService.getPsychologist().userLoginDTO.dni
+      )
+      .subscribe(
+        (data: any) => {
+          var reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onload = (_event) => {
+            this.retrieveURL = reader.result as string;
+            this.imageService.setPsychologistImage(this.retrieveURL);
+          };
+        },
+        (error) => {
+          this.retrieveURL = '../../../assets/images/photo.png';
+        }
+      );
+  }
+
   loadFromService() {
+    this.loadPhoto();
     if (this.psychologistService.getPsychologist() == null) {
       this.router.navigate(['/']).then();
     } else {
@@ -129,6 +160,19 @@ export class ProfileComponent implements OnInit {
     this.courses = this.psychologistService.getExperience().courses;
     this.studies = this.psychologistService.getExperience().studies;
     this.workExperiences = this.psychologistService.getExperience().workExperiences;
+  }
+
+  openPhotoDialog() {
+    this.matDialog
+      .open(DialogPhotoComponent, {
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm == true) {
+          this.loadPhoto();
+        }
+      });
   }
 
   openDialog(word: String, action: String, entity: any) {

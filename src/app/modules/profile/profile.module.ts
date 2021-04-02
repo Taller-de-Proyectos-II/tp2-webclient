@@ -11,6 +11,7 @@ import { DialogStudyComponent } from './dialog-study/dialog-study.component';
 import { DialogConferenceComponent } from './dialog-conference/dialog-conference.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile/profile.component';
+import { DialogPhotoComponent } from './dialog-photo/dialog-photo.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
     DialogStudyComponent,
     DialogWorkExperienceComponent,
     DialogConferenceComponent,
+    DialogPhotoComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { ProfileComponent } from './profile/profile.component';
     DialogStudyComponent,
     DialogWorkExperienceComponent,
     DialogConferenceComponent,
+    DialogPhotoComponent
   ],
 })
 export class ProfileModule {}

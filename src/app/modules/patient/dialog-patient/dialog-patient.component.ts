@@ -48,4 +48,8 @@ export class DialogPatientComponent implements OnInit {
       }
     );
   }
+
+  cancel() {
+    this.matDialogRef.close();
+  }
 }
