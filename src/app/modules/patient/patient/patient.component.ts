@@ -80,7 +80,7 @@ export class PatientComponent implements OnInit {
             this.searchPatient = true;
             if (data.patientDTO) {
               this.patientFound = data.patientDTO;
-            }
+            } else this.patientFound = null;
             this.loadingService.changeStateShowLoading(false);
           },
           (error) => {
