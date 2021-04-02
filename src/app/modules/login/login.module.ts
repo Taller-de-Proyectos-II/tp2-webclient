@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/shared/material/material.module';
+import { MaterialModule } from '../../shared/material/material.module';
 
 import { LayoutModule } from '../../layout/layout.module';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';

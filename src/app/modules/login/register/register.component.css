@@ -20,11 +20,11 @@
   }
   
   .box {
-    top: 5%;
+    top: 8%;
     opacity: 1;
-    padding: 40px 50px 40px 50px;
+    padding: 20px 30px 20px 30px;
     margin: auto;
-    width: 150%;
+    width: 120%;
     background: #fff;
     border-radius: 10px;
     transform: scale(1);

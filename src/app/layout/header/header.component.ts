@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { PsychologistService } from 'src/app/core/services/psychologist.service'
 export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
-    private psychologistService: PsychologistService
+    private psychologistService: PsychologistService,
+    private patientService: PatientService
   ) {}
 
   ngOnInit(): void {}
@@ -22,5 +24,6 @@ export class HeaderComponent implements OnInit {
   cleanApp() {
     this.psychologistService.setPsychologist(null);
     this.psychologistService.setExperience(null);
+    this.patientService.setPatients(null);
   }
 }

@@ -26,7 +26,7 @@
             style="width: 100%"
           >
             <mat-label>Nombres</mat-label>
-            <input matInput formControlName="names" />
+            <input matInput formControlName="names" maxlength="30" />
           </mat-form-field>
         </div>
         <div class="col-4">
@@ -36,7 +36,7 @@
             style="width: 100%"
           >
             <mat-label>Apellidos</mat-label>
-            <input matInput formControlName="lastNames" />
+            <input matInput formControlName="lastNames" maxlength="30" />
           </mat-form-field>
         </div>
         <div class="col-4">
@@ -68,7 +68,7 @@
             style="width: 100%"
           >
             <mat-label>Reg. C.Ps.P</mat-label>
-            <input matInput formControlName="cpsp" />
+            <input matInput formControlName="cpsp" maxlength="20" />
           </mat-form-field>
         </div>
         <div class="col-4">
@@ -78,7 +78,7 @@
             style="width: 100%"
           >
             <mat-label>Correo electrónico</mat-label>
-            <input matInput formControlName="email" />
+            <input matInput formControlName="email" maxlength="30" />
           </mat-form-field>
         </div>
         <div class="col-4">
@@ -88,7 +88,7 @@
             style="width: 100%"
           >
             <mat-label>Número de Teléfono</mat-label>
-            <input matInput formControlName="phone" />
+            <input matInput formControlName="phone" maxlength="20" />
           </mat-form-field>
         </div>
       </div>
@@ -101,7 +101,7 @@
             style="width: 100%"
           >
             <mat-label>Descripción</mat-label>
-            <input matInput formControlName="description" />
+            <input matInput formControlName="description" maxlength="300" />
           </mat-form-field>
         </div>
       </div>
@@ -121,6 +121,9 @@
       <mat-icon>add</mat-icon>
     </button>
   </h2>
+  <label *ngIf="workExperiences.length == 0"
+    >No se ha registrado experiencia laboral.</label
+  >
   <div *ngFor="let workExperience of workExperiences">
     <mat-card style="background-color: #e8eaf6">
       <button
@@ -157,6 +160,7 @@
       <mat-icon>add</mat-icon>
     </button>
   </h2>
+  <label *ngIf="studies.length == 0">No se han registrado estudios.</label>
   <div *ngFor="let study of studies">
     <mat-card style="background-color: #e8eaf6">
       <button
@@ -191,6 +195,7 @@
       <mat-icon>add</mat-icon>
     </button>
   </h2>
+  <label *ngIf="courses.length == 0">No se han registrado cursos.</label>
   <div *ngFor="let course of courses">
     <mat-card style="background-color: #e8eaf6">
       <button
@@ -221,6 +226,9 @@
       <mat-icon>add</mat-icon>
     </button>
   </h2>
+  <label *ngIf="conferences.length == 0"
+    >No se han registrado seminarios.</label
+  >
   <div *ngFor="let conference of conferences">
     <mat-card style="background-color: #e8eaf6">
       <button

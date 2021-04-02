@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPsychologistFormGroup();
+
     if (this.psychologistService.getPsychologist() == null) {
       this.router.navigate(['/']).then();
     } else {
