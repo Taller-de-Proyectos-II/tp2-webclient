@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
+
 import { PatientDTO } from '../../../core/models/patientDTO.model';
 import { PatientService } from '../../../core/services/patient.service';
 import { PsychologistService } from '../../../core/services/psychologist.service';
@@ -49,6 +50,7 @@ export class PatientComponent implements OnInit {
   }
 
   setInService() {
+    console.log('setInService');
     this.loadingService.changeStateShowLoading(true);
     this.patientService
       .findByPsicholosgitDni(
@@ -56,10 +58,13 @@ export class PatientComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
+          console.log(data.patientsDTO);
           if (data.patientsDTO) {
-            this.patientService.setPatients(data.patientsDTO);
-            this.patients = this.patientService.getPatients();
+            this.patientService.setPatients(data.patientsDTO);           
+          } else {
+            this.patientService.setPatients([]);
           }
+          this.patients = this.patientService.getPatients();
           this.loadingService.changeStateShowLoading(false);
         },
         (error) => {
