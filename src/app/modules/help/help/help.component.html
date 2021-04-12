@@ -1,0 +1,78 @@
+<h2>Explicación de Manifestaciones</h2>
+
+<mat-expansion-panel style="background-color: #e8eaf6">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>Manifestaciones Físicas</b>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+  <br />
+  <div *ngFor="let physicalSymptom of physicalSymptoms; index as i">
+    <mat-panel-title
+      ><b>{{ physicalSymptom.name }}</b></mat-panel-title
+    >
+    <mat-panel-description>{{
+      physicalSymptom.description
+    }}</mat-panel-description>
+    <br />
+  </div>
+</mat-expansion-panel>
+<br />
+<mat-expansion-panel style="background-color: #e8eaf6">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>Manifestaciones Emocionales</b>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+  <br />
+  <div *ngFor="let emotionalSymptom of emotionalSymptoms; index as i">
+    <mat-panel-title
+      ><b>{{ emotionalSymptom.name }}</b></mat-panel-title
+    >
+    <mat-panel-description>{{
+      emotionalSymptom.description
+    }}</mat-panel-description>
+    <br />
+  </div>
+</mat-expansion-panel>
+<br />
+<mat-expansion-panel style="background-color: #e8eaf6">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>Manifestaciones Conductuales</b>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+  <br />
+  <div *ngFor="let conductualSymptom of conductualSymptoms; index as i">
+    <mat-panel-title
+      ><b>{{ conductualSymptom.name }}</b></mat-panel-title
+    >
+    <mat-panel-description>{{
+      conductualSymptom.description
+    }}</mat-panel-description>
+    <br />
+  </div>
+</mat-expansion-panel>
+<br />
+<mat-expansion-panel style="background-color: #e8eaf6">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>Manifestaciones Cognitivas</b>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+  <br />
+  <div *ngFor="let cognitiveSymptom of cognitiveSymptoms; index as i">
+    <mat-panel-title
+      ><b>{{ cognitiveSymptom.name }}</b></mat-panel-title
+    >
+    <mat-panel-description>{{
+      cognitiveSymptom.description
+    }}</mat-panel-description>
+    <br />
+  </div>
+</mat-expansion-panel>
+<br />
