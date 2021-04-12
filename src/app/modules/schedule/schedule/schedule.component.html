@@ -1,0 +1,112 @@
+<h2>
+  Horarios
+  <button
+    mat-icon-button
+    color="primary"
+    style="position: absolute; right: 6rem"
+    (click)="save()"
+  >
+    <mat-icon>save</mat-icon>
+  </button>
+</h2>
+<mat-table [dataSource]="hours" style="width: 100%">
+  <ng-container matColumnDef="hour">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Horas </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{ element.hourName }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="monday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Lunes </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.monday.checked"
+        (change)="element.monday.checked = !element.monday.checked"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tuesday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>
+      Martes
+    </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.tuesday.checked"
+        (change)="element.tuesday.checked = !element.tuesday.checked"
+      >
+      </mat-checkbox
+    ></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="wednesday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>
+      Miércoles
+    </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.wednesday.checked"
+        (change)="element.wednesday.checked = !element.wednesday.checked"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="thursday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>
+      Jueves
+    </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.thursday.checked"
+        (change)="element.thursday.checked = !element.thursday.checked"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="friday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>
+      Viernes
+    </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.friday.checked"
+        (change)="element.friday.checked = !element.friday.checked"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="saturday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>
+      Sábado
+    </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.saturday.checked"
+        (change)="element.saturday.checked = !element.saturday.checked"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="sunday">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>
+      Domingo
+    </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <mat-checkbox
+        [checked]="element.sunday.checked"
+        (change)="element.sunday.checked = !element.sunday.checked"
+      >
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<br />

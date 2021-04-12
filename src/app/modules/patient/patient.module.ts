@@ -7,9 +7,18 @@ import { MaterialModule } from '../../shared/material/material.module';
 import { PatientComponent } from './patient/patient.component';
 import { DialogConfirmationModule } from 'src/app/shared/dialog-confirmation/dialog-confirmation.module';
 import { DialogPatientComponent } from './dialog-patient/dialog-patient.component';
+import { TestComponent } from './test/test.component';
+import { ReportComponent } from './report/report.component';
+import { DialogReportComponent } from './dialog-report/dialog-report.component';
 
 @NgModule({
-  declarations: [PatientComponent, DialogPatientComponent],
+  declarations: [
+    PatientComponent,
+    DialogPatientComponent,
+    TestComponent,
+    ReportComponent,
+    DialogReportComponent,
+  ],
   imports: [
     CommonModule,
     PatientRoutingModule,
@@ -18,6 +27,6 @@ import { DialogPatientComponent } from './dialog-patient/dialog-patient.componen
     MaterialModule,
     DialogConfirmationModule,
   ],
-  entryComponents: [DialogPatientComponent],
+  entryComponents: [DialogPatientComponent, DialogReportComponent],
 })
 export class PatientModule {}

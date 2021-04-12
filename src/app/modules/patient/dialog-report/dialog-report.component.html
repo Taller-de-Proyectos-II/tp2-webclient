@@ -1,0 +1,44 @@
+<mat-card
+  style="
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 800px;
+  "
+>
+  <h2>
+    {{ title }}
+
+    <button
+      *ngIf="data.action != 'create'"
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+      (click)="deleteReport()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </h2>
+  <form [formGroup]="reportFormGroup">
+    <mat-form-field class="grow-width" appearance="outline" style="width: 100%">
+      <mat-label>Informe</mat-label>
+      <textarea matInput formControlName="description" maxlength="250" style="height: 300px"> </textarea>
+      <mat-error *ngIf="reportFormGroup.get('description').hasError('required')">
+        <strong> Ingrese Reporte </strong>
+      </mat-error>
+    </mat-form-field>
+    <br />
+    <br />
+    <button
+      class="grow-width"
+      mat-raised-button
+      color="primary"
+      (click)="save()"
+    >
+      {{ button }}
+    </button>
+    <br />
+    <br />
+    <a (click)="cancel()">Volver</a>
+  </form>
+</mat-card>

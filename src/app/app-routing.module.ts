@@ -23,6 +23,11 @@ const routes: Routes = [
       import('./modules/patient/patient.module').then((m) => m.PatientModule),
   },
   {
+    path: 'schedule',
+    loadChildren: () =>
+      import('./modules/schedule/schedule.module').then((m) => m.ScheduleModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

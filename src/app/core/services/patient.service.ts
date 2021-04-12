@@ -8,6 +8,7 @@ import { PatientDTO } from '../models/patientDTO.model';
 })
 export class PatientService {
   patients: PatientDTO[] = null;
+  patient: PatientDTO = null;
 
   constructor(private http: HttpClient) {}
 
@@ -41,5 +42,13 @@ export class PatientService {
 
   setPatients(patients) {
     this.patients = patients;
+  }
+
+  getPatient() {
+    return this.patient;
+  }
+
+  setPatient(patient) {
+    this.patient = patient;
   }
 }

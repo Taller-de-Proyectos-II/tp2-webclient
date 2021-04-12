@@ -84,6 +84,22 @@
         <button
           mat-icon-button
           color="primary"
+          style="position: absolute; right: 7rem"
+          (click)="goTest(patient)"
+        >
+          <mat-icon>science</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          style="position: absolute; right: 4rem"
+          (click)="goReport(patient)"
+        >
+          <mat-icon>assignment</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
           style="position: absolute; right: 1rem"
           (click)="beforeRemove(patient)"
         >

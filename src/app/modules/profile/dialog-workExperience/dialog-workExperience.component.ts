@@ -121,6 +121,7 @@ export class DialogWorkExperienceComponent implements OnInit {
         );
       } else {
         workExperienceDTO.idWorkExperience = this.data.entity.idWorkExperience;
+        this.loadingService.changeStateShowLoading(true);
         this.workExperienceService.update(workExperienceDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);

@@ -1,0 +1,108 @@
+<h2>
+  <button
+    mat-icon-button
+    color="primary"
+    style="margin-left: 0px"
+    (click)="redirectTo('/patients')"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  Pruebas asignadas a {{ patient.names }} {{ patient.lastNames }}
+  <button
+    mat-icon-button
+    color="primary"
+    style="position: absolute; right: 6rem"
+    (click)="createTest()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</h2>
+
+<div *ngFor="let test of tests; index as i">
+  <mat-expansion-panel style="background-color: #e8eaf6">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Prueba</b>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ test.startDate }} ·
+        {{ test.finished == true ? test.endDate : "En proceso" }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-divider></mat-divider>
+    <br />
+    <div class="row">
+      <div class="col-3" *ngIf="test.physicalManifestation != null">
+        <h3>
+          <b>{{ test.physicalManifestation.name }}</b>
+        </h3>
+        <div
+          class="row"
+          style="margin-left: 6px"
+          *ngFor="let physicalSymptom of test.physicalManifestation.symptoms"
+        >
+          <mat-checkbox [checked]="physicalSymptom.checked" [disabled]="true">
+            {{ physicalSymptom.name }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="col-3" *ngIf="test.emotionalManifestation != null">
+        <h3>
+          <b>{{ test.emotionalManifestation.name }}</b>
+        </h3>
+        <div
+          class="row"
+          style="margin-left: 6px"
+          *ngFor="let emotionalSymptom of test.emotionalManifestation.symptoms"
+        >
+          <mat-checkbox [checked]="emotionalSymptom.checked" [disabled]="true">
+            {{ emotionalSymptom.name }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="col-3" *ngIf="test.conductualManifestation != null">
+        <h3>
+          <b>{{ test.conductualManifestation.name }}</b>
+        </h3>
+        <div
+          class="row"
+          style="margin-left: 6px"
+          *ngFor="
+            let conductualSymptom of test.conductualManifestation.symptoms
+          "
+        >
+          <mat-checkbox [checked]="conductualSymptom.checked" [disabled]="true">
+            {{ conductualSymptom.name }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="col-3" *ngIf="test.cognitiveManifestation != null">
+        <h3>
+          <b>{{ test.cognitiveManifestation.name }}</b>
+        </h3>
+        <div
+          class="row"
+          style="margin-left: 6px"
+          *ngFor="let cognitiveSymptom of test.cognitiveManifestation.symptoms"
+        >
+          <mat-checkbox [checked]="cognitiveSymptom.checked" [disabled]="true">
+            {{ cognitiveSymptom.name }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button
+        mat-icon-button
+        color="primary"
+        style="position: absolute; right: 1rem; bottom: 1rem"
+        (click)="deleteTest(test.idTest)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-expansion-panel>
+
+  <br />
+</div>

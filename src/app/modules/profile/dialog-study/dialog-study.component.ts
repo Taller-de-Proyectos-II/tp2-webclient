@@ -120,6 +120,7 @@ export class DialogStudyComponent implements OnInit {
         );
       } else {
         studyDTO.idStudy = this.data.entity.idStudy;
+        this.loadingService.changeStateShowLoading(true);
         this.studyService.update(studyDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);

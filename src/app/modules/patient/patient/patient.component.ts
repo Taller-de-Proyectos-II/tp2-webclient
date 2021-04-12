@@ -50,7 +50,6 @@ export class PatientComponent implements OnInit {
   }
 
   setInService() {
-    console.log('setInService');
     this.loadingService.changeStateShowLoading(true);
     this.patientService
       .findByPsicholosgitDni(
@@ -58,9 +57,8 @@ export class PatientComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          console.log(data.patientsDTO);
           if (data.patientsDTO) {
-            this.patientService.setPatients(data.patientsDTO);           
+            this.patientService.setPatients(data.patientsDTO);
           } else {
             this.patientService.setPatients([]);
           }
@@ -159,5 +157,19 @@ export class PatientComponent implements OnInit {
       disableClose: true,
       data: patient,
     });
+  }
+
+  redirectTo(url: string) {
+    this.router.navigate([url]).then();
+  }
+
+  goTest(patient) {
+    this.patientService.setPatient(patient);
+    this.redirectTo('/patients/tests');
+  }
+
+  goReport(patient) {
+    this.patientService.setPatient(patient);
+    this.redirectTo('/patients/reports');
   }
 }

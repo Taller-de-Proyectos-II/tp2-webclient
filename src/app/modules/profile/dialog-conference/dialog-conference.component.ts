@@ -85,6 +85,7 @@ export class DialogConferenceComponent implements OnInit {
         );
       } else {
         conferenceDTO.idConference = this.data.entity.idConference;
+        this.loadingService.changeStateShowLoading(true);
         this.conferenceService.update(conferenceDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);
