@@ -205,7 +205,7 @@ export class ScheduleComponent implements OnInit {
       if (element.sunday.checked) schedules.push(element.sunday.id);
     });
     var scheduleDTO = {
-      psychologistDni: '76697297',
+      psychologistDni: this.psychologistService.getPsychologist().userLoginDTO.dni,
       schedules: schedules,
     };
     this.loadingService.changeStateShowLoading(true);
