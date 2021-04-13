@@ -4,6 +4,7 @@ import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
@@ -181,9 +182,9 @@ export class ScheduleComponent implements OnInit {
                 checked: true,
               };
             }
-            this.loadingService.changeStateShowLoading(false);
           });
         }
+        this.loadingService.changeStateShowLoading(false);
       },
       (error) => {
         this.loadingService.changeStateShowLoading(false);
