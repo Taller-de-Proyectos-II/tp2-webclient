@@ -7,7 +7,8 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MAT_DIALOG_DEFAULT_OPTIONS,
-  MatDialogModule, MatDialogRef 
+  MatDialogModule,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -26,7 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   providers: [
     MatDatepickerModule,
@@ -62,7 +63,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
   ],
   exports: [
     MatToolbarModule,
@@ -89,7 +91,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
   ],
 })
 export class MaterialModule {}

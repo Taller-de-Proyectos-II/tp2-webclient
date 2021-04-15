@@ -125,6 +125,7 @@ export class PatientComponent implements OnInit {
           this.snackBarService.info(data.message);
           if (data.status == 1) {
             this.patients = this.patients.concat(patient);
+            this.patientService.setPatients(this.patients);
           }
           this.loadingService.changeStateShowLoading(false);
         },

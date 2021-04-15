@@ -1,0 +1,25 @@
+<mat-card style="text-align: center; padding-left: 20px; padding-right: 20px; width: 500px;">
+    <h2>Actualización de sesión</h2>
+    <form [formGroup]="sessionFormGroup">
+      <mat-form-field class="grow-width" appearance="outline" style="width: 100%;">
+        <mat-label>Ingrese Enlace de sesión</mat-label>
+        <input
+          matInput
+          formControlName="meetingLink"
+          maxlength="250"
+        />
+        <mat-error *ngIf="sessionFormGroup.get('meetingLink').hasError('required')">
+          <strong> Ingrese Enlace de sesión </strong>
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <br />
+      <button class="grow-width" mat-raised-button color="primary" (click)="save()">
+        Actualizar
+      </button>
+      <br />
+      <br />
+      <a (click)="cancel()">Volver</a>
+    </form>
+  </mat-card>
+  

@@ -30,6 +30,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'session',
+    loadChildren: () =>
+      import('./modules/session/session.module').then(
+        (m) => m.SessionModule
+      ),
+  },
+  {
     path: 'help',
     loadChildren: () =>
       import('./modules/help/help.module').then((m) => m.HelpModule),

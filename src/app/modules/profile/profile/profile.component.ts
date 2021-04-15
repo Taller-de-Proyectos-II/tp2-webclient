@@ -7,16 +7,17 @@ import { ConferenceDTO } from 'src/app/core/models/conferenceDTO.model';
 import { CourseDTO } from 'src/app/core/models/courseDTO.model';
 import { StudyDTO } from 'src/app/core/models/studyDTO.model';
 import { WorkExperienceDTO } from 'src/app/core/models/workExperienceDTO.model';
-import { LoadingService } from 'src/app/core/services/loading.service';
 import { ImageService } from 'src/app/core/services/image.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+
 import { DialogConferenceComponent } from '../dialog-conference/dialog-conference.component';
 import { DialogCourseComponent } from '../dialog-course/dialog-course.component';
 import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
+import { DialogPhotoComponent } from '../dialog-photo/dialog-photo.component';
 import { DialogStudyComponent } from '../dialog-study/dialog-study.component';
 import { DialogWorkExperienceComponent } from '../dialog-workExperience/dialog-workExperience.component';
-import { DialogPhotoComponent } from '../dialog-photo/dialog-photo.component';
 
 @Component({
   selector: 'app-profile',
@@ -127,11 +128,29 @@ export class ProfileComponent implements OnInit {
   }
 
   openPasswordDialog() {
-    var psychologist = this.psychologistFormGroup.value;
-    this.matDialog.open(DialogPasswordComponent, {
-      disableClose: true,
-      data: psychologist,
-    });
+    this.validateForm();
+    if (this.psychologistFormGroup.valid) {
+      var psychologist = this.psychologistFormGroup.value;
+      this.matDialog.open(DialogPasswordComponent, {
+        disableClose: true,
+        data: psychologist,
+      });
+    }
+  }
+
+  validateForm() {
+    if (!this.psychologistFormGroup.get('names').value)
+      this.psychologistFormGroup.get('names').setErrors({ required: true });
+    if (!this.psychologistFormGroup.get('lastNames').value)
+      this.psychologistFormGroup.get('lastNames').setErrors({ required: true });
+    if (!this.psychologistFormGroup.get('cpsp').value)
+      this.psychologistFormGroup.get('cpsp').setErrors({ required: true });
+    if (!this.psychologistFormGroup.get('email').value)
+      this.psychologistFormGroup.get('email').setErrors({ required: true });
+    if (!this.psychologistFormGroup.get('phone').value)
+      this.psychologistFormGroup.get('phone').setErrors({ required: true });
+    if (!this.psychologistFormGroup.get('birthday').value)
+      this.psychologistFormGroup.get('birthday').setErrors({ required: true });
   }
 
   getExperience() {
