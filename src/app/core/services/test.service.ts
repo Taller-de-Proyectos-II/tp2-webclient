@@ -13,10 +13,10 @@ export class TestService {
     );
   }
 
-  createTest(patientDni) {
+  createTest(patientDni, idQuestionType) {
     return this.http.post(
       `https://app-tp2-api.herokuapp.com/test/`,
-      { patientDni: patientDni }
+      { patientDni: patientDni, idQuestionType: idQuestionType }
     );
   }
 

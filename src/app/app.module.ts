@@ -21,7 +21,8 @@ import { LayoutModule } from './layout/layout.module';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    LayoutModule
+    LayoutModule,
+    FormsModule
   ],
   providers: [MatSnackBarModule, DatePipe],
   bootstrap: [AppComponent],

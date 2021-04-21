@@ -13,6 +13,8 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { TestService } from 'src/app/core/services/test.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
 
+import { DialogTestComponent } from '../dialog-test/dialog-test.component';
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -26,6 +28,7 @@ export class TestComponent implements OnInit {
 
   tests: TestDTO[] = [];
   patient: PatientDTO = null;
+  displayedColumns: string[] = ['id', 'question', 'score'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +50,7 @@ export class TestComponent implements OnInit {
         this.router.navigate(['/patients']).then();
       } else {
         this.patient = this.patientService.getPatient();
-        this.getManifestations();
+        this.getTests();
       }
     }
   }
@@ -58,102 +61,8 @@ export class TestComponent implements OnInit {
       (data: any) => {
         if (data.testsDTO) {
           this.tests = data.testsDTO;
-          this.tests.forEach((test) => {
-            var physicalSymptoms = [];
-            var emotionalSymptoms = [];
-            var conductualSymptomses = [];
-            var cognitiveSymptoms = [];
-
-            this.physicalManifestation.symptoms.forEach((symptom) => {
-              var symptomManifestation = symptom;
-              var symptomAux = test.symptoms.find(
-                (symptomTest) => symptomTest.idSymptom == symptom.idSymptom
-              );
-              if (symptomAux) {
-                symptomManifestation = {
-                  idSymptom: symptom.idSymptom,
-                  idManifestation: symptom.idManifestation,
-                  name: symptom.name,
-                  description: symptom.description,
-                  checked: true,
-                };
-              }
-              physicalSymptoms.push(symptomManifestation);
-            });
-            this.emotionalManifestation.symptoms.forEach((symptom) => {
-              var symptomManifestation = symptom;
-              var symptomAux = test.symptoms.find(
-                (symptomTest) => symptomTest.idSymptom == symptom.idSymptom
-              );
-              if (symptomAux) {
-                symptomManifestation = {
-                  idSymptom: symptom.idSymptom,
-                  idManifestation: symptom.idManifestation,
-                  name: symptom.name,
-                  description: symptom.description,
-                  checked: true,
-                };
-              }
-              emotionalSymptoms.push(symptomManifestation);
-            });
-            this.conductualManifestation.symptoms.forEach((symptom) => {
-              var symptomManifestation = symptom;
-              var symptomAux = test.symptoms.find(
-                (symptomTest) => symptomTest.idSymptom == symptom.idSymptom
-              );
-              if (symptomAux) {
-                symptomManifestation = {
-                  idSymptom: symptom.idSymptom,
-                  idManifestation: symptom.idManifestation,
-                  name: symptom.name,
-                  description: symptom.description,
-                  checked: true,
-                };
-              }
-              conductualSymptomses.push(symptomManifestation);
-            });
-            this.cognitiveManifestation.symptoms.forEach((symptom) => {
-              var symptomManifestation = symptom;
-              var symptomAux = test.symptoms.find(
-                (symptomTest) => symptomTest.idSymptom == symptom.idSymptom
-              );
-              if (symptomAux) {
-                symptomManifestation = {
-                  idSymptom: symptom.idSymptom,
-                  idManifestation: symptom.idManifestation,
-                  name: symptom.name,
-                  description: symptom.description,
-                  checked: true,
-                };
-              }
-              cognitiveSymptoms.push(symptomManifestation);
-            });
-
-            test.physicalManifestation = {
-              idManifestation: this.physicalManifestation.idManifestation,
-              name: this.physicalManifestation.name,
-              description: this.physicalManifestation.description,
-              symptoms: physicalSymptoms,
-            };
-            test.emotionalManifestation = {
-              idManifestation: this.emotionalManifestation.idManifestation,
-              name: this.emotionalManifestation.name,
-              description: this.emotionalManifestation.description,
-              symptoms: emotionalSymptoms,
-            };
-            test.conductualManifestation = {
-              idManifestation: this.conductualManifestation.idManifestation,
-              name: this.conductualManifestation.name,
-              description: this.conductualManifestation.description,
-              symptoms: conductualSymptomses,
-            };
-            test.cognitiveManifestation = {
-              idManifestation: this.cognitiveManifestation.idManifestation,
-              name: this.cognitiveManifestation.name,
-              description: this.cognitiveManifestation.description,
-              symptoms: cognitiveSymptoms,
-            };
-          });
+        } else {
+          this.tests = [];
         }
         this.loadingService.changeStateShowLoading(false);
       },
@@ -169,55 +78,20 @@ export class TestComponent implements OnInit {
     });
   }
 
-  getManifestations() {
-    this.loadingService.changeStateShowLoading(true);
-    this.manifestationService.listAll().subscribe(
-      (data: any) => {
-        if (data.manifestationsDTO) {
-          this.physicalManifestation = data.manifestationsDTO.physical;
-          this.emotionalManifestation = data.manifestationsDTO.emotional;
-          this.conductualManifestation = data.manifestationsDTO.conductual;
-          this.cognitiveManifestation = data.manifestationsDTO.cognitive;
-          this.changeCheckedToFalse(this.physicalManifestation);
-          this.changeCheckedToFalse(this.emotionalManifestation);
-          this.changeCheckedToFalse(this.conductualManifestation);
-          this.changeCheckedToFalse(this.cognitiveManifestation);
-          this.loadingService.changeStateShowLoading(false);
-          this.getTests();
-        }
-      },
-      (error) => {
-        this.loadingService.changeStateShowLoading(false);
-      }
-    );
-  }
-
   createTest() {
     this.matDialog
-      .open(DialogConfirmationComponent, {
-        data: 'Se asignará una nueva prueba al paciente',
+      .open(DialogTestComponent, {
+        data: this.patient.userLoginDTO.dni,
       })
       .afterClosed()
       .subscribe((confirm: boolean) => {
         if (confirm) {
-          this.loadingService.changeStateShowLoading(true);
-          this.testService.createTest(this.patient.userLoginDTO.dni).subscribe(
-            (data: any) => {
-              this.snackBarService.info(data.message);
-              this.loadingService.changeStateShowLoading(false);
-              if (data.status == 1) {
-                this.getTests();
-              }
-            },
-            (error) => {
-              this.loadingService.changeStateShowLoading(false);
-            }
-          );
+          this.getTests();
         }
       });
   }
 
-  deleteTest(idTest) {
+  deleteTest(idTest: number) {
     this.matDialog
       .open(DialogConfirmationComponent, {
         data: 'Se eliminará la prueba seleccionada',

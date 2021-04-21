@@ -29,79 +29,64 @@
         {{ test.finished == true ? test.endDate : "En proceso" }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-
     <mat-divider></mat-divider>
     <br />
-    <div class="row">
-      <div class="col-3" *ngIf="test.physicalManifestation != null">
-        <h3>
-          <b>{{ test.physicalManifestation.name }}</b>
-        </h3>
-        <div
-          class="row"
-          style="margin-left: 6px"
-          *ngFor="let physicalSymptom of test.physicalManifestation.symptoms"
+    <button
+      mat-icon-button
+      color="primary"
+      style="position: absolute; right: 1rem"
+      (click)="deleteTest(test.idTest)"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+    <label><b> Tipo de Prueba: </b>{{ test.testType }} </label><br />
+    <label
+      ><b> Diagnóstico: </b
+      >{{ test.diagnostic == "" ? "No especificado" : test.diagnostic }} </label
+    ><br /><br />
+    <mat-table [dataSource]="test.answersDTO" fixedLayout="true">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 15%">
+          #
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          style="flex: 0 0 15%"
         >
-          <mat-checkbox [checked]="physicalSymptom.checked" [disabled]="true">
-            {{ physicalSymptom.name }}
-          </mat-checkbox>
-        </div>
-      </div>
-      <div class="col-3" *ngIf="test.emotionalManifestation != null">
-        <h3>
-          <b>{{ test.emotionalManifestation.name }}</b>
-        </h3>
-        <div
-          class="row"
-          style="margin-left: 6px"
-          *ngFor="let emotionalSymptom of test.emotionalManifestation.symptoms"
-        >
-          <mat-checkbox [checked]="emotionalSymptom.checked" [disabled]="true">
-            {{ emotionalSymptom.name }}
-          </mat-checkbox>
-        </div>
-      </div>
-      <div class="col-3" *ngIf="test.conductualManifestation != null">
-        <h3>
-          <b>{{ test.conductualManifestation.name }}</b>
-        </h3>
-        <div
-          class="row"
-          style="margin-left: 6px"
-          *ngFor="
-            let conductualSymptom of test.conductualManifestation.symptoms
-          "
-        >
-          <mat-checkbox [checked]="conductualSymptom.checked" [disabled]="true">
-            {{ conductualSymptom.name }}
-          </mat-checkbox>
-        </div>
-      </div>
-      <div class="col-3" *ngIf="test.cognitiveManifestation != null">
-        <h3>
-          <b>{{ test.cognitiveManifestation.name }}</b>
-        </h3>
-        <div
-          class="row"
-          style="margin-left: 6px"
-          *ngFor="let cognitiveSymptom of test.cognitiveManifestation.symptoms"
-        >
-          <mat-checkbox [checked]="cognitiveSymptom.checked" [disabled]="true">
-            {{ cognitiveSymptom.name }}
-          </mat-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <button
-        mat-icon-button
-        color="primary"
-        style="position: absolute; right: 1rem; bottom: 1rem"
-        (click)="deleteTest(test.idTest)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="question">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 60%">
+          Pregunta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="flex: 0 0 60%">
+          {{ element.questionDTO.description }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="score">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 25%">
+          Respuesta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="flex: 0 0 25%">
+          {{
+            element.score == 0
+              ? "No respondido"
+              : element.score == 1
+              ? "Nunca o casi nunca"
+              : element.score == 2
+              ? "Algunas veces"
+              : element.score == 3
+              ? "Muchas veces"
+              : "Siempre o casi siempre"
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <br />
   </mat-expansion-panel>
 
   <br />

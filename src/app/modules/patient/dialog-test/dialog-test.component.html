@@ -1,0 +1,22 @@
+<mat-card
+  style="
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  "
+>
+  <h2>Seleccione Tipo de Prueba</h2>
+  <div *ngFor="let questionType of questionTypes">
+    <button
+      class="grow-width"
+      mat-raised-button
+      color="primary"
+      (click)="save(questionType.idQuestionType)"
+    >
+      {{ questionType.name }}
+    </button>
+    <br />
+    <br />
+  </div>
+  <a (click)="cancel()">Volver</a>
+</mat-card>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionTypeDTO } from 'src/app/core/models/questionTypeDTO.model';
 import { SymptomDTO } from 'src/app/core/models/symptomDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { ManifestationService } from 'src/app/core/services/manifestation.service';
+import { QuestionTypeService } from 'src/app/core/services/questionType.service';
 
 @Component({
   selector: 'app-help',
@@ -10,31 +12,25 @@ import { ManifestationService } from 'src/app/core/services/manifestation.servic
 })
 export class HelpComponent implements OnInit {
 
-  physicalSymptoms: SymptomDTO[] = [];
-  emotionalSymptoms: SymptomDTO[] = [];
-  conductualSymptoms:SymptomDTO[] = [];
-  cognitiveSymptoms: SymptomDTO[] = [];
-
+  questionTypes: QuestionTypeDTO[] = [];
+  
   constructor(
     private loadingService: LoadingService,
-    private manifestationService: ManifestationService
+    private questionTypeService: QuestionTypeService
   ) { }
 
   ngOnInit(): void {
-    this.getManifestation();
+    this.getQuestionTypes();
   }
 
-  getManifestation() {
+  getQuestionTypes() {
     this.loadingService.changeStateShowLoading(true);
-    this.manifestationService.listAll().subscribe(
+    this.questionTypeService.listQuestionTypes().subscribe(
       (data: any) => {
-        if (data.manifestationsDTO) {
-          this.physicalSymptoms = data.manifestationsDTO.physical.symptoms;
-          this.emotionalSymptoms = data.manifestationsDTO.emotional.symptoms;
-          this.conductualSymptoms = data.manifestationsDTO.conductual.symptoms;
-          this.cognitiveSymptoms = data.manifestationsDTO.cognitive.symptoms;
-          this.loadingService.changeStateShowLoading(false);
-        }
+        if (data.questionTypesDTO) {
+          this.questionTypes = data.questionTypesDTO;
+        } else this.questionTypes = [];
+        this.loadingService.changeStateShowLoading(false);
       },
       (error) => {
         this.loadingService.changeStateShowLoading(false);
