@@ -22,9 +22,9 @@
   <mat-expansion-panel style="background-color: #e8eaf6">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <b>Prueba</b>
+        <b>Prueba de {{ test.testType }}</b>
       </mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-description  style="flex-grow: 0; margin-right: 6rem;">
         {{ test.startDate }} ·
         {{ test.finished == true ? test.endDate : "En proceso" }}
       </mat-panel-description>
@@ -39,7 +39,6 @@
     >
       <mat-icon>delete</mat-icon>
     </button>
-    <label><b> Tipo de Prueba: </b>{{ test.testType }} </label><br />
     <label
       ><b> Diagnóstico: </b
       >{{ test.diagnostic == "" ? "No especificado" : test.diagnostic }} </label
@@ -68,21 +67,33 @@
         <mat-header-cell *matHeaderCellDef style="flex: 0 0 25%">
           Respuesta
         </mat-header-cell>
-        <mat-cell *matCellDef="let element" style="flex: 0 0 25%">
-          {{
-            element.score == 0
-              ? "No respondido"
-              : element.score == 1
-              ? "Nunca o casi nunca"
-              : element.score == 2
-              ? "Algunas veces"
-              : element.score == 3
-              ? "Muchas veces"
-              : "Siempre o casi siempre"
-          }}
-        </mat-cell>
+        <div *ngIf="test.testType != 'Manifestaciones'">
+          <mat-cell *matCellDef="let element" style="flex: 0 0 25%">
+            {{
+              element.score == 0
+                ? "No respondido"
+                : element.score == 1
+                ? "Nunca o casi nunca"
+                : element.score == 2
+                ? "Algunas veces"
+                : element.score == 3
+                ? "Muchas veces"
+                : "Siempre o casi siempre"
+            }}
+          </mat-cell>
+        </div>
+        <div *ngIf="test.testType == 'Manifestaciones'">
+          <mat-cell *matCellDef="let element" style="flex: 0 0 25%">
+            {{
+              element.score == 1
+                ? "Sí"
+                : test.finished == true
+                ? "No"
+                : "No respondido"
+            }}
+          </mat-cell>
+        </div>
       </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
