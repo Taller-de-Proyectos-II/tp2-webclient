@@ -19,7 +19,13 @@
 </h2>
 
 <div *ngFor="let test of tests; index as i">
-  <mat-expansion-panel style="background-color: #e8eaf6">
+  <mat-expansion-panel 
+  [ngStyle]="test.color == 'red' && {'background-color': '#F5B7B1' } || test.color == 'orange' && {'background-color': '#F5CBA7'}
+  || test.color == 'yellow' && {'background-color': '#F9E79F'}
+  || test.color == 'green' && {'background-color': '#A9DFBF'}
+  || test.color == 'white' && {'background-color': '#e8eaf6'}
+  || test.color == 'null' && {'background-color': '#e8eaf6'}
+  ">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <b>Prueba de {{ test.testType }}</b>

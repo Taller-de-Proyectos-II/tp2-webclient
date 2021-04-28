@@ -8,4 +8,5 @@ export interface TestDTO {
   testType: string;
   diagnostic: string;
   answersDTO: AnswerDTO[];
+  color: string;
 }
