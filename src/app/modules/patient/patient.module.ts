@@ -12,6 +12,7 @@ import { PatientRoutingModule } from './patient-routing.module';
 import { PatientComponent } from './patient/patient.component';
 import { ReportComponent } from './report/report.component';
 import { TestComponent } from './test/test.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TestComponent } from './test/test.component';
     ReportComponent,
     DialogReportComponent,
     DialogTestComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,

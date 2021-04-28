@@ -21,23 +21,16 @@ import { DialogTestComponent } from '../dialog-test/dialog-test.component';
   styleUrls: ['./test.component.css'],
 })
 export class TestComponent implements OnInit {
-  physicalManifestation: ManifestationDTO = null;
-  emotionalManifestation: ManifestationDTO = null;
-  conductualManifestation: ManifestationDTO = null;
-  cognitiveManifestation: ManifestationDTO = null;
-
   tests: TestDTO[] = [];
   patient: PatientDTO = null;
   displayedColumns: string[] = ['id', 'question', 'score'];
 
   constructor(
-    private formBuilder: FormBuilder,
     private psychologistService: PsychologistService,
     private loadingService: LoadingService,
     private patientService: PatientService,
     private snackBarService: SnackBarService,
     private matDialog: MatDialog,
-    private manifestationService: ManifestationService,
     private testService: TestService,
     private router: Router
   ) {}

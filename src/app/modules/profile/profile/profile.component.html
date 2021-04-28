@@ -74,6 +74,11 @@
             >
               <strong> Ingrese Fecha de nacimiento </strong>
             </mat-error>
+            <mat-error
+              *ngIf="psychologistFormGroup.get('birthday').hasError('incorrect')"
+            >
+              <strong> Debe ser mayor de edad </strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>

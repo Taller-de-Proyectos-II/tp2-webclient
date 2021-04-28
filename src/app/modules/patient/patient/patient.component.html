@@ -84,6 +84,14 @@
         <button
           mat-icon-button
           color="primary"
+          style="position: absolute; right: 10rem"
+          (click)="goAlert(patient)"
+        >
+          <mat-icon>warning</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
           style="position: absolute; right: 7rem"
           (click)="goTest(patient)"
         >

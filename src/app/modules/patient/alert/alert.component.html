@@ -1,0 +1,65 @@
+<h2>
+    <button
+      mat-icon-button
+      color="primary"
+      style="margin-left: 0px"
+      (click)="redirectTo('/patients')"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    Alertas de {{ patient.names }} {{ patient.lastNames }}
+  </h2>
+  
+  <div *ngFor="let alert of alerts; index as i">
+    <mat-expansion-panel style="background-color: #e8eaf6">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <b>Alerta</b>
+        </mat-panel-title>
+        <mat-panel-description  style="flex-grow: 0; margin-right: 6rem;">
+          {{ alert.date }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-divider></mat-divider>
+      <br />
+      <mat-table [dataSource]="alert.alertAnswersDTO" fixedLayout="true">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef style="flex: 0 0 15%">
+            #
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            style="flex: 0 0 15%"
+          >
+            {{ i + 1 }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="question">
+          <mat-header-cell *matHeaderCellDef style="flex: 0 0 60%">
+            Pregunta
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 60%">
+            {{ element.symptomDTO.description }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="score">
+          <mat-header-cell *matHeaderCellDef style="flex: 0 0 25%">
+            Respuesta
+          </mat-header-cell>
+            <mat-cell *matCellDef="let element" style="flex: 0 0 25%">
+              {{
+                element.score == 1
+                  ? "Sí"
+                  : "No"
+              }}
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <br />
+    </mat-expansion-panel>
+  
+    <br />
+  </div>
+  

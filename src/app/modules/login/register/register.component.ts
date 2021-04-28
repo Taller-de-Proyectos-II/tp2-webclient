@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import * as moment from 'moment';
+
 import { PsychologistDTO } from '../../../core/models/psychologistDTO.model';
 
 @Component({
@@ -38,6 +40,7 @@ export class RegisterComponent implements OnInit {
       cpsp: '',
       email: '',
       phone: '',
+      policity: false,
     });
   }
 
@@ -63,16 +66,17 @@ export class RegisterComponent implements OnInit {
         description: '',
       };
       this.loadingService.changeStateShowLoading(true);
-      this.psychologistService
-        .register(psychologistDTO)
-        .subscribe((data: any) => {
+      this.psychologistService.register(psychologistDTO).subscribe(
+        (data: any) => {
           this.loadingService.changeStateShowLoading(false);
           this.snackBarService.info(data.message);
           if (data.status == 1) this.router.navigate(['/']).then();
-        },(error) => {
+        },
+        (error) => {
           this.loadingService.changeStateShowLoading(false);
           this.snackBarService.info('Error en el servidor');
-        });
+        }
+      );
     }
   }
 
@@ -83,6 +87,9 @@ export class RegisterComponent implements OnInit {
       this.registerFormGroup.get('dni').value == ''
     ) {
       this.registerFormGroup.get('dni').setErrors({ required: true });
+    }
+    if (this.registerFormGroup.get('policity').value == false) {
+      this.registerFormGroup.get('policity').setErrors({ required: true });
     }
     if (
       !this.registerFormGroup.get('password').value ||
@@ -117,6 +124,13 @@ export class RegisterComponent implements OnInit {
       this.registerFormGroup.get('birthday').value == ''
     ) {
       this.registerFormGroup.get('birthday').setErrors({ required: true });
+    }
+    if (this.registerFormGroup.get('birthday').value) {
+      var a = moment(this.registerFormGroup.get('birthday').value);
+      var b = moment(new Date());
+      if (b.diff(a, 'years') < 18) {
+        this.registerFormGroup.get('birthday').setErrors({ incorrect: true });
+      }
     }
     if (
       !this.registerFormGroup.get('cpsp').value ||

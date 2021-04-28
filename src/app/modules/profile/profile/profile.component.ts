@@ -11,7 +11,7 @@ import { ImageService } from 'src/app/core/services/image.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
-
+import * as moment from 'moment';
 import { DialogConferenceComponent } from '../dialog-conference/dialog-conference.component';
 import { DialogCourseComponent } from '../dialog-course/dialog-course.component';
 import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
@@ -151,6 +151,13 @@ export class ProfileComponent implements OnInit {
       this.psychologistFormGroup.get('phone').setErrors({ required: true });
     if (!this.psychologistFormGroup.get('birthday').value)
       this.psychologistFormGroup.get('birthday').setErrors({ required: true });
+    if (this.psychologistFormGroup.get('birthday').value) {
+      var a = moment(this.psychologistFormGroup.get('birthday').value);
+      var b = moment(new Date());
+      if (b.diff(a, 'years') < 18) {
+        this.psychologistFormGroup.get('birthday').setErrors({ incorrect: true });
+      }
+    }
   }
 
   getExperience() {
