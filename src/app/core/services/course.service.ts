@@ -12,21 +12,21 @@ export class CourseService {
 
   create(courseDTO) {
     return this.http.post(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/courses/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/courses/`,
       courseDTO
     );
   }
 
   update(courseDTO) {
     return this.http.put(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/courses/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/courses/`,
       courseDTO
     );
   }
 
   delete(idCourse) {
     return this.http.delete(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/courses/?idCourse=${idCourse}`
+      `https://app-tp2-api.herokuapp.com//psychologist/courses/?idCourse=${idCourse}`
     );
   }
 }

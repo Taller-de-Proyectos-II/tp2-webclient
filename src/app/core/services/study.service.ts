@@ -9,21 +9,21 @@ export class StudyService {
 
   create(studyDTO) {
     return this.http.post(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/studies/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/studies/`,
       studyDTO
     );
   }
 
   update(studyDTO) {
     return this.http.put(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/studies/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/studies/`,
       studyDTO
     );
   }
 
   delete(idStudy) {
     return this.http.delete(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/studies/?idStudy=${idStudy}`
+      `https://app-tp2-api.herokuapp.com//psychologist/studies/?idStudy=${idStudy}`
     );
   }
 }

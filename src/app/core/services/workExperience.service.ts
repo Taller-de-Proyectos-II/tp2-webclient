@@ -9,21 +9,21 @@ export class WorkExperienceService {
 
   create(workExperienceDTO) {
     return this.http.post(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/workExperience/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/workExperience/`,
       workExperienceDTO
     );
   }
 
   update(workExperienceDTO) {
     return this.http.put(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/workExperience/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/workExperience/`,
       workExperienceDTO
     );
   }
 
   delete(idWorkExperience) {
     return this.http.delete(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/workExperience/?idWorkExperience=${idWorkExperience}`
+      `https://app-tp2-api.herokuapp.com//psychologist/workExperience/?idWorkExperience=${idWorkExperience}`
     );
   }
 }

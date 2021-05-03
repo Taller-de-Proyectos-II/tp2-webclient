@@ -10,7 +10,7 @@ export class ManifestationService {
 
   listAll() {
     return this.http.get(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/manifestation/listManifestations/`
+      `https://app-tp2-api.herokuapp.com//manifestation/listManifestations/`
     );
   }
 }

@@ -9,20 +9,20 @@ export class TestService {
 
   listTests(patientDni) {
     return this.http.get(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/test/listByPatientDni/?patientDni=${patientDni}`
+      `https://app-tp2-api.herokuapp.com//test/listByPatientDni/?patientDni=${patientDni}`
     );
   }
 
   createTest(patientDni, idQuestionType) {
     return this.http.post(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/test/`,
+      `https://app-tp2-api.herokuapp.com//test/`,
       { patientDni: patientDni, idQuestionType: idQuestionType }
     );
   }
 
   deleteTest(idTest) {
     return this.http.delete(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/test/?idTest=${idTest}`
+      `https://app-tp2-api.herokuapp.com//test/?idTest=${idTest}`
     );
   }
 }

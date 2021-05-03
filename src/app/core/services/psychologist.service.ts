@@ -16,27 +16,27 @@ export class PsychologistService {
 
   register(psychologistDTO) {
     return this.http.post(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/`,
       psychologistDTO
     );
   }
 
   update(psychologistDTO) {
     return this.http.put(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/`,
+      `https://app-tp2-api.herokuapp.com//psychologist/`,
       psychologistDTO
     );
   }
 
   listByDni(dni) {
     return this.http.get(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/?dni=${dni}`
+      `https://app-tp2-api.herokuapp.com//psychologist/?dni=${dni}`
     );
   }
 
   listExperienceByDni(dni) {
     return this.http.get(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/experience/?dni=${dni}`
+      `https://app-tp2-api.herokuapp.com//psychologist/experience/?dni=${dni}`
     );
   }
 

@@ -10,7 +10,7 @@ export class AlertService {
 
   listImportantAlerts(patientDni) {
     return this.http.get(
-      `http://tp2-api.us-east-1.elasticbeanstalk.com/alerts/listImportantByPatientDni/?patientDni=${patientDni}`
+      `https://app-tp2-api.herokuapp.com//alerts/listImportantByPatientDni/?patientDni=${patientDni}`
     );
   }
 }
