@@ -9,6 +9,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { DialogPolicityComponent } from './dialog-policity/dialog-policity.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,15 @@ import { WelcomeComponent } from './welcome/welcome.component';
     WelcomeComponent,
     ForgetPasswordComponent,
     RegisterComponent,
+    DialogPolicityComponent,
   ],
   imports: [
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
     LayoutModule,
-    MaterialModule
+    MaterialModule,
   ],
+  entryComponents: [DialogPolicityComponent],
 })
 export class LoginModule {}

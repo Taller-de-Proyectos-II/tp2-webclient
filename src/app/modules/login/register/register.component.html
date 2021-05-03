@@ -186,11 +186,11 @@
       </div>
       <br />
       <mat-checkbox formControlName="policity"
-        >Acepto los términos y condiciones</mat-checkbox
+        >He leido y acepto las <a (click)="openDialogPolicity()"> políticas de uso de datos personales </a></mat-checkbox
       >
       <br />
       <mat-error *ngIf="registerFormGroup.get('policity').hasError('required')">
-        <strong> Debe aceptar los términos y condiciones </strong>
+        <strong> Debe aceptar las políticas de uso de datos personales </strong>
       </mat-error>
       <br />
       <button

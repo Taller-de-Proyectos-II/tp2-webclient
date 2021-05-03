@@ -8,6 +8,8 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import * as moment from 'moment';
 
 import { PsychologistDTO } from '../../../core/models/psychologistDTO.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogPolicityComponent } from '../dialog-policity/dialog-policity.component';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +24,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private psychologistService: PsychologistService,
     private snackBarService: SnackBarService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -164,5 +167,11 @@ export class RegisterComponent implements OnInit {
 
   redirectTo(url: string) {
     this.router.navigate([url]).then();
+  }
+
+  openDialogPolicity() {
+    this.matDialog.open(DialogPolicityComponent, {
+      disableClose: false
+    });
   }
 }
