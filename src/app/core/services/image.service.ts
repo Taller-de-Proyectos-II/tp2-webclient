@@ -11,7 +11,7 @@ export class ImageService {
 
   getPsychologistImageFromApi(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/psychologist/image/?dni=${dni}`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/image/?dni=${dni}`,
       {
         responseType: 'blob',
       }
@@ -22,7 +22,7 @@ export class ImageService {
     const formData = new FormData();
     formData.append('file', selectedFile);
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/psychologist/image/?dni=${dni}`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/image/?dni=${dni}`,
       formData
     );
   }

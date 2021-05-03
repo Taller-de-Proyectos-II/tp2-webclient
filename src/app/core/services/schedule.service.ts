@@ -9,31 +9,31 @@ export class ScheduleService {
 
   list() {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/schedule/listSchedules/`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/schedule/listSchedules/`
     );
   }
 
   listByPsychologistDni(psychologistDni) {
     return this.http.get(
-        `https://app-tp2-api.herokuapp.com/schedule/listSchedulesByPsychologistDni/?psychologistDni=${psychologistDni}`
+        `http://tp2-api.us-east-1.elasticbeanstalk.com/schedule/listSchedulesByPsychologistDni/?psychologistDni=${psychologistDni}`
       );
   }
 
   listByPsychologistDniWithSessions(date, psychologistDni) {
     return this.http.get(
-        `https://app-tp2-api.herokuapp.com/schedule/listSchedulesByPsychologistDniPatientView/?date=${date}&psychologistDni=${psychologistDni}`
+        `http://tp2-api.us-east-1.elasticbeanstalk.com/schedule/listSchedulesByPsychologistDniPatientView/?date=${date}&psychologistDni=${psychologistDni}`
       );
   }
 
   listSchedulesByPsychologistDniSessionsInSchedule(date, psychologistDni) {
     return this.http.get(
-        `https://app-tp2-api.herokuapp.com/schedule/listSchedulesByPsychologistDniSessionsInSchedule/?date=${date}&psychologistDni=${psychologistDni}`
+        `http://tp2-api.us-east-1.elasticbeanstalk.com/schedule/listSchedulesByPsychologistDniSessionsInSchedule/?date=${date}&psychologistDni=${psychologistDni}`
       );
   }
 
   update(scheduleDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/schedule/`, scheduleDTO
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/schedule/`, scheduleDTO
     );
   }
 }

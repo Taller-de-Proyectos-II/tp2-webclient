@@ -9,7 +9,7 @@ export class QuestionTypeService {
 
   listQuestionTypes() {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/questionType/listAll/`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/questionType/listAll/`
     );
   }
 }

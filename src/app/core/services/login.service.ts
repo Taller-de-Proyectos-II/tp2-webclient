@@ -11,14 +11,14 @@ export class LoginService {
 
   login(userLoginDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/login/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/login/`,
       userLoginDTO
     );
   }
 
   restorePasswordPsychologist(emailDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/login/restorePasswordPsychologist/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/login/restorePasswordPsychologist/`,
       emailDTO
     );
   }

@@ -9,33 +9,33 @@ export class SessionService {
 
   updateAcepted(sessionDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/session/updateAcepted/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/session/updateAcepted/`,
       sessionDTO
     );
   }
 
   updateFinished(sessionDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/session/updateFinished/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/session/updateFinished/`,
       sessionDTO
     );
   }
 
   listPending(psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/session/listPendingByPsychologistDni/?psychologistDni=${psychologistDni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/session/listPendingByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
 
   listAcepted(psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/session/listAceptedByPsychologistDni/?psychologistDni=${psychologistDni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/session/listAceptedByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
 
   listFinished(psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/session/listFinishedByPsychologistDni/?psychologistDni=${psychologistDni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/session/listFinishedByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
 }

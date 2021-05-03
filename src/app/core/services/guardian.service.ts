@@ -11,7 +11,7 @@ export class GuardianService {
 
   findByDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/guardian/listByPatientDni/?dni=${dni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/guardian/listByPatientDni/?dni=${dni}`
     );
   }
 

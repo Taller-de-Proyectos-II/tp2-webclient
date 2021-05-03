@@ -9,27 +9,27 @@ export class ReportService {
 
   listAll(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/report/listByPatientDni/?patientDni=${patientDni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/report/listByPatientDni/?patientDni=${patientDni}`
     );
   }
 
   create(reportDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/report/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/report/`,
       reportDTO
     );
   }
 
   update(reportDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/report/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/report/`,
       reportDTO
     );
   }
 
   delete(idReport) {
     return this.http.delete(
-      `https://app-tp2-api.herokuapp.com/report/?idReport=${idReport}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/report/?idReport=${idReport}`
     );
   }
 }

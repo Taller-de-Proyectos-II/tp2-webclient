@@ -178,4 +178,9 @@ export class PatientComponent implements OnInit {
     this.patientService.setPatient(patient);
     this.redirectTo('/patients/alerts');
   }
+
+  goDashboard(patient) {
+    this.patientService.setPatient(patient);
+    this.redirectTo('/patients/dashboard');
+  }
 }

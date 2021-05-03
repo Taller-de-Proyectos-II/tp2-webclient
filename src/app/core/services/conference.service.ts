@@ -10,21 +10,21 @@ export class ConferenceService {
 
   create(courseDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/psychologist/conferences/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/conferences/`,
       courseDTO
     );
   }
 
   update(courseDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/psychologist/conferences/`,
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/conferences/`,
       courseDTO
     );
   }
 
   delete(idConference) {
     return this.http.delete(
-      `https://app-tp2-api.herokuapp.com/psychologist/conferences/?idConference=${idConference}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/psychologist/conferences/?idConference=${idConference}`
     );
   }
 }

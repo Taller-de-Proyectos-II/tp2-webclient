@@ -82,37 +82,56 @@
       </div>
       <div class="col-11">
         <button
-          mat-icon-button
+          mat-raised-button
           color="primary"
-          style="position: absolute; right: 10rem"
+          style="position: absolute; right: 33rem"
+          mat-button
+          (click)="goDashboard(patient)"
+        >
+          <i class="material-icons">dashboard</i>
+          &nbsp;DashBoard
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          style="position: absolute; right: 25rem"
+          mat-button
           (click)="goAlert(patient)"
         >
-          <mat-icon>warning</mat-icon>
+          <i class="material-icons">warning</i>
+          &nbsp;Alertas
         </button>
         <button
-          mat-icon-button
+          mat-raised-button
           color="primary"
-          style="position: absolute; right: 7rem"
+          style="position: absolute; right: 17rem"
+          mat-button
           (click)="goTest(patient)"
         >
-          <mat-icon>science</mat-icon>
+          <i class="material-icons">science</i>
+          &nbsp;Pruebas
         </button>
         <button
-          mat-icon-button
+          mat-raised-button
           color="primary"
-          style="position: absolute; right: 4rem"
+          style="position: absolute; right: 9rem"
+          mat-button
           (click)="goReport(patient)"
         >
-          <mat-icon>assignment</mat-icon>
+          <i class="material-icons">assignment</i>
+          &nbsp;Reportes
         </button>
         <button
-          mat-icon-button
+          mat-raised-button
           color="primary"
           style="position: absolute; right: 1rem"
+          mat-button
           (click)="beforeRemove(patient)"
         >
-          <mat-icon>person_remove</mat-icon>
+          <i class="material-icons">person_remove</i>
+          &nbsp;Remover
         </button>
+
         <mat-card-title
           style="margin-top: 0.5%"
           (click)="openDialog(patient)"

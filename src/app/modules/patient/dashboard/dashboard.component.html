@@ -1,0 +1,57 @@
+<script src="node_modules/chart.js/Chart.min.js"></script>
+<h2>
+  <button
+    mat-icon-button
+    color="primary"
+    style="margin-left: 0px"
+    (click)="redirectTo('/patients')"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  Dashboard de {{ patient.names }} {{ patient.lastNames }}
+</h2>
+
+<div class="row">
+  <div class="col-6" style="align-items: center; text-align: center">
+    <h3>Test de Manifestaciones</h3>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [data]="doughnutChartDataManifestacion"
+        [labels]="doughnutChartLabelsManifestacion"
+        [chartType]="doughnutChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+  <div class="col-6" style="align-items: center; text-align: center">
+    <h3>Test de Ansiedad</h3>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [data]="doughnutChartDataAnsiedad"
+        [labels]="doughnutChartLabelsAnsiedad"
+        [chartType]="doughnutChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<div class="row">
+  <div class="col-6" style="align-items: center; text-align: center">
+    <h3>Test de Depresión</h3>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [data]="doughnutChartDataDepresion"
+        [labels]="doughnutChartLabelsDepresion"
+        [chartType]="doughnutChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+  <div class="col-6" style="align-items: center; text-align: center">
+  </div>
+</div>

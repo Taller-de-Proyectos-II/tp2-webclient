@@ -14,25 +14,25 @@ export class PatientService {
 
   findByPsicholosgitDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/patient/listByPsychologistDni/?psychologistDni=${dni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/patient/listByPsychologistDni/?psychologistDni=${dni}`
     );
   }
 
   findByDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/patient/listByDni/?dni=${dni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/patient/listByDni/?dni=${dni}`
     );
   }
 
   assignToPsychologist(patientDni, psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/patient/assignToPsychologist/?patientDni=${patientDni}&psychologistDni=${psychologistDni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/patient/assignToPsychologist/?patientDni=${patientDni}&psychologistDni=${psychologistDni}`
     );
   }
 
   removePsychologist(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/patient/removePsychologist/?patientDni=${patientDni}`
+      `http://tp2-api.us-east-1.elasticbeanstalk.com/patient/removePsychologist/?patientDni=${patientDni}`
     );
   }
 
