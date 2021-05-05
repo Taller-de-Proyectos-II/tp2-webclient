@@ -9,20 +9,26 @@ export class TestService {
 
   listTests(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//test/listByPatientDni/?patientDni=${patientDni}`
+      `https://app-tp2-api.herokuapp.com/test/listByPatientDni/?patientDni=${patientDni}`
+    );
+  }
+
+  listTestsByTestType(patientDni, testType) {
+    return this.http.get(
+      `https://app-tp2-api.herokuapp.com/test/listByPatientDniAndTestType/?patientDni=${patientDni}&testType=${testType}`
     );
   }
 
   createTest(patientDni, idQuestionType) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com//test/`,
+      `https://app-tp2-api.herokuapp.com/test/`,
       { patientDni: patientDni, idQuestionType: idQuestionType }
     );
   }
 
   deleteTest(idTest) {
     return this.http.delete(
-      `https://app-tp2-api.herokuapp.com//test/?idTest=${idTest}`
+      `https://app-tp2-api.herokuapp.com/test/?idTest=${idTest}`
     );
   }
 }

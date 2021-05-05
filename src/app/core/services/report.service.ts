@@ -9,20 +9,26 @@ export class ReportService {
 
   listAll(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//report/listByPatientDni/?patientDni=${patientDni}`
+      `https://app-tp2-api.herokuapp.com/report/listByPatientDni/?patientDni=${patientDni}`
+    );
+  }
+
+  listAllByType(patientDni, type) {
+    return this.http.get(
+      `https://app-tp2-api.herokuapp.com/report/listByPatientDniAndType/?patientDni=${patientDni}&type=${type}`
     );
   }
 
   create(reportDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com//report/`,
+      `https://app-tp2-api.herokuapp.com/report/`,
       reportDTO
     );
   }
 
   update(reportDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com//report/`,
+      `https://app-tp2-api.herokuapp.com/report/`,
       reportDTO
     );
   }

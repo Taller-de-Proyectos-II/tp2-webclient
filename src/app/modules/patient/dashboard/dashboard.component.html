@@ -10,9 +10,46 @@
   </button>
   Dashboard de {{ patient.names }} {{ patient.lastNames }}
 </h2>
-
+<form [formGroup]="dashboardFormGroup">
+  <div class="row">
+    <div class="col-2" style="margin-right: 15px">
+      <mat-form-field class="grow-width" appearance="outline">
+        <mat-label>Fecha Inicio</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="startDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-2" style="margin-right: 15px">
+      <mat-form-field class="grow-width" appearance="outline">
+        <mat-label>Fecha Fin</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="endDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <button
+        mat-icon-button
+        color="primary"
+        style="transform: scale(1.5); margin-top: 2%"
+        (click)="loadDashboard()"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>
+<mat-divider></mat-divider>
+<br />
 <div class="row">
-  <div class="col-6" style="align-items: center; text-align: center">
+  <div class="col-3" style="align-items: center; text-align: center">
     <h3>Test de Ansiedad</h3>
     <div style="display: block">
       <canvas
@@ -24,11 +61,31 @@
       </canvas>
     </div>
   </div>
+  <div class="col-9">
+    <div class="flex">
+      <div class="flex-item">
+        <div style="display: block">
+          <canvas
+            baseChart
+            width="400"
+            height="100"
+            [datasets]="lineChartDataAnsiedad"
+            [labels]="lineChartLabelsAnsiedad"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <br />
 <br />
+<mat-divider></mat-divider>
+<br />
 <div class="row">
-  <div class="col-6" style="align-items: center; text-align: center">
+  <div class="col-3" style="align-items: center; text-align: center">
     <h3>Test de Depresión</h3>
     <div style="display: block">
       <canvas
@@ -40,6 +97,23 @@
       </canvas>
     </div>
   </div>
-  <div class="col-6" style="align-items: center; text-align: center">
+  <div class="col-9">
+    <div class="flex">
+      <div class="flex-item">
+        <div style="display: block">
+          <canvas
+            baseChart
+            width="400"
+            height="100"
+            [datasets]="lineChartDataDepresion"
+            [labels]="lineChartLabelsDepresion"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [colors]="lineChartColors"
+            (chartHover)="chartHovered($event)"
+          ></canvas>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

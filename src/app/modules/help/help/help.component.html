@@ -1,18 +1,138 @@
 <h2>Explicación de Pruebas</h2>
 
-<div *ngFor="let questionType of questionTypes">
-  <mat-expansion-panel style="background-color: #e8eaf6">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <b>Prueba para {{ questionType.name }}</b>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-divider></mat-divider>
+<mat-tab-group>
+  <mat-tab label="Depresión">
     <br />
-    <div *ngFor="let question of questionType.questionsDTO; index as i">
-      <mat-panel-title>{{ i + 1 }}. {{ question.description }}</mat-panel-title>
-    </div>
-  </mat-expansion-panel>
-  <br />
-</div>
-<br />
+    <mat-table [dataSource]="questionsDepresion" fixedLayout="true">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 15%">
+          #
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          style="flex: 0 0 15%"
+        >
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="question">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 45%">
+          Pregunta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="flex: 0 0 45%">
+          {{ element.description }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="score1">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Nunca o casi nunca
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score1 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <ng-container matColumnDef="score2">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Algunas veces
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score2 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <ng-container matColumnDef="score3">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Muchas veces
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score3 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <ng-container matColumnDef="score4">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Siempre o casi siempre
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score4 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <br />
+  </mat-tab>
+  <mat-tab label="Ansiedad">
+    <br />
+    <mat-table [dataSource]="questionsAnsiedad" fixedLayout="true">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 15%">
+          #
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          style="flex: 0 0 15%"
+        >
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="question">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 45%">
+          Pregunta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="flex: 0 0 45%">
+          {{ element.description }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="score1">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Nunca o casi nunca
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score1 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <ng-container matColumnDef="score2">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Algunas veces
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score2 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <ng-container matColumnDef="score3">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Muchas veces
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score3 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <ng-container matColumnDef="score4">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 10%">
+          Siempre o casi siempre
+        </mat-header-cell>
+        <div>
+          <mat-cell *matCellDef="let element" style="flex: 0 0 10%">
+            {{ element.score4 }}
+          </mat-cell>
+        </div>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <br />
+  </mat-tab>
+</mat-tab-group>

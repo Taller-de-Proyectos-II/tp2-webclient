@@ -10,6 +10,7 @@ import { PsychologistService } from 'src/app/core/services/psychologist.service'
 import { ReportService } from 'src/app/core/services/report.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
+
 import { DialogReportComponent } from '../dialog-report/dialog-report.component';
 
 @Component({
@@ -18,7 +19,9 @@ import { DialogReportComponent } from '../dialog-report/dialog-report.component'
   styleUrls: ['./report.component.css'],
 })
 export class ReportComponent implements OnInit {
-  reports: ReportDTO[] = [];
+  reportsSemanal: ReportDTO[] = [];
+  reportsMensual: ReportDTO[] = [];
+  reportsFinal: ReportDTO[] = [];
   patient: PatientDTO = null;
 
   constructor(
@@ -47,17 +50,36 @@ export class ReportComponent implements OnInit {
 
   getReports() {
     this.loadingService.changeStateShowLoading(true);
-    this.reportService.listAll(this.patient.userLoginDTO.dni).subscribe(
-      (data: any) => {
-        if (data.reportsDTO) {
-          this.reports = data.reportsDTO;
+    this.reportService
+      .listAllByType(this.patient.userLoginDTO.dni, 'Final')
+      .subscribe((dataFinal: any) => {
+        if (dataFinal.reportsDTO) {
+          this.reportsFinal = dataFinal.reportsDTO;
+          console.log(dataFinal.reportsDTO);
         }
-        this.loadingService.changeStateShowLoading(false);
-      },
-      (error) => {
-        this.loadingService.changeStateShowLoading(false);
-      }
-    );
+      });
+    this.reportService
+      .listAllByType(this.patient.userLoginDTO.dni, 'Mensual')
+      .subscribe((dataMensual: any) => {
+        if (dataMensual.reportsDTO) {
+          this.reportsMensual = dataMensual.reportsDTO;
+          console.log(dataMensual.reportsDTO);
+        }
+      });
+    this.reportService
+      .listAllByType(this.patient.userLoginDTO.dni, 'Semanal')
+      .subscribe(
+        (dataSemanal: any) => {
+          if (dataSemanal.reportsDTO) {
+            this.reportsSemanal = dataSemanal.reportsDTO;
+            console.log(dataSemanal.reportsDTO);
+          }
+          this.loadingService.changeStateShowLoading(false);
+        },
+        (error) => {
+          this.loadingService.changeStateShowLoading(false);
+        }
+      );
   }
 
   redirectTo(url: string) {
@@ -80,24 +102,6 @@ export class ReportComponent implements OnInit {
       });
   }
 
-  updateReport(report) {
-    this.matDialog
-      .open(DialogReportComponent, {
-        disableClose: true,
-        data: {
-          action: 'update',
-          entity: report,
-        },
-      })
-      .afterClosed()
-      .subscribe((confirm: boolean) => {
-        if (confirm == true) {
-          this.reports = [];
-          this.getReports();
-        }
-      });
-  }
-
   delete(report) {
     this.matDialog
       .open(DialogConfirmationComponent, {
@@ -112,7 +116,9 @@ export class ReportComponent implements OnInit {
               this.snackBarService.info(data.message);
               this.loadingService.changeStateShowLoading(false);
               if (data.status == 1) {
-                this.reports = [];
+                this.reportsSemanal = [];
+                this.reportsMensual = [];
+                this.reportsFinal = [];
                 this.getReports();
               }
             },

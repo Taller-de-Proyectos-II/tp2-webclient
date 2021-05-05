@@ -14,25 +14,25 @@ export class PatientService {
 
   findByPsicholosgitDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//patient/listByPsychologistDni/?psychologistDni=${dni}`
+      `https://app-tp2-api.herokuapp.com/patient/listByPsychologistDni/?psychologistDni=${dni}`
     );
   }
 
   findByDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//patient/listByDni/?dni=${dni}`
+      `https://app-tp2-api.herokuapp.com/patient/listByDni/?dni=${dni}`
     );
   }
 
   assignToPsychologist(patientDni, psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//patient/assignToPsychologist/?patientDni=${patientDni}&psychologistDni=${psychologistDni}`
+      `https://app-tp2-api.herokuapp.com/patient/assignToPsychologist/?patientDni=${patientDni}&psychologistDni=${psychologistDni}`
     );
   }
 
   removePsychologist(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//patient/removePsychologist/?patientDni=${patientDni}`
+      `https://app-tp2-api.herokuapp.com/patient/removePsychologist/?patientDni=${patientDni}`
     );
   }
 

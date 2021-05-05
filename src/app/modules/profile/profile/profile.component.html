@@ -75,7 +75,9 @@
               <strong> Ingrese Fecha de nacimiento </strong>
             </mat-error>
             <mat-error
-              *ngIf="psychologistFormGroup.get('birthday').hasError('incorrect')"
+              *ngIf="
+                psychologistFormGroup.get('birthday').hasError('incorrect')
+              "
             >
               <strong> Debe ser mayor de edad </strong>
             </mat-error>
@@ -163,7 +165,7 @@
     >No se ha registrado experiencia laboral.</label
   >
   <div *ngFor="let workExperience of workExperiences">
-    <mat-card style="background-color: #e8eaf6">
+    <mat-card>
       <button
         mat-icon-button
         color="primary"
@@ -200,7 +202,7 @@
   </h2>
   <label *ngIf="studies.length == 0">No se han registrado estudios.</label>
   <div *ngFor="let study of studies">
-    <mat-card style="background-color: #e8eaf6">
+    <mat-card>
       <button
         mat-icon-button
         color="primary"
@@ -235,7 +237,7 @@
   </h2>
   <label *ngIf="courses.length == 0">No se han registrado cursos.</label>
   <div *ngFor="let course of courses">
-    <mat-card style="background-color: #e8eaf6">
+    <mat-card>
       <button
         mat-icon-button
         color="primary"
@@ -268,7 +270,7 @@
     >No se han registrado seminarios.</label
   >
   <div *ngFor="let conference of conferences">
-    <mat-card style="background-color: #e8eaf6">
+    <mat-card>
       <button
         mat-icon-button
         color="primary"

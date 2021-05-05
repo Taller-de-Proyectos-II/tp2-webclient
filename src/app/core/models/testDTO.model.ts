@@ -11,4 +11,5 @@ export interface TestDTO {
   diagnostic: string;
   answersDTO: AnswerDTO[];
   color: string;
+  score: number;
 }

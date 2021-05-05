@@ -25,13 +25,7 @@
   <h2>Apoderados</h2>
   <label *ngIf="guardians.length == 0">No se registraron apoderados.</label>
   <div *ngFor="let guardian of guardians">
-    <mat-card
-      style="
-        background-color: #e8eaf6;
-        padding-bottom: 0px;
-        text-align: left !important;
-      "
-    >
+    <mat-card style="padding-bottom: 0px; text-align: left !important">
       <div class="row">
         <div class="col-1" style="display: inline-block">
           <img

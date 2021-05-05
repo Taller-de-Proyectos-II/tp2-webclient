@@ -18,30 +18,102 @@
   </button>
 </h2>
 
-<div *ngFor="let report of reports; index as i">
-  <mat-expansion-panel style="background-color: #e8eaf6">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <b>Informe {{ report.type }}</b>
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ report.date }} {{ report.hour }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <mat-divider></mat-divider>
-    <br />
-    <label>{{ report.description }}</label>
-    <br />
-    <br />
-    <br />
-    <button
-      mat-icon-button
-      color="primary"
-      style="position: absolute; right: 1rem; bottom: 1rem"
-      (click)="delete(report)"
+<mat-tab-group>
+  <mat-tab label="Semanal"
+    ><br />
+    <label *ngIf="reportsSemanal.length == 0"
+      >No se encontraron sesiones.</label
     >
-      <mat-icon>delete</mat-icon>
-    </button>
-  </mat-expansion-panel>
-  <br />
-</div>
+    <div *ngFor="let reportSemanal of reportsSemanal; index as i">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Informe {{ reportSemanal.type }}</b>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ reportSemanal.date }} {{ reportSemanal.hour }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <br />
+        <label>{{ reportSemanal.description }}</label>
+        <br />
+        <br />
+        <br />
+        <button
+          mat-icon-button
+          color="primary"
+          style="position: absolute; right: 1rem; bottom: 1rem"
+          (click)="delete(reportSemanal)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-expansion-panel>
+      <br />
+    </div>
+  </mat-tab>
+  <mat-tab label="Mensual"
+    ><br />
+    <label *ngIf="reportsMensual.length == 0"
+      >No se encontraron sesiones.</label
+    >
+    <div *ngFor="let reportMensual of reportsMensual; index as j">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Informe {{ reportMensual.type }}</b>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ reportMensual.date }} {{ reportMensual.hour }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <br />
+        <label>{{ reportMensual.description }}</label>
+        <br />
+        <br />
+        <br />
+        <button
+          mat-icon-button
+          color="primary"
+          style="position: absolute; right: 1rem; bottom: 1rem"
+          (click)="delete(reportMensual)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-expansion-panel>
+      <br />
+    </div>
+  </mat-tab>
+  <mat-tab label="Final"
+    ><br />
+    <label *ngIf="reportsFinal.length == 0">No se encontraron sesiones.</label>
+    <div *ngFor="let reportFinal of reportsFinal; index as k">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b>Informe {{ reportFinal.type }}</b>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ reportFinal.date }} {{ reportFinal.hour }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <br />
+        <label>{{ reportFinal.description }}</label>
+        <br />
+        <br />
+        <br />
+        <button
+          mat-icon-button
+          color="primary"
+          style="position: absolute; right: 1rem; bottom: 1rem"
+          (click)="delete(reportFinal)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-expansion-panel>
+      <br />
+    </div>
+  </mat-tab>
+</mat-tab-group>

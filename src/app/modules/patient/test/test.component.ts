@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ManifestationDTO } from 'src/app/core/models/manifestationDTO.model';
 import { PatientDTO } from 'src/app/core/models/patientDTO.model';
 import { TestDTO } from 'src/app/core/models/testDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { ManifestationService } from 'src/app/core/services/manifestation.service';
 import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { TestService } from 'src/app/core/services/test.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
-
 import { DialogTestComponent } from '../dialog-test/dialog-test.component';
+
 
 @Component({
   selector: 'app-test',
@@ -21,7 +18,9 @@ import { DialogTestComponent } from '../dialog-test/dialog-test.component';
   styleUrls: ['./test.component.css'],
 })
 export class TestComponent implements OnInit {
-  tests: TestDTO[] = [];
+  testsManifestacion: TestDTO[] = [];
+  testsDepresion: TestDTO[] = [];
+  testsAnsiedad: TestDTO[] = [];
   patient: PatientDTO = null;
   displayedColumns: string[] = ['id', 'question', 'score'];
 
@@ -50,19 +49,39 @@ export class TestComponent implements OnInit {
 
   getTests() {
     this.loadingService.changeStateShowLoading(true);
-    this.testService.listTests(this.patient.userLoginDTO.dni).subscribe(
-      (data: any) => {
+    this.testService
+      .listTestsByTestType(this.patient.userLoginDTO.dni, 'Ansiedad')
+      .subscribe((data: any) => {
         if (data.testsDTO) {
-          this.tests = data.testsDTO;
+          this.testsAnsiedad = data.testsDTO;
         } else {
-          this.tests = [];
+          this.testsAnsiedad = [];
         }
-        this.loadingService.changeStateShowLoading(false);
-      },
-      (error) => {
-        this.loadingService.changeStateShowLoading(false);
-      }
-    );
+      });
+    this.testService
+      .listTestsByTestType(this.patient.userLoginDTO.dni, 'Depresión')
+      .subscribe((data: any) => {
+        if (data.testsDTO) {
+          this.testsDepresion = data.testsDTO;
+        } else {
+          this.testsDepresion = [];
+        }
+      });
+    this.testService
+      .listTestsByTestType(this.patient.userLoginDTO.dni, 'Manifestaciones')
+      .subscribe(
+        (data: any) => {
+          if (data.testsDTO) {
+            this.testsManifestacion = data.testsDTO;
+          } else {
+            this.testsManifestacion = [];
+          }
+          this.loadingService.changeStateShowLoading(false);
+        },
+        (error) => {
+          this.loadingService.changeStateShowLoading(false);
+        }
+      );
   }
 
   changeCheckedToFalse(manifestation) {
@@ -98,7 +117,9 @@ export class TestComponent implements OnInit {
               this.snackBarService.info(data.message);
               this.loadingService.changeStateShowLoading(false);
               if (data.status == 1) {
-                this.tests = [];
+                this.testsManifestacion = [];
+                this.testsDepresion = [];
+                this.testsAnsiedad = [];
                 this.getTests();
               }
             },

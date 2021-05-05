@@ -33,7 +33,7 @@
 </div>
 
 <div *ngIf="patientFound != null && searchPatient == true">
-  <mat-card style="background-color: #e8eaf6; padding-bottom: 0px">
+  <mat-card style="padding-bottom: 0px">
     <div class="row">
       <div class="col-1" style="display: inline-block">
         <img
@@ -71,7 +71,7 @@
 <h2>Pacientes Asignados</h2>
 <label *ngIf="patients.length == 0">No existen pacientes asignados.</label>
 <div *ngFor="let patient of patients">
-  <mat-card style="background-color: #e8eaf6; padding-bottom: 0px">
+  <mat-card style="padding-bottom: 0px">
     <div class="row">
       <div class="col-1" style="display: inline-block">
         <img

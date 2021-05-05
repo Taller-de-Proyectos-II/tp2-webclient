@@ -9,21 +9,21 @@ export class WorkExperienceService {
 
   create(workExperienceDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com//psychologist/workExperience/`,
+      `https://app-tp2-api.herokuapp.com/psychologist/workExperience/`,
       workExperienceDTO
     );
   }
 
   update(workExperienceDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com//psychologist/workExperience/`,
+      `https://app-tp2-api.herokuapp.com/psychologist/workExperience/`,
       workExperienceDTO
     );
   }
 
   delete(idWorkExperience) {
     return this.http.delete(
-      `https://app-tp2-api.herokuapp.com//psychologist/workExperience/?idWorkExperience=${idWorkExperience}`
+      `https://app-tp2-api.herokuapp.com/psychologist/workExperience/?idWorkExperience=${idWorkExperience}`
     );
   }
 }

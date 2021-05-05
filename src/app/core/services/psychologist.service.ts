@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { PsychologistDTO } from '../models/psychologistDTO.model';
 import { ExperienceDTO } from '../models/experienceDTO.model';
+import { PsychologistDTO } from '../models/psychologistDTO.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,27 +16,27 @@ export class PsychologistService {
 
   register(psychologistDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com//psychologist/`,
+      `https://app-tp2-api.herokuapp.com/psychologist/`,
       psychologistDTO
     );
   }
 
   update(psychologistDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com//psychologist/`,
+      `https://app-tp2-api.herokuapp.com/psychologist/`,
       psychologistDTO
     );
   }
 
   listByDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//psychologist/?dni=${dni}`
+      `https://app-tp2-api.herokuapp.com/psychologist/?dni=${dni}`
     );
   }
 
   listExperienceByDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com//psychologist/experience/?dni=${dni}`
+      `https://app-tp2-api.herokuapp.com/psychologist/experience/?dni=${dni}`
     );
   }
 
