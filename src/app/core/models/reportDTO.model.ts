@@ -3,4 +3,5 @@ export interface ReportDTO {
     date: string;
     hour: string;
     description: string;
+    type: string;
 }

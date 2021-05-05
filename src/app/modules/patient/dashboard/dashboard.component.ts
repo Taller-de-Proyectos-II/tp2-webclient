@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { DateService } from 'src/app/core/services/date.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,8 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 })
 export class DashboardComponent implements OnInit {
   patient: PatientDTO = null;
+  startDate = '';
+  endDate = '';
 
   constructor(
     private psychologistService: PsychologistService,
@@ -23,16 +26,10 @@ export class DashboardComponent implements OnInit {
     private patientService: PatientService,
     private snackBarService: SnackBarService,
     private dashboardService: DashboardService,
+    private dateService: DateService,
     private router: Router
   ) {}
   public doughnutChartType: ChartType = 'doughnut';
-
-  public doughnutChartLabelsManifestacion: Label[] = [
-    'Sin respuesta',
-    'No necesita asignación de prueba',
-    'Necesita asignación de prueba',
-  ];
-  public doughnutChartDataManifestacion: MultiDataSet = [[0, 0, 0, 0, 0]];
 
   public doughnutChartLabelsAnsiedad: Label[] = [
     'Sin respuesta',
@@ -60,7 +57,7 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/patients']).then();
       } else {
         this.patient = this.patientService.getPatient();
-        this.loadDashboard();
+        this.loadDate();
       }
     }
   }
@@ -69,23 +66,40 @@ export class DashboardComponent implements OnInit {
     this.router.navigate([url]).then();
   }
 
+  loadDate() {
+    this.loadingService.changeStateShowLoading(true);
+    this.dateService.listDates('05-05-2021').subscribe(
+      (data: any) => {
+        this.loadingService.changeStateShowLoading(false);
+        if (data.days) {
+          this.startDate = data.days[0];
+          this.endDate = data.days[6];
+          this.loadDashboard();
+        }
+      },
+      (error) => {
+        this.loadingService.changeStateShowLoading(false);
+      }
+    );
+  }
+
   loadDashboard() {
     this.loadingService.changeStateShowLoading(true);
     this.dashboardService
-      .listDashboard(this.patient.userLoginDTO.dni)
+      .listDashboard(
+        this.patient.userLoginDTO.dni,
+        this.startDate,
+        this.endDate
+      )
       .subscribe(
         (data: any) => {
-          console.log(data);
           if (data.dashboardDTO) {
             this.doughnutChartDataAnsiedad = [data.dashboardDTO.resultAnsiedad];
             this.doughnutChartDataDepresion = [
               data.dashboardDTO.resultDepresion,
             ];
-            this.doughnutChartDataManifestacion = [
-              data.dashboardDTO.resultManifestacion,
-            ];
-            this.loadingService.changeStateShowLoading(false);
           }
+          this.loadingService.changeStateShowLoading(false);
         },
         (error) => {
           this.loadingService.changeStateShowLoading(false);
@@ -99,7 +113,5 @@ export class DashboardComponent implements OnInit {
   }: {
     event: MouseEvent;
     active: {}[];
-  }): void {
-    console.log(event, active);
-  }
+  }): void {}
 }

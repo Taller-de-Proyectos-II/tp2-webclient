@@ -22,7 +22,7 @@
   <mat-expansion-panel style="background-color: #e8eaf6">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <b>Reporte</b>
+        <b>Informe {{ report.type }}</b>
       </mat-panel-title>
       <mat-panel-description>
         {{ report.date }} {{ report.hour }}
@@ -38,9 +38,9 @@
       mat-icon-button
       color="primary"
       style="position: absolute; right: 1rem; bottom: 1rem"
-      (click)="updateReport(report)"
+      (click)="delete(report)"
     >
-      <mat-icon>edit</mat-icon>
+      <mat-icon>delete</mat-icon>
     </button>
   </mat-expansion-panel>
   <br />

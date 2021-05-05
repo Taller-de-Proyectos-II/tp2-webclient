@@ -9,6 +9,7 @@ import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { ReportService } from 'src/app/core/services/report.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
 import { DialogReportComponent } from '../dialog-report/dialog-report.component';
 
 @Component({
@@ -93,6 +94,33 @@ export class ReportComponent implements OnInit {
         if (confirm == true) {
           this.reports = [];
           this.getReports();
+        }
+      });
+  }
+
+  delete(report) {
+    this.matDialog
+      .open(DialogConfirmationComponent, {
+        data: 'Se eliminará el informe seleccionado',
+      })
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.loadingService.changeStateShowLoading(true);
+          this.reportService.delete(report.idReport).subscribe(
+            (data: any) => {
+              this.snackBarService.info(data.message);
+              this.loadingService.changeStateShowLoading(false);
+              if (data.status == 1) {
+                this.reports = [];
+                this.getReports();
+              }
+            },
+            (error) => {
+              this.loadingService.changeStateShowLoading(false);
+              this.snackBarService.info('Error en el servidor');
+            }
+          );
         }
       });
   }

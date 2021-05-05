@@ -1,10 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
@@ -22,6 +18,8 @@ export class DialogReportComponent implements OnInit {
   reportFormGroup: FormGroup;
   title: string = 'Título de prueba';
   button: string = 'Botón de prueba';
+
+  dataSourceTypes = ['Semanal', 'Mensual', 'Final'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,12 +43,14 @@ export class DialogReportComponent implements OnInit {
       this.reportFormGroup.patchValue(this.data.entity);
       this.title = 'Actualizar Informe';
       this.button = 'Actualizar';
+      this.reportFormGroup.get('type').disable();
     }
   }
 
   loadReportFormGroup() {
     this.reportFormGroup = this.formBuilder.group({
       description: '',
+      type: 'Semanal'
     });
   }
 
@@ -65,7 +65,9 @@ export class DialogReportComponent implements OnInit {
           patientDni: this.patientService.getPatient().userLoginDTO.dni,
           psychologistDni: this.psychologistService.getPsychologist()
             .userLoginDTO.dni,
+          type: this.reportFormGroup.get('type').value
         };
+        console.log(reportDTO);
         this.reportService.create(reportDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);

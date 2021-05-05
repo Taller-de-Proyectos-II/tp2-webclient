@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root',
 })
-export class DashboardService {
+export class DateService {
   constructor(private http: HttpClient) {}
 
-  listDashboard(patientDni, startDate, endDate) {
+  listDates(date) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/dashboard/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
+      `https://app-tp2-api.herokuapp.com/dates/listWeekDays/?date=${date}`
     );
   }
 }

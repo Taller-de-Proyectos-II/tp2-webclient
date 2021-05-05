@@ -20,10 +20,26 @@
     </button>
   </h2>
   <form [formGroup]="reportFormGroup">
+    <mat-form-field class="grow-width" appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of dataSourceTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field class="grow-width" appearance="outline" style="width: 100%">
       <mat-label>Informe</mat-label>
-      <textarea matInput formControlName="description" maxlength="250" style="height: 300px"> </textarea>
-      <mat-error *ngIf="reportFormGroup.get('description').hasError('required')">
+      <textarea
+        matInput
+        formControlName="description"
+        maxlength="600"
+        style="height: 300px"
+      >
+      </textarea>
+      <mat-error
+        *ngIf="reportFormGroup.get('description').hasError('required')"
+      >
         <strong> Ingrese Reporte </strong>
       </mat-error>
     </mat-form-field>
