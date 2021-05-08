@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +11,16 @@ export class ImageService {
   constructor(private http: HttpClient) {}
 
   getPsychologistImageFromApi(dni) {
-    return this.http.get(
-      `https://app-tp2-api.herokuapp.com/psychologist/image/?dni=${dni}`,
-      {
-        responseType: 'blob',
-      }
-    );
+    return this.http.get(environment.api + `/psychologist/image/?dni=${dni}`, {
+      responseType: 'blob',
+    });
   }
 
   setPsychologistImageInApi(dni, selectedFile) {
     const formData = new FormData();
     formData.append('file', selectedFile);
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/psychologist/image/?dni=${dni}`,
+      environment.api + `/psychologist/image/?dni=${dni}`,
       formData
     );
   }

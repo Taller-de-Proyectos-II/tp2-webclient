@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,8 @@ export class DashboardService {
 
   listDashboard(patientDni, startDate, endDate) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/dashboard/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
+      environment.api +
+        `/dashboard/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
     );
   }
 }

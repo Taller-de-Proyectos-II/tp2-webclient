@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GuardianService {
-
   constructor(private http: HttpClient) {}
 
   findByDni(dni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/guardian/listByPatientDni/?dni=${dni}`
+      environment.api + `/guardian/listByPatientDni/?dni=${dni}`
     );
   }
-
 }

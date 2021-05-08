@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,15 +11,12 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(userLoginDTO) {
-    return this.http.post(
-      `https://app-tp2-api.herokuapp.com/login/`,
-      userLoginDTO
-    );
+    return this.http.post(environment.api + `/login/`, userLoginDTO);
   }
 
   restorePasswordPsychologist(emailDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/login/restorePasswordPsychologist/`,
+      environment.api + `/login/restorePasswordPsychologist/`,
       emailDTO
     );
   }

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //api: 'https://app-tp2-api.herokuapp.com',
+  api: 'http://phychomonitoringappapi-env.eba-ewmhpcqz.us-east-1.elasticbeanstalk.com:8080'
 };
 
 /*

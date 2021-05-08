@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,26 +10,25 @@ export class TestService {
 
   listTests(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/test/listByPatientDni/?patientDni=${patientDni}`
+      environment.api + `/test/listByPatientDni/?patientDni=${patientDni}`
     );
   }
 
   listTestsByTestType(patientDni, testType) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/test/listByPatientDniAndTestType/?patientDni=${patientDni}&testType=${testType}`
+      environment.api +
+        `/test/listByPatientDniAndTestType/?patientDni=${patientDni}&testType=${testType}`
     );
   }
 
   createTest(patientDni, idQuestionType) {
-    return this.http.post(
-      `https://app-tp2-api.herokuapp.com/test/`,
-      { patientDni: patientDni, idQuestionType: idQuestionType }
-    );
+    return this.http.post(environment.api + `/test/`, {
+      patientDni: patientDni,
+      idQuestionType: idQuestionType,
+    });
   }
 
   deleteTest(idTest) {
-    return this.http.delete(
-      `https://app-tp2-api.herokuapp.com/test/?idTest=${idTest}`
-    );
+    return this.http.delete(environment.api + `/test/?idTest=${idTest}`);
   }
 }

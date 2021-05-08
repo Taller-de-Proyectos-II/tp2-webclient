@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,21 +10,22 @@ export class ConferenceService {
 
   create(courseDTO) {
     return this.http.post(
-      `https://app-tp2-api.herokuapp.com/psychologist/conferences/`,
+      environment.api + `/psychologist/conferences/`,
       courseDTO
     );
   }
 
   update(courseDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/psychologist/conferences/`,
+      environment.api + `/psychologist/conferences/`,
       courseDTO
     );
   }
 
   delete(idConference) {
     return this.http.delete(
-      `https://app-tp2-api.herokuapp.com/psychologist/conferences/?idConference=${idConference}`
+      environment.api +
+        `/psychologist/conferences/?idConference=${idConference}`
     );
   }
 }

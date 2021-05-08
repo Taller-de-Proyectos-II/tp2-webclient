@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,33 +10,36 @@ export class SessionService {
 
   updateAcepted(sessionDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/session/updateAcepted/`,
+      environment.api + `/session/updateAcepted/`,
       sessionDTO
     );
   }
 
   updateFinished(sessionDTO) {
     return this.http.put(
-      `https://app-tp2-api.herokuapp.com/session/updateFinished/`,
+      environment.api + `/session/updateFinished/`,
       sessionDTO
     );
   }
 
   listPending(psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/session/listPendingByPsychologistDni/?psychologistDni=${psychologistDni}`
+      environment.api +
+        `/session/listPendingByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
 
   listAcepted(psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/session/listAceptedByPsychologistDni/?psychologistDni=${psychologistDni}`
+      environment.api +
+        `/session/listAceptedByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
 
   listFinished(psychologistDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/session/listFinishedByPsychologistDni/?psychologistDni=${psychologistDni}`
+      environment.api +
+        `/session/listFinishedByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
 }

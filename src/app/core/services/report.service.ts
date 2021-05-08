@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,33 +10,26 @@ export class ReportService {
 
   listAll(patientDni) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/report/listByPatientDni/?patientDni=${patientDni}`
+      environment.api + `/report/listByPatientDni/?patientDni=${patientDni}`
     );
   }
 
   listAllByType(patientDni, type) {
     return this.http.get(
-      `https://app-tp2-api.herokuapp.com/report/listByPatientDniAndType/?patientDni=${patientDni}&type=${type}`
+      environment.api +
+        `/report/listByPatientDniAndType/?patientDni=${patientDni}&type=${type}`
     );
   }
 
   create(reportDTO) {
-    return this.http.post(
-      `https://app-tp2-api.herokuapp.com/report/`,
-      reportDTO
-    );
+    return this.http.post(environment.api + `/report/`, reportDTO);
   }
 
   update(reportDTO) {
-    return this.http.put(
-      `https://app-tp2-api.herokuapp.com/report/`,
-      reportDTO
-    );
+    return this.http.put(environment.api + `/report/`, reportDTO);
   }
 
   delete(idReport) {
-    return this.http.delete(
-      `https://app-tp2-api.herokuapp.com//report/?idReport=${idReport}`
-    );
+    return this.http.delete(environment.api + `/report/?idReport=${idReport}`);
   }
 }
