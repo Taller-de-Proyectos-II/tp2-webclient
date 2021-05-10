@@ -26,4 +26,8 @@ export class HeaderComponent implements OnInit {
     this.psychologistService.setExperience(null);
     this.patientService.setPatients(null);
   }
+
+  closeApp() {
+    window.location.reload();
+  }
 }

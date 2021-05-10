@@ -1,10 +1,13 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { DialogPatientComponent } from '../dialog-patient/dialog-patient.component';
 
 @Component({
   selector: 'app-schedule',
@@ -25,13 +28,15 @@ export class ScheduleComponent implements OnInit {
 
   hours: HourDTO[] = [];
   hoursWithSessions: HourDTO[] = [];
+  actualTab = 0;
 
   constructor(
     private scheduleService: ScheduleService,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
     private psychologistService: PsychologistService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -265,6 +270,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].monday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -274,6 +280,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].tuesday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -283,6 +290,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].wednesday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -292,6 +300,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].thursday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -301,6 +310,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].friday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -310,6 +320,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].saturday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -319,6 +330,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].sunday = {
                   id: element.idSchedule,
                   checked: true,
+                  patientDni: element.patientDni
                 };
               }
             });
@@ -359,6 +371,18 @@ export class ScheduleComponent implements OnInit {
       }
     );
   }
+
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.actualTab = tabChangeEvent.index;
+  }
+
+  openDialogPatient(patientDni) {
+    this.matDialog
+    .open(DialogPatientComponent, {
+      disableClose: true,
+      data: patientDni
+    });
+  }
 }
 
 export interface HourDTO {
@@ -376,4 +400,5 @@ export interface HourDTO {
 export interface DayDTO {
   id: number;
   checked: boolean;
+  patientDni?: string;
 }

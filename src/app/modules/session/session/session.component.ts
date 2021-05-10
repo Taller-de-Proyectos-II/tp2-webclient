@@ -8,6 +8,7 @@ import { SessionDTO } from 'src/app/core/models/sessionDTO.model';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogSessionComponent } from '../dialog-session/dialog-session.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-session',
@@ -18,9 +19,11 @@ export class SessionComponent implements OnInit {
   sessionsWithoutLink: SessionDTO[] = [];
   sessionsWithLink: SessionDTO[] = [];
   sessionsFinished: SessionDTO[] = [];
+  dniFormGroup: FormGroup;
 
   constructor(
     private sessionService: SessionService,
+    private formBuilder: FormBuilder,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
     private matDialog: MatDialog,
@@ -29,6 +32,7 @@ export class SessionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadDniFormGroup();
     if (this.psychologistService.getPsychologist() == null) {
       this.router.navigate(['/']).then();
     } else {
@@ -36,6 +40,12 @@ export class SessionComponent implements OnInit {
       this.loadSessionsWithLink();
       this.loadSessionsWithoutLink();
     }
+  }
+
+  loadDniFormGroup() {
+    this.dniFormGroup = this.formBuilder.group({
+      dni: '',
+    });
   }
 
   loadSessionsWithoutLink() {
@@ -140,5 +150,36 @@ export class SessionComponent implements OnInit {
             );
         }
       });
+  }
+
+  searchSessionByPatientDni() {
+    this.validate();
+    if (this.dniFormGroup.valid) {
+      this.loadingService.changeStateShowLoading(true);
+      this.sessionService
+        .listFinishedByDni(
+          this.psychologistService.getPsychologist().userLoginDTO.dni,
+          this.dniFormGroup.get('dni').value
+        )
+        .subscribe(
+          (data: any) => {
+            if (data.status == 1) {
+              this.sessionsFinished = data.sessionsDTO;
+            } else {
+              this.sessionsFinished = [];
+            }
+            this.loadingService.changeStateShowLoading(false);
+          },
+          (error) => {
+            this.loadingService.changeStateShowLoading(false);
+          }
+        );
+    }
+  }
+
+  validate() {
+    if (!this.dniFormGroup.get('dni').value) {
+      this.dniFormGroup.get('dni').setErrors({ required: true });
+    }
   }
 }

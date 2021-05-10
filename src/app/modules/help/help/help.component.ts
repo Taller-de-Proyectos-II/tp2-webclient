@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { QuestionDTO } from 'src/app/core/models/questionDTO.model';
 import { QuestionTypeDTO } from 'src/app/core/models/questionTypeDTO.model';
 import { SymptomDTO } from 'src/app/core/models/symptomDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { ManifestationService } from 'src/app/core/services/manifestation.service';
+import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { QuestionTypeService } from 'src/app/core/services/questionType.service';
 
 @Component({
@@ -19,11 +21,17 @@ export class HelpComponent implements OnInit {
 
   constructor(
     private loadingService: LoadingService,
-    private questionTypeService: QuestionTypeService
+    private questionTypeService: QuestionTypeService,
+    private psychologistService: PsychologistService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getQuestionTypes();
+    if (this.psychologistService.getPsychologist() == null) {
+      this.router.navigate(['/']).then();
+    } else {
+      this.getQuestionTypes();
+    }
   }
 
   getQuestionTypes() {

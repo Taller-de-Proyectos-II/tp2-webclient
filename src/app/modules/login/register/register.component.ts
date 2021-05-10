@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { PsychologistDTO } from '../../../core/models/psychologistDTO.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogPolicityComponent } from '../dialog-policity/dialog-policity.component';
+import { DialogConsentComponent } from '../dialog-consent/dialog-consent.component';
 
 @Component({
   selector: 'app-register',
@@ -44,6 +45,7 @@ export class RegisterComponent implements OnInit {
       email: '',
       phone: '',
       policity: false,
+      consent: false
     });
   }
 
@@ -93,6 +95,9 @@ export class RegisterComponent implements OnInit {
     }
     if (this.registerFormGroup.get('policity').value == false) {
       this.registerFormGroup.get('policity').setErrors({ required: true });
+    }
+    if (this.registerFormGroup.get('consent').value == false) {
+      this.registerFormGroup.get('consent').setErrors({ required: true });
     }
     if (
       !this.registerFormGroup.get('password').value ||
@@ -171,6 +176,12 @@ export class RegisterComponent implements OnInit {
 
   openDialogPolicity() {
     this.matDialog.open(DialogPolicityComponent, {
+      disableClose: false
+    });
+  }
+
+  openDialogConsent() {
+    this.matDialog.open(DialogConsentComponent, {
       disableClose: false
     });
   }

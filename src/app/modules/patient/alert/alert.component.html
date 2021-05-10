@@ -11,7 +11,19 @@
 </h2>
 
 <div *ngFor="let alert of alerts; index as i">
-  <mat-expansion-panel>
+  <mat-expansion-panel
+    [ngStyle]="
+      (alert.important == null && {
+        'background-color': '#f5f5f5'
+      }) ||
+      (alert.important == false && {
+        'background-color': '#A9DFBF'
+      }) ||
+      (alert.important == true && {
+        'background-color': '#F5B7B1'
+      })
+    "
+  >
     <mat-expansion-panel-header>
       <mat-panel-title>
         <b>Alerta</b>

@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
 export class AlertService {
   constructor(private http: HttpClient) {}
 
-  listImportantAlerts(patientDni) {
+  listAlerts(patientDni) {
     return this.http.get(
       environment.api +
-        `/alerts/listImportantByPatientDni/?patientDni=${patientDni}`
+        `/alerts/listByPatientDni/?patientDni=${patientDni}`
     );
   }
 }

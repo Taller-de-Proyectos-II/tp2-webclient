@@ -1,0 +1,28 @@
+<mat-card
+  style="
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 500px;
+    text-align: center;
+  "
+>
+  <img
+    src="../../../assets/images/photo.png"
+    style="border-radius: 50%; width: 100px; height: 100px"
+  />
+  <br />
+  <br />
+  <mat-card-title>{{
+    patient.lastNames + ", " + patient.names
+  }}</mat-card-title>
+  <mat-card-subtitle
+    >{{ patient.birthday }} · {{ patient.phone }} ·
+    {{ patient.email }}</mat-card-subtitle
+  >
+  <label> {{ patient.description }}</label>
+  <br />
+  <br />
+  <p align="center">
+    <a (click)="cancel()">Volver</a>
+  </p>
+</mat-card>

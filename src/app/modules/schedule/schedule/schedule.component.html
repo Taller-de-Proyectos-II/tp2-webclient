@@ -1,14 +1,20 @@
-<h2>Horarios</h2>
-<mat-tab-group>
+<h2>
+  Horarios
+  <button
+    mat-raised-button
+    color="primary"
+    style="position: absolute; right: 6rem"
+    mat-button
+    (click)="save()"
+    [disabled]="actualTab == 1"
+  >
+    <i class="material-icons">save</i>
+    &nbsp;Guardar
+  </button>
+</h2>
+
+<mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
   <mat-tab label="Disponibilidad">
-    <button
-      mat-icon-button
-      color="primary"
-      style="position: absolute; right: 1rem; margin-top: 8px"
-      (click)="save()"
-    >
-      <mat-icon>save</mat-icon>
-    </button>
     <mat-table [dataSource]="hours" style="width: 100%">
       <ng-container matColumnDef="hour">
         <mat-header-cell mat-header-cell *matHeaderCellDef>
@@ -116,96 +122,117 @@
     <br />
   </mat-tab>
   <mat-tab label="Reservados"
-  ><mat-table [dataSource]="hoursWithSessions" style="width: 100%">
-    <ng-container matColumnDef="hour">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Horas
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        {{ element.hourName }}
-      </mat-cell>
-    </ng-container>
+    ><mat-table [dataSource]="hoursWithSessions" style="width: 100%">
+      <ng-container matColumnDef="hour">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Horas
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.hourName }}
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="monday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Lunes
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.monday.checked"
-          >event</mat-icon
+      <ng-container matColumnDef="monday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Lunes
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.monday.checked"
+            (click)="openDialogPatient(element.monday.patientDni)"
+            >event</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tuesday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Martes
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.tuesday.checked"
+            (click)="openDialogPatient(element.tuesday.patientDni)"
+            >event</mat-icon
+          ></mat-cell
         >
-      </mat-cell>
-    </ng-container>
+      </ng-container>
 
-    <ng-container matColumnDef="tuesday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Martes
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.tuesday.checked"
-          >event</mat-icon
-        ></mat-cell
-      >
-    </ng-container>
+      <ng-container matColumnDef="wednesday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Miércoles
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.wednesday.checked"
+            (click)="openDialogPatient(element.wednesday.patientDni)"
+            >event</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="wednesday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Miércoles
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.wednesday.checked"
-          >event</mat-icon
-        >
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="thursday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Jueves
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.thursday.checked"
+            (click)="openDialogPatient(element.thursday.patientDni)"
+            >event</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="thursday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Jueves
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.thursday.checked"
-          >event</mat-icon
-        >
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="friday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Viernes
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.friday.checked"
+            (click)="openDialogPatient(element.friday.patientDni)"
+            >event</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="friday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Viernes
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.friday.checked"
-          >event</mat-icon
-        >
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="saturday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Sábado
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.saturday.checked"
+            (click)="openDialogPatient(element.saturday.patientDni)"
+            >event</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="saturday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Sábado
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.saturday.checked"
-          >event</mat-icon
-        >
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="sunday">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          Domingo
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            *ngIf="element.sunday.checked"
+            (click)="openDialogPatient(element.sunday.patientDni)"
+            >event</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="sunday">
-      <mat-header-cell mat-header-cell *matHeaderCellDef>
-        Domingo
-      </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let element">
-        <mat-icon color="primary" *ngIf="element.sunday.checked"
-          >event</mat-icon
-        >
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  </mat-table>
-  <br
-/></mat-tab>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <br
+  /></mat-tab>
 </mat-tab-group>

@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DialogPolicityComponent } from './dialog-policity/dialog-policity.component';
+import { DialogConsentComponent } from './dialog-consent/dialog-consent.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { DialogPolicityComponent } from './dialog-policity/dialog-policity.compo
     ForgetPasswordComponent,
     RegisterComponent,
     DialogPolicityComponent,
+    DialogConsentComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,6 @@ import { DialogPolicityComponent } from './dialog-policity/dialog-policity.compo
     LayoutModule,
     MaterialModule,
   ],
-  entryComponents: [DialogPolicityComponent],
+  entryComponents: [DialogPolicityComponent, DialogConsentComponent],
 })
 export class LoginModule {}

@@ -32,4 +32,19 @@ export class ImageService {
   getPsychologistImage() {
     return this.psychologistImage;
   }
+
+  getPatientImageFromApi(dni) {
+    return this.http.get(environment.api + `/patient/image/?dni=${dni}`, {
+      responseType: 'blob',
+    });
+  }
+
+  setPatientImageInApi(dni, selectedFile) {
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    return this.http.post(
+      environment.api + `/patient/image/?dni=${dni}`,
+      formData
+    );
+  }
 }

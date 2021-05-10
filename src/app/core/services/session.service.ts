@@ -42,4 +42,11 @@ export class SessionService {
         `/session/listFinishedByPsychologistDni/?psychologistDni=${psychologistDni}`
     );
   }
+
+  listFinishedByDni(psychologistDni, patientDni) {
+    return this.http.get(
+      environment.api +
+        `/session/listFinishedByPsychologistDniAndPsychologistDni/?psychologistDni=${psychologistDni}&patientDni=${patientDni}`
+    );
+  }
 }

@@ -10,13 +10,16 @@
     <form [formGroup]="psychologistFormGroup">
       <h2>
         Mi Perfil
+
         <button
-          mat-icon-button
+          mat-raised-button
           color="primary"
           style="position: absolute; right: 1rem"
+          mat-button
           (click)="openPasswordDialog()"
         >
-          <mat-icon>save</mat-icon>
+          <i class="material-icons">save</i>
+          &nbsp;Guardar
         </button>
       </h2>
       <div class="row">
@@ -167,12 +170,14 @@
   <div *ngFor="let workExperience of workExperiences">
     <mat-card>
       <button
-        mat-icon-button
+        mat-raised-button
         color="primary"
         style="position: absolute; right: 1rem"
+        mat-button
         (click)="openDialog('workExperience', 'edit', workExperience)"
       >
-        <mat-icon>edit</mat-icon>
+        <i class="material-icons">edit</i>
+        &nbsp;Editar
       </button>
       <mat-card-title>{{ workExperience.place }}</mat-card-title>
       <mat-card-subtitle
@@ -204,12 +209,14 @@
   <div *ngFor="let study of studies">
     <mat-card>
       <button
-        mat-icon-button
+        mat-raised-button
         color="primary"
         style="position: absolute; right: 1rem"
+        mat-button
         (click)="openDialog('study', 'edit', study)"
       >
-        <mat-icon>edit</mat-icon>
+        <i class="material-icons">edit</i>
+        &nbsp;Editar
       </button>
       <mat-card-title>{{ study.studyCenter }}</mat-card-title>
       <mat-card-subtitle
@@ -239,12 +246,14 @@
   <div *ngFor="let course of courses">
     <mat-card>
       <button
-        mat-icon-button
+        mat-raised-button
         color="primary"
         style="position: absolute; right: 1rem"
+        mat-button
         (click)="openDialog('course', 'edit', course)"
       >
-        <mat-icon>edit</mat-icon>
+        <i class="material-icons">edit</i>
+        &nbsp;Editar
       </button>
       <mat-card-title>{{ course.name }}</mat-card-title>
       <mat-card-subtitle>{{ course.studyCenter }}</mat-card-subtitle>
@@ -272,12 +281,14 @@
   <div *ngFor="let conference of conferences">
     <mat-card>
       <button
-        mat-icon-button
+        mat-raised-button
         color="primary"
         style="position: absolute; right: 1rem"
+        mat-button
         (click)="openDialog('conference', 'edit', conference)"
       >
-        <mat-icon>edit</mat-icon>
+        <i class="material-icons">edit</i>
+        &nbsp;Editar
       </button>
       <mat-card-title>{{ conference.name }}</mat-card-title>
       <mat-card-subtitle>{{ conference.place }}</mat-card-subtitle>

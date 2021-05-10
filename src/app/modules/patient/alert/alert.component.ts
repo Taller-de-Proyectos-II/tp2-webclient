@@ -43,7 +43,7 @@ export class AlertComponent implements OnInit {
 
   getAlerts() {
     this.loadingService.changeStateShowLoading(true);
-    this.alertService.listImportantAlerts(this.patient.userLoginDTO.dni).subscribe(
+    this.alertService.listAlerts(this.patient.userLoginDTO.dni).subscribe(
       (data: any) => {
         if (data.alertsDTO) {
           this.alerts = data.alertsDTO;

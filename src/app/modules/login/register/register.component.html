@@ -186,11 +186,24 @@
       </div>
       <br />
       <mat-checkbox formControlName="policity"
-        >He leido y acepto las <a (click)="openDialogPolicity()"> políticas de uso de datos personales </a></mat-checkbox
+        >He leido y acepto las
+        <a (click)="openDialogPolicity()">
+          políticas de uso de datos personales
+        </a></mat-checkbox
+      >
+      <br />
+      <mat-checkbox formControlName="consent"
+        >He leido y acepto
+        <a (click)="openDialogConsent()">
+          el consentimiento informado
+        </a></mat-checkbox
       >
       <br />
       <mat-error *ngIf="registerFormGroup.get('policity').hasError('required')">
         <strong> Debe aceptar las políticas de uso de datos personales </strong>
+      </mat-error>
+      <mat-error *ngIf="registerFormGroup.get('consent').hasError('required')">
+        <strong> Debe aceptar el consentimiento informado </strong>
       </mat-error>
       <br />
       <button
