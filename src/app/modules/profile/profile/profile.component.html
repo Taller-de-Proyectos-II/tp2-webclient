@@ -16,11 +16,21 @@
           color="primary"
           style="position: absolute; right: 1rem"
           mat-button
-          (click)="openPasswordDialog()"
+          (click)="saveProfile()"
         >
           <i class="material-icons">save</i>
           &nbsp;Guardar
         </button>
+        <button
+        mat-raised-button
+        color="primary"
+        style="position: absolute; right: 9rem"
+        mat-button
+        (click)="openPasswordDialog()"
+      >
+        <i class="material-icons">enhanced_encryption</i>
+        &nbsp;Cambiar contraseña
+      </button>
       </h2>
       <div class="row">
         <div class="col-4">
@@ -156,12 +166,14 @@
   <h2>
     Experiencia Laboral
     <button
-      mat-icon-button
+      mat-raised-button
       color="primary"
       style="position: absolute; right: 6rem"
+      mat-button
       (click)="openDialog('workExperience', 'create', {})"
     >
-      <mat-icon>add</mat-icon>
+      <i class="material-icons">add</i>
+      &nbsp;Agregar
     </button>
   </h2>
   <label *ngIf="workExperiences.length == 0"
@@ -197,12 +209,14 @@
   <h2>
     Educación
     <button
-      mat-icon-button
+      mat-raised-button
       color="primary"
       style="position: absolute; right: 6rem"
+      mat-button
       (click)="openDialog('study', 'create', {})"
     >
-      <mat-icon>add</mat-icon>
+      <i class="material-icons">add</i>
+      &nbsp;Agregar
     </button>
   </h2>
   <label *ngIf="studies.length == 0">No se han registrado estudios.</label>
@@ -234,12 +248,14 @@
   <h2>
     Cursos
     <button
-      mat-icon-button
+      mat-raised-button
       color="primary"
       style="position: absolute; right: 6rem"
+      mat-button
       (click)="openDialog('course', 'create', {})"
     >
-      <mat-icon>add</mat-icon>
+      <i class="material-icons">add</i>
+      &nbsp;Agregar
     </button>
   </h2>
   <label *ngIf="courses.length == 0">No se han registrado cursos.</label>
@@ -267,12 +283,14 @@
   <h2>
     Seminarios
     <button
-      mat-icon-button
+      mat-raised-button
       color="primary"
       style="position: absolute; right: 6rem"
+      mat-button
       (click)="openDialog('conference', 'create', {})"
     >
-      <mat-icon>add</mat-icon>
+      <i class="material-icons">add</i>
+      &nbsp;Agregar
     </button>
   </h2>
   <label *ngIf="conferences.length == 0"

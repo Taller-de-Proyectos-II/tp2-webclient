@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,6 +18,7 @@ import { DialogPasswordComponent } from '../dialog-password/dialog-password.comp
 import { DialogPhotoComponent } from '../dialog-photo/dialog-photo.component';
 import { DialogStudyComponent } from '../dialog-study/dialog-study.component';
 import { DialogWorkExperienceComponent } from '../dialog-workExperience/dialog-workExperience.component';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 
 @Component({
   selector: 'app-profile',
@@ -155,7 +156,9 @@ export class ProfileComponent implements OnInit {
       var a = moment(this.psychologistFormGroup.get('birthday').value);
       var b = moment(new Date());
       if (b.diff(a, 'years') < 18) {
-        this.psychologistFormGroup.get('birthday').setErrors({ incorrect: true });
+        this.psychologistFormGroup
+          .get('birthday')
+          .setErrors({ incorrect: true });
       }
     }
   }
@@ -185,7 +188,8 @@ export class ProfileComponent implements OnInit {
     this.conferences = this.psychologistService.getExperience().conferences;
     this.courses = this.psychologistService.getExperience().courses;
     this.studies = this.psychologistService.getExperience().studies;
-    this.workExperiences = this.psychologistService.getExperience().workExperiences;
+    this.workExperiences =
+      this.psychologistService.getExperience().workExperiences;
   }
 
   openPhotoDialog() {
@@ -265,6 +269,39 @@ export class ProfileComponent implements OnInit {
             this.getExperience();
           }
         });
+    }
+  }
+
+  saveProfile() {
+    this.validateForm();
+    if (this.psychologistFormGroup.valid) {
+      const data = this.psychologistFormGroup.value;
+
+      const cValue = formatDate(data.birthday, 'MM-dd-yyyy', 'en-US');
+      var psychologist: PsychologistDTO = {
+        userLoginDTO: {
+          dni: this.psychologistService.getPsychologist().userLoginDTO.dni,
+          password: '',
+        },
+        names: data.names,
+        lastNames: data.lastNames,
+        birthday: cValue.toString(),
+        phone: data.phone,
+        email: data.email,
+        cpsp: data.cpsp,
+        description: data.description,
+      };
+
+      this.loadingService.changeStateShowLoading(true);
+      this.psychologistService.update(psychologist).subscribe((data: any) => {
+        this.loadingService.changeStateShowLoading(false);
+        this.snackBarService.info(data.message);
+        if (data.status == 1) {
+          psychologist.userLoginDTO.password =
+            this.psychologistService.getPsychologist().userLoginDTO.password;
+          this.psychologistService.setPsychologist(psychologist);
+        }
+      });
     }
   }
 }

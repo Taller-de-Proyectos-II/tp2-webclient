@@ -22,6 +22,10 @@ export class PsychologistService {
     return this.http.put(environment.api + `/psychologist/`, psychologistDTO);
   }
 
+  updatePassword(changePasswordDTO) {
+    return this.http.put(environment.api + `/psychologist/updatePassword/`, changePasswordDTO);
+  }
+
   listByDni(dni) {
     return this.http.get(environment.api + `/psychologist/?dni=${dni}`);
   }

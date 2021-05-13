@@ -2,13 +2,9 @@
   <input type="file" (change)="onFileSelected($event)" />
   <br />
   <br />
-  <button
-    class="grow-width"
-    mat-raised-button
-    color="primary"
-    (click)="onUpload()"
-  >
-    Actualizar foto
+  <button mat-raised-button color="primary" mat-button (click)="onUpload()">
+    <i class="material-icons">save</i>
+    &nbsp;Actualizar foto
   </button>
   <br />
   <br />

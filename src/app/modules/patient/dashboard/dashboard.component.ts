@@ -23,6 +23,10 @@ export class DashboardComponent implements OnInit {
   endDate = '';
   date = new Date();
   dashboardFormGroup: FormGroup;
+  labelsManifestations: String[];
+  labelsAlerts: String[];
+
+  displayedColumnsManifestations = ['id', 'question'];
 
   constructor(
     private psychologistService: PsychologistService,
@@ -35,8 +39,11 @@ export class DashboardComponent implements OnInit {
     private router: Router
   ) {}
   public doughnutChartType: ChartType = 'doughnut';
-  public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
+  public barChartType: ChartType = 'bar';
+
+  public lineChartLegend = true;
+  public barChartLegend = true;
 
   public doughnutChartLabelsAnsiedad: Label[] = [
     'No hay ansiedad presente',
@@ -44,15 +51,33 @@ export class DashboardComponent implements OnInit {
     'Ansiedad severa',
     'Ansiedad grave',
   ];
-  public doughnutChartDataAnsiedad: MultiDataSet = [[0, 0, 0, 0]];
-
   public doughnutChartLabelsDepresion: Label[] = [
     'No hay depresión presente',
     'Depresión leve',
     'Depresión severa',
     'Depresión grave',
   ];
+  public barChartLabelsManifestaciones: Label[] = [];
+  public barChartLabelsAlertas: Label[] = [];
+  public doughnutChartLabelsManifestaciones: Label[] = [
+    'Pregunta 1',
+    'Pregunta 2',
+    'Pregunta 3',
+    'Pregunta 4',
+  ];
+  public doughnutChartLabelsAlertas: Label[] = [
+    'Pregunta 1',
+    'Pregunta 2',
+    'Pregunta 3',
+    'Pregunta 4',
+    'Pregunta 5',
+    'Pregunta 6',
+  ];
+
+  public doughnutChartDataAnsiedad: MultiDataSet = [[0, 0, 0, 0]];
   public doughnutChartDataDepresion: MultiDataSet = [[0, 0, 0, 0]];
+  public doughnutChartDataManifestaciones: MultiDataSet = [[0, 0, 0, 0]];
+  public doughnutChartDataAlertas: MultiDataSet = [[0, 0, 0, 0, 0, 0]];
 
   public lineChartDataAnsiedad: ChartDataSets[] = [
     { data: [], label: 'Ansiedad' },
@@ -60,6 +85,13 @@ export class DashboardComponent implements OnInit {
   public lineChartDataDepresion: ChartDataSets[] = [
     { data: [], label: 'Depresión' },
   ];
+  public barChartDataManifestaciones: ChartDataSets[] = [
+    { data: [], label: 'Manifestaciones' },
+  ];
+  public barChartDataAlertas: ChartDataSets[] = [
+    { data: [], label: 'Alertas' },
+  ];
+
   public lineChartLabelsAnsiedad: Label[] = [];
   public lineChartLabelsDepresion: Label[] = [];
 
@@ -70,7 +102,7 @@ export class DashboardComponent implements OnInit {
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
     },
   ];
 
@@ -83,48 +115,22 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/patients']).then();
       } else {
         this.patient = this.patientService.getPatient();
-        this.loadDate();
+        this.loadDashboard();
+        this.loadAlerts();
+        this.loadManifestation();
       }
     }
   }
 
   loadDashboardFormGroup() {
     this.dashboardFormGroup = this.formBuilder.group({
-      startDate: this.date,
+      startDate: new Date('01/01/2021'),
       endDate: this.date,
     });
   }
 
   redirectTo(url: string) {
     this.router.navigate([url]).then();
-  }
-
-  loadDate() {
-    const dataAux = formatDate(this.date, 'MM-dd-yyyy', 'en-US');
-    this.loadingService.changeStateShowLoading(true);
-    this.dateService.listDates(dataAux).subscribe(
-      (data: any) => {
-        this.loadingService.changeStateShowLoading(false);
-        if (data.days) {
-          this.startDate = data.days[0];
-          this.endDate = data.days[6];
-          var endDateString = this.endDate.replace('-', '/');
-          endDateString = endDateString.replace('-', '/');
-          this.dashboardFormGroup
-            .get('endDate')
-            .patchValue(new Date(endDateString));
-          var startDateString = this.startDate.replace('-', '/');
-          startDateString = startDateString.replace('-', '/');
-          this.dashboardFormGroup
-            .get('startDate')
-            .patchValue(new Date(startDateString));
-          this.loadDashboard();
-        }
-      },
-      (error) => {
-        this.loadingService.changeStateShowLoading(false);
-      }
-    );
   }
 
   loadDashboard() {
@@ -203,6 +209,92 @@ export class DashboardComponent implements OnInit {
           this.loadingService.changeStateShowLoading(false);
         }
       );
+  }
+
+  loadManifestation() {
+    const startDateAux = formatDate(
+      this.dashboardFormGroup.get('startDate').value,
+      'MM-dd-yyyy',
+      'en-US'
+    );
+    const endDateAux = formatDate(
+      this.dashboardFormGroup.get('endDate').value,
+      'MM-dd-yyyy',
+      'en-US'
+    );
+    this.dashboardService
+      .listManifestations(
+        this.patient.userLoginDTO.dni,
+        startDateAux.toString(),
+        endDateAux.toString()
+      )
+      .subscribe((data: any) => {
+        if (data.optionDashboardDTO) {
+          var dataAux = [];
+          dataAux.push(0);
+          data.optionDashboardDTO.result.forEach((element) => {
+            dataAux.push(element);
+          });
+          dataAux.push(0);
+          this.barChartDataManifestaciones = [
+            { data: dataAux, label: 'Manifestaciones' },
+          ];
+          this.doughnutChartDataManifestaciones = [
+            data.optionDashboardDTO.result,
+          ];
+          this.barChartLabelsManifestaciones = [
+            '',
+            'Pregunta 1',
+            'Pregunta 2',
+            'Pregunta 3',
+            'Pregunta 4',
+            '',
+          ];
+          this.labelsManifestations = data.optionDashboardDTO.resultString;
+        }
+      });
+  }
+
+  loadAlerts() {
+    const startDateAux = formatDate(
+      this.dashboardFormGroup.get('startDate').value,
+      'MM-dd-yyyy',
+      'en-US'
+    );
+    const endDateAux = formatDate(
+      this.dashboardFormGroup.get('endDate').value,
+      'MM-dd-yyyy',
+      'en-US'
+    );
+    this.dashboardService
+      .listAlerts(
+        this.patient.userLoginDTO.dni,
+        startDateAux.toString(),
+        endDateAux.toString()
+      )
+      .subscribe((data: any) => {
+        if (data.optionDashboardDTO) {
+          var dataAux = [];
+          dataAux.push(0);
+          data.optionDashboardDTO.result.forEach((element) => {
+            dataAux.push(element);
+          });
+          dataAux.push(0);
+          this.barChartDataAlertas = [{ data: dataAux, label: 'Alertas' }];
+          this.doughnutChartDataAlertas = [data.optionDashboardDTO.result];
+          this.barChartLabelsAlertas = [
+            '',
+            'Pregunta 1',
+            'Pregunta 2',
+            'Pregunta 3',
+            'Pregunta 4',
+            'Pregunta 5',
+            'Pregunta 6',
+            '',
+          ];
+          this.labelsAlerts = data.optionDashboardDTO.resultString;
+        }
+      });
   }
 
   public chartHovered({

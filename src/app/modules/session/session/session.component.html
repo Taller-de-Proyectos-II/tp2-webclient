@@ -96,21 +96,24 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-2">
-          <button
-            mat-icon-button
-            color="primary"
-            style="transform: scale(1.5); margin-top: 2%"
-            (click)="searchSessionByPatientDni()"
-          >
-            <mat-icon>search</mat-icon>
-          </button>
-        </div>
-        <div class="col-7">
+        <div class="col-xs">
           <button
             mat-raised-button
             color="primary"
-            style="position: absolute; right: 1rem"
+            style="margin-top: 16%"
+            mat-button
+            (click)="searchSessionByPatientDni()"
+          >
+            <i class="material-icons">search</i>
+            &nbsp;Buscar
+          </button>
+        </div>
+        &nbsp;&nbsp;
+        <div class="col-xs">
+          <button
+            mat-raised-button
+            color="primary"
+            style="margin-top: 16%"
             mat-button
             (click)="loadSessionsFinished()"
           >

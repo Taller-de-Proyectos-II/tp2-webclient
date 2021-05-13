@@ -14,4 +14,18 @@ export class DashboardService {
         `/dashboard/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
     );
   }
+
+  listManifestations(patientDni, startDate, endDate) {
+    return this.http.get(
+      environment.api +
+        `/dashboard/listManifestations/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
+    );
+  }
+
+  listAlerts(patientDni, startDate, endDate) {
+    return this.http.get(
+      environment.api +
+        `/dashboard/listAlerts/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
+    );
+  }
 }

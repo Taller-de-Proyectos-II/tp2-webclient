@@ -1,5 +1,5 @@
 .login {
-  background: url("../../../../assets/images/tp2.jpg");
+  background: url("../../../../assets/images/login.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
@@ -20,7 +20,7 @@
 }
 
 .box {
-  top: 5%;
+  top: 15%;
   opacity: 1;
   padding: 50px 40px 40px 40px;
   margin: auto;

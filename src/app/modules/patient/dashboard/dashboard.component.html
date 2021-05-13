@@ -36,84 +36,228 @@
     </div>
     <div class="col-2">
       <button
-        mat-icon-button
+        mat-raised-button
         color="primary"
-        style="transform: scale(1.5); margin-top: 2%"
+        style="margin-top: 8%;"
+        mat-button
         (click)="loadDashboard()"
       >
-        <mat-icon>search</mat-icon>
+        <i class="material-icons">search</i>
+        &nbsp;Buscar
       </button>
     </div>
   </div>
 </form>
 <mat-divider></mat-divider>
 <br />
-<div class="row">
-  <div class="col-3" style="align-items: center; text-align: center">
-    <h3>Test de Ansiedad</h3>
-    <div style="display: block">
-      <canvas
-        baseChart
-        [data]="doughnutChartDataAnsiedad"
-        [labels]="doughnutChartLabelsAnsiedad"
-        [chartType]="doughnutChartType"
-      >
-      </canvas>
-    </div>
-  </div>
-  <div class="col-9">
-    <div class="flex">
-      <div class="flex-item">
+<mat-tab-group>
+  <mat-tab label="Alertas">
+    <br />
+    <div class="row">
+      <div class="col-3" style="align-items: center; text-align: center">
+        <h3>Alertas</h3>
         <div style="display: block">
           <canvas
             baseChart
-            width="400"
-            height="100"
-            [datasets]="lineChartDataAnsiedad"
-            [labels]="lineChartLabelsAnsiedad"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            (chartHover)="chartHovered($event)"
-          ></canvas>
+            [data]="doughnutChartDataAlertas"
+            [labels]="doughnutChartLabelsAlertas"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="flex">
+          <div class="flex-item">
+            <div style="display: block">
+              <canvas
+                baseChart
+                width="400"
+                height="100"
+                [datasets]="barChartDataAlertas"
+                [labels]="barChartLabelsAlertas"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+              >
+              </canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<br />
-<br />
-<mat-divider></mat-divider>
-<br />
-<div class="row">
-  <div class="col-3" style="align-items: center; text-align: center">
-    <h3>Test de Depresión</h3>
-    <div style="display: block">
-      <canvas
-        baseChart
-        [data]="doughnutChartDataDepresion"
-        [labels]="doughnutChartLabelsDepresion"
-        [chartType]="doughnutChartType"
-      >
-      </canvas>
-    </div>
-  </div>
-  <div class="col-9">
-    <div class="flex">
-      <div class="flex-item">
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+    <h2>Leyenda</h2>
+    <mat-table [dataSource]="labelsAlerts" fixedLayout="true">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 15%">
+          #
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          style="flex: 0 0 15%"
+        >
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="question">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 85%">
+          Pregunta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="flex: 0 0 85%">
+          {{ element }}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row
+        *matHeaderRowDef="displayedColumnsManifestations"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumnsManifestations"
+      ></mat-row>
+    </mat-table>
+    <br />
+    <br />
+  </mat-tab>
+  <mat-tab label="Manifestaciones">
+    <br />
+    <div class="row">
+      <div class="col-3" style="align-items: center; text-align: center">
+        <h3>Test de Manifestaciones</h3>
         <div style="display: block">
           <canvas
             baseChart
-            width="400"
-            height="100"
-            [datasets]="lineChartDataDepresion"
-            [labels]="lineChartLabelsDepresion"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            [colors]="lineChartColors"
-            (chartHover)="chartHovered($event)"
-          ></canvas>
+            [data]="doughnutChartDataManifestaciones"
+            [labels]="doughnutChartLabelsManifestaciones"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="flex">
+          <div class="flex-item">
+            <div style="display: block">
+              <canvas
+                baseChart
+                width="400"
+                height="100"
+                [datasets]="barChartDataManifestaciones"
+                [labels]="barChartLabelsManifestaciones"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+              >
+              </canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+    <h2>Leyenda</h2>
+    <mat-table [dataSource]="labelsManifestations" fixedLayout="true">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 15%">
+          #
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          style="flex: 0 0 15%"
+        >
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="question">
+        <mat-header-cell *matHeaderCellDef style="flex: 0 0 85%">
+          Pregunta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="flex: 0 0 85%">
+          {{ element }}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row
+        *matHeaderRowDef="displayedColumnsManifestations"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumnsManifestations"
+      ></mat-row>
+    </mat-table>
+    <br />
+    <br />
+  </mat-tab>
+  <mat-tab label="Pruebas">
+    <br />
+    <div class="row">
+      <div class="col-3" style="align-items: center; text-align: center">
+        <h3>Test de Ansiedad</h3>
+        <div style="display: block">
+          <canvas
+            baseChart
+            [data]="doughnutChartDataAnsiedad"
+            [labels]="doughnutChartLabelsAnsiedad"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="flex">
+          <div class="flex-item">
+            <div style="display: block">
+              <canvas
+                baseChart
+                width="400"
+                height="100"
+                [datasets]="lineChartDataAnsiedad"
+                [labels]="lineChartLabelsAnsiedad"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+              ></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+    <div class="row">
+      <div class="col-3" style="align-items: center; text-align: center">
+        <h3>Test de Depresión</h3>
+        <div style="display: block">
+          <canvas
+            baseChart
+            [data]="doughnutChartDataDepresion"
+            [labels]="doughnutChartLabelsDepresion"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="flex">
+          <div class="flex-item">
+            <div style="display: block">
+              <canvas
+                baseChart
+                width="400"
+                height="100"
+                [datasets]="lineChartDataDepresion"
+                [labels]="lineChartLabelsDepresion"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [colors]="lineChartColors"
+                (chartHover)="chartHovered($event)"
+              ></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+  </mat-tab>
+</mat-tab-group>

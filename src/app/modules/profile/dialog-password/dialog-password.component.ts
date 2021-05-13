@@ -45,36 +45,29 @@ export class DialogPasswordComponent implements OnInit {
   }
 
   save() {
-    const cValue = formatDate(this.data.birthday, 'MM-dd-yyyy', 'en-US');
     this.validate();
     if (this.passwordFormGroup.valid) {
-      var psychologist: PsychologistDTO = {
-        userLoginDTO: {
-          dni: this.psychologistService.getPsychologist().userLoginDTO.dni,
-          password:
-            this.passwordFormGroup.get('confirmPassword').value == ''
-              ? this.psychologistService.getPsychologist().userLoginDTO.password
-              : this.passwordFormGroup.get('newPassword').value,
-        },
-        names: this.data.names,
-        lastNames: this.data.lastNames,
-        birthday: cValue.toString(),
-        phone: this.data.phone,
-        email: this.data.email,
-        cpsp: this.data.cpsp,
-        description: this.data.description,
+      var changePasswordDTO = {
+        dni: this.psychologistService.getPsychologist().userLoginDTO.dni,
+        password: this.psychologistService.getPsychologist().userLoginDTO.password,
+        newPassword: this.passwordFormGroup.get('newPassword').value
+          
       };
 
       this.loadingService.changeStateShowLoading(true);
-      this.psychologistService.update(psychologist).subscribe((data: any) => {
-        this.loadingService.changeStateShowLoading(false);
-        this.snackBarService.info(data.message);
-        if (data.status == 1) {
-          this.psychologistService.setPsychologist(psychologist);
-          this.matDialogRef.close();
-          this.router.navigate(['/myprofile/']).then();
-        }
-      });
+      this.psychologistService
+        .updatePassword(changePasswordDTO)
+        .subscribe((data: any) => {
+          this.loadingService.changeStateShowLoading(false);
+          this.snackBarService.info(data.message);
+          if (data.status == 1) {
+            var psychologist = this.psychologistService.getPsychologist();
+            psychologist.userLoginDTO.password =
+              this.passwordFormGroup.get('newPassword').value;
+            this.psychologistService.setPsychologist(psychologist);
+            this.matDialogRef.close();
+          }
+        });
     }
   }
 

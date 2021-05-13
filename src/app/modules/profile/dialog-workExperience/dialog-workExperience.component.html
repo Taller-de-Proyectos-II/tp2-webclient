@@ -8,16 +8,6 @@
 >
   <h2>
     {{ title }}
-
-    <button
-      *ngIf="data.action != 'create'"
-      mat-icon-button
-      color="primary"
-      style="position: absolute; right: 1rem"
-      (click)="delete()"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
   </h2>
   <form [formGroup]="workExperienceFormGroup">
     <div class="row" style="text-align: center">
@@ -121,12 +111,23 @@
     <br />
     <br />
     <button
-      class="grow-width"
+      mat-raised-button
+      *ngIf="data.action != 'create'"
+      color="accent"
+      mat-button
+      (click)="delete()"
+    >
+      <i class="material-icons">delete</i>
+      &nbsp;Eliminar</button
+    >&nbsp;&nbsp;
+    <button
       mat-raised-button
       color="primary"
+      mat-button
       (click)="save()"
     >
-      {{ button }}
+      <i class="material-icons">save</i>
+      &nbsp;{{ button }}
     </button>
     <br />
     <br />
