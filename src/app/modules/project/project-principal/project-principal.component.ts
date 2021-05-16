@@ -22,21 +22,21 @@ export class ProjectPrincipalComponent implements OnInit {
   }
 
   onUpload() {
-    const dni = '76697297';
+    const dni = '77777777';
     const formData = new FormData();
     formData.append('file', this.selectedFile);
     this.http
-      .post(`http://localhost:8080/psychologist/image/?dni=${dni}`, formData)
+      .post(`https://app-tp2-api.herokuapp.com/patient/image/?dni=${dni}`, formData)
       .subscribe((res) => {
         this.getImage();
       });
   }
 
   getImage() {
-    const dni = '76697297';
+    const dni = '77777777';
 
     this.http
-      .get(`http://localhost:8080/psychologist/image/?dni=${dni}`, {
+      .get(`https://app-tp2-api.herokuapp.com/patient/image/?dni=${dni}`, {
         responseType: 'blob',
       })
       .subscribe((data: any) => {

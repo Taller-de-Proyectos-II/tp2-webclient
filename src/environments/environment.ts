@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //api: 'http://localhost:8080',
-  api: 'http://phychomonitoringappapi-env.eba-ewmhpcqz.us-east-1.elasticbeanstalk.com'
+  api: 'https://app-tp2-api.herokuapp.com'
 };
 
 /*
