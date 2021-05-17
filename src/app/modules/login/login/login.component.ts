@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 
 import { UserLoginDTO } from '../../../core/models/userLoginDTO.model';
 import { LoginService } from '../../../core/services/login.service';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
+import { DialogCovidComponent } from '../dialog-covid/dialog-covid.component';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +26,17 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private snackBarService: SnackBarService,
     private psychologistService: PsychologistService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private patientService: PatientService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.closeApp();
+    this.cleanApp();
     this.loadLoginFromGroup();
+    localStorage.setItem('header', 'Inicio');
+    this.openCovidDialog();
   }
 
   loadLoginFromGroup() {
@@ -109,5 +118,20 @@ export class LoginComponent implements OnInit {
 
   redirectTo(url: string) {
     this.router.navigate([url]).then();
+  }
+
+  cleanApp() {
+    this.psychologistService.setExperience(null);
+    this.patientService.setPatients(null);
+  }
+
+  closeApp() {
+    localStorage.clear();
+  }
+
+  openCovidDialog() {
+    this.matDialog.open(DialogCovidComponent, {
+      disableClose: false,
+    });
   }
 }

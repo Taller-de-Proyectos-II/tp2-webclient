@@ -9,13 +9,17 @@ import { PsychologistService } from 'src/app/core/services/psychologist.service'
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  selected = 'Inicio';
+
   constructor(
     private router: Router,
     private psychologistService: PsychologistService,
     private patientService: PatientService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.selected = localStorage.getItem('header');
+  }
 
   redirectTo(url: string) {
     this.router.navigate([url]).then();
@@ -29,5 +33,10 @@ export class HeaderComponent implements OnInit {
   closeApp() {
     localStorage.clear();
     window.location.reload();
+  }
+
+  changeSelected(button) {
+    localStorage.setItem('header', button);
+    this.selected = button;
   }
 }

@@ -1,72 +1,95 @@
-<mat-toolbar color="primary">
-  <img
-    src="../../../assets/images/logo_header.png"
-    style="height: 2rem; width: 2rem; margin-right: 10px"
-  />
-  <span>PhychoMonitoringApp</span>
-  <button
-    mat-button
-    color="primary"
-    mat-raised-button
-    style="border: 0ch; box-shadow: none; margin-left: 60px"
-    (click)="redirectTo('/welcome/')"
-  >
-    Inicio
-  </button>
-  <button
-    mat-button
-    color="primary"
-    mat-raised-button
-    style="border: 0ch; box-shadow: none; margin-left: 30px"
-    (click)="redirectTo('/myprofile/')"
-  >
-    Mi Perfil
-  </button>
-  <button
-    mat-button
-    color="primary"
-    mat-raised-button
-    style="border: 0ch; box-shadow: none; margin-left: 30px"
-    (click)="redirectTo('/patients/')"
-  >
-    Pacientes
-  </button>
-  <button
-    mat-button
-    color="primary"
-    mat-raised-button
-    style="border: 0ch; box-shadow: none; margin-left: 30px"
-    (click)="redirectTo('/schedule/')"
-  >
-    Horarios
-  </button>
-  <button
-    mat-button
-    color="primary"
-    mat-raised-button
-    style="border: 0ch; box-shadow: none; margin-left: 30px"
-    (click)="redirectTo('/session/')"
-  >
-    Sesiones
-  </button>
-  <button
-    mat-button
-    color="primary"
-    mat-raised-button
-    style="border: 0ch; box-shadow: none; margin-left: 30px"
-    (click)="redirectTo('/help/')"
-  >
-    Ayuda
-  </button>
-  <button
-    mat-raised-button
-    color="primary"
-    style="border: 0ch; box-shadow: none; position: absolute; right: 1rem"
-    mat-button
-    (click)="closeApp()"
-  >
-    <i class="material-icons">logout</i>
-    &nbsp;Salir
-  </button>
-</mat-toolbar>
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark teal">
+  <mdb-navbar-brand style="left: 1rem; position: absolute">
+    <img
+      src="../../../assets/images/logo_header.png"
+      style="height: 2rem; width: 2rem; margin-right: 10px"
+    />
+    <a class="navbar-brand" style="color: white; font-size: 20px"
+      >PhychoMonitoringApp</a
+    >
+  </mdb-navbar-brand>
+  <img style="height: 3rem; width: 3rem; margin-right: 10px; opacity: 0" />
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <li
+        class="nav-item li-separation"
+        [ngClass]="{ active: selected == 'Inicio' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Inicio'); redirectTo('/welcome/')"
+          >Inicio</a
+        >
+      </li>
+      <li
+        class="nav-item li-separation"
+        [ngClass]="{ active: selected == 'Mi Perfil' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Mi Perfil'); redirectTo('/myprofile/')"
+          >Mi Perfil</a
+        >
+      </li>
+      <li
+        class="nav-item li-separation"
+        [ngClass]="{ active: selected == 'Pacientes' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Pacientes'); redirectTo('/patients/')"
+          >Pacientes</a
+        >
+      </li>
+      <li
+        class="nav-item li-separation"
+        [ngClass]="{ active: selected == 'Horarios' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Horarios'); redirectTo('/schedule/')"
+          >Horarios</a
+        >
+      </li>
+      <li
+        class="nav-item li-separation"
+        [ngClass]="{ active: selected == 'Sesiones' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Sesiones'); redirectTo('/session/')"
+          >Sesiones</a
+        >
+      </li>
+      <li
+        class="nav-item li-separation"
+        [ngClass]="{ active: selected == 'Ayuda' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Ayuda'); redirectTo('/help/')"
+          >Ayuda</a
+        >
+      </li>
+      <li
+        class="nav-item"
+        style="position: absolute; right: 1rem"
+        [ngClass]="{ active: selected == 'Salir' }"
+      >
+        <a
+          class="nav-link waves-light"
+          mdbWavesEffect
+          (click)="changeSelected('Salir'); closeApp()"
+          >Salir</a
+        >
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>
 <br />

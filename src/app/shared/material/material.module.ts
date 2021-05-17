@@ -62,7 +62,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSidenavModule,
     MatDialogModule,
     MatTabsModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   exports: [
     MatToolbarModule,
@@ -91,7 +91,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSidenavModule,
     MatDialogModule,
     MatTabsModule,
-    MatRadioModule
+    MatRadioModule,
   ],
 })
 export class MaterialModule {}

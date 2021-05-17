@@ -8,11 +8,6 @@ const routes: Routes = [
       import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'project',
-    loadChildren: () =>
-      import('./modules/project/project.module').then((m) => m.ProjectModule),
-  },
-  {
     path: 'myprofile',
     loadChildren: () =>
       import('./modules/profile/profile.module').then((m) => m.ProfileModule),

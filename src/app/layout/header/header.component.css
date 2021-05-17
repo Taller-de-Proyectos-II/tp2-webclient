@@ -1,8 +1,17 @@
 .login__logo {
-    height: 1rem;
-    background-image: url("../../../assets/images/logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  
+  height: 1rem;
+  background-image: url("../../../assets/images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.li-separation {
+  margin-left: 30px;
+}

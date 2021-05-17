@@ -2,9 +2,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +25,8 @@ import { LayoutModule } from './layout/layout.module';
     ReactiveFormsModule,
     LayoutModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    MDBBootstrapModule.forRoot() 
   ],
   providers: [MatSnackBarModule, DatePipe],
   bootstrap: [AppComponent],
