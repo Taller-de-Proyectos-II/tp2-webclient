@@ -22,12 +22,12 @@ export class HeaderComponent implements OnInit {
   }
 
   cleanApp() {
-    this.psychologistService.setPsychologist(null);
     this.psychologistService.setExperience(null);
     this.patientService.setPatients(null);
   }
 
   closeApp() {
+    localStorage.clear();
     window.location.reload();
   }
 }

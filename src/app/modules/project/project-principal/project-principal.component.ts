@@ -22,23 +22,30 @@ export class ProjectPrincipalComponent implements OnInit {
   }
 
   onUpload() {
-    const dni = '77777777';
+    const patientDni = '77777777';
+    const dni = '55555555';
     const formData = new FormData();
     formData.append('file', this.selectedFile);
     this.http
-      .post(`https://app-tp2-api.herokuapp.com/patient/image/?dni=${dni}`, formData)
+      .post(
+        `https://app-tp2-api.herokuapp.com/guardian/image/?dni=${dni}&patientDni=${patientDni}`,
+        formData
+      )
       .subscribe((res) => {
         this.getImage();
       });
   }
 
   getImage() {
-    const dni = '77777777';
-
+    const patientDni = '77777777';
+    const dni = '55555555';
     this.http
-      .get(`https://app-tp2-api.herokuapp.com/patient/image/?dni=${dni}`, {
-        responseType: 'blob',
-      })
+      .get(
+        `https://app-tp2-api.herokuapp.com/guardian/image/?dni=${dni}&patientDni=${patientDni}`,
+        {
+          responseType: 'blob',
+        }
+      )
       .subscribe((data: any) => {
         var reader = new FileReader();
         reader.readAsDataURL(data);

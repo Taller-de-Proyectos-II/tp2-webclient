@@ -2,36 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertDTO } from 'src/app/core/models/alertDTO.model';
 import { PatientDTO } from 'src/app/core/models/patientDTO.model';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
-import { PsychologistService } from 'src/app/core/services/psychologist.service';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.css']
+  styleUrls: ['./alert.component.css'],
 })
 export class AlertComponent implements OnInit {
-
   alerts: AlertDTO[] = [];
   patient: PatientDTO = null;
   displayedColumns: string[] = ['id', 'question', 'score'];
+  psychologist: PsychologistDTO = null;
 
   constructor(
-    private psychologistService: PsychologistService,
     private loadingService: LoadingService,
     private patientService: PatientService,
-    private snackBarService: SnackBarService,
     private alertService: AlertService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
       if (this.patientService.getPatient() == null) {
         this.router.navigate(['/patients']).then();
       } else {
@@ -61,5 +59,4 @@ export class AlertComponent implements OnInit {
   redirectTo(url: string) {
     this.router.navigate([url]).then();
   }
-
 }

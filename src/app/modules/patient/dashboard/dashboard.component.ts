@@ -2,15 +2,13 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label, MultiDataSet } from 'ng2-charts';
 import { PatientDTO } from 'src/app/core/models/patientDTO.model';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
-import { DateService } from 'src/app/core/services/date.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
-import { PsychologistService } from 'src/app/core/services/psychologist.service';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,17 +23,15 @@ export class DashboardComponent implements OnInit {
   dashboardFormGroup: FormGroup;
   labelsManifestations: String[];
   labelsAlerts: String[];
+  psychologist: PsychologistDTO = null;
 
   displayedColumnsManifestations = ['id', 'question'];
 
   constructor(
-    private psychologistService: PsychologistService,
     private loadingService: LoadingService,
     private patientService: PatientService,
-    private snackBarService: SnackBarService,
     private formBuilder: FormBuilder,
     private dashboardService: DashboardService,
-    private dateService: DateService,
     private router: Router
   ) {}
   public doughnutChartType: ChartType = 'doughnut';
@@ -108,9 +104,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDashboardFormGroup();
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
       if (this.patientService.getPatient() == null) {
         this.router.navigate(['/patients']).then();
       } else {

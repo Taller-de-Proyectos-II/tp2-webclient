@@ -14,6 +14,7 @@ import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 
 @Component({
   selector: 'app-dialog-study',
@@ -25,6 +26,7 @@ export class DialogStudyComponent implements OnInit {
   title: string = 'Título de prueba';
   button: string = 'Botón de prueba';
   myDate = new Date();
+  psychologist: PsychologistDTO = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,25 +41,27 @@ export class DialogStudyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
-    }
-    this.loadStudyFormGroup();
-    if (this.data.action == 'create') {
-      this.title = 'Agregar Estudios';
-      this.button = 'Agregar';
     } else {
-      this.studyFormGroup.patchValue(this.data.entity);
-      var dateString = this.data.entity.startDate.replace('-', '/');
-      dateString = dateString.replace('-', '/');
-      var date = new Date(dateString);
-      this.studyFormGroup.get('startDate').patchValue(date);
-      dateString = this.data.entity.endDate.replace('-', '/');
-      dateString = dateString.replace('-', '/');
-      date = new Date(dateString);
-      this.studyFormGroup.get('endDate').patchValue(date);
-      this.title = 'Actualizar Estudios';
-      this.button = 'Actualizar';
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
+      this.loadStudyFormGroup();
+      if (this.data.action == 'create') {
+        this.title = 'Agregar Estudios';
+        this.button = 'Agregar';
+      } else {
+        this.studyFormGroup.patchValue(this.data.entity);
+        var dateString = this.data.entity.startDate.replace('-', '/');
+        dateString = dateString.replace('-', '/');
+        var date = new Date(dateString);
+        this.studyFormGroup.get('startDate').patchValue(date);
+        dateString = this.data.entity.endDate.replace('-', '/');
+        dateString = dateString.replace('-', '/');
+        date = new Date(dateString);
+        this.studyFormGroup.get('endDate').patchValue(date);
+        this.title = 'Actualizar Estudios';
+        this.button = 'Actualizar';
+      }
     }
   }
 
@@ -94,8 +98,7 @@ export class DialogStudyComponent implements OnInit {
           this.studyFormGroup.get('description').value == null
             ? ''
             : this.studyFormGroup.get('description').value,
-        psychologistDni: this.psychologistService.getPsychologist().userLoginDTO
-          .dni,
+        psychologistDni: this.psychologist.userLoginDTO.dni,
         complete:
           this.studyFormGroup.get('endDate').value > this.myDate ? false : true,
         startDate: cValue1.toString(),

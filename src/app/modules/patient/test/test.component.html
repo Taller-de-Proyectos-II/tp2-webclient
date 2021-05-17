@@ -7,14 +7,16 @@
   >
     <mat-icon>arrow_back</mat-icon>
   </button>
-  Pruebas asignadas a {{ patient.names }} {{ patient.lastNames }}
+  Pruebas asignadas a {{ patient.lastNames }}, {{ patient.names }}
   <button
-    mat-icon-button
+    mat-raised-button
     color="primary"
     style="position: absolute; right: 6rem"
+    mat-button
     (click)="createTest()"
   >
-    <mat-icon>add</mat-icon>
+    <i class="material-icons">add</i>
+    &nbsp;Agregar
   </button>
 </h2>
 
@@ -56,12 +58,14 @@
         <br />
         <button
           *ngIf="testManifestacion.finished == false"
-          mat-icon-button
+          mat-raised-button
           color="primary"
           style="position: absolute; right: 1rem"
+          mat-button
           (click)="deleteTest(testManifestacion.idTest)"
         >
-          <mat-icon>delete</mat-icon>
+          <i class="material-icons">delete</i>
+          &nbsp;Eliminar
         </button>
         <label
           ><b> Diagnóstico: </b
@@ -171,12 +175,14 @@
         <br />
         <button
           *ngIf="testDepresion.finished == false"
-          mat-icon-button
+          mat-raised-button
           color="primary"
           style="position: absolute; right: 1rem"
+          mat-button
           (click)="deleteTest(testDepresion.idTest)"
         >
-          <mat-icon>delete</mat-icon>
+          <i class="material-icons">delete</i>
+          &nbsp;Eliminar
         </button>
         <label
           ><b> Diagnóstico: </b
@@ -288,12 +294,14 @@
         <br />
         <button
           *ngIf="testAnsiedad.finished == false"
-          mat-icon-button
+          mat-raised-button
           color="primary"
           style="position: absolute; right: 1rem"
+          mat-button
           (click)="deleteTest(testAnsiedad.idTest)"
         >
-          <mat-icon>delete</mat-icon>
+          <i class="material-icons">delete</i>
+          &nbsp;Eliminar
         </button>
         <label
           ><b> Diagnóstico: </b

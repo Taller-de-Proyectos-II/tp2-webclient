@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,6 +14,8 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 })
 export class DialogPasswordComponent implements OnInit {
   passwordFormGroup: FormGroup;
+  psychologist: PsychologistDTO = null;
+
   constructor(
     public matDialogRef: MatDialogRef<DialogPasswordComponent>,
     private formBuilder: FormBuilder,
@@ -26,10 +27,11 @@ export class DialogPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
+    } else {
+      this.loadPasswordFormGroup();
     }
-    this.loadPasswordFormGroup();
   }
 
   loadPasswordFormGroup() {
@@ -48,10 +50,9 @@ export class DialogPasswordComponent implements OnInit {
     this.validate();
     if (this.passwordFormGroup.valid) {
       var changePasswordDTO = {
-        dni: this.psychologistService.getPsychologist().userLoginDTO.dni,
-        password: this.psychologistService.getPsychologist().userLoginDTO.password,
-        newPassword: this.passwordFormGroup.get('newPassword').value
-          
+        dni: this.psychologist.userLoginDTO.dni,
+        password: this.psychologist.userLoginDTO.password,
+        newPassword: this.passwordFormGroup.get('newPassword').value,
       };
 
       this.loadingService.changeStateShowLoading(true);
@@ -61,10 +62,10 @@ export class DialogPasswordComponent implements OnInit {
           this.loadingService.changeStateShowLoading(false);
           this.snackBarService.info(data.message);
           if (data.status == 1) {
-            var psychologist = this.psychologistService.getPsychologist();
+            var psychologist = this.psychologist;
             psychologist.userLoginDTO.password =
               this.passwordFormGroup.get('newPassword').value;
-            this.psychologistService.setPsychologist(psychologist);
+            localStorage.setItem('psychologist', JSON.stringify(psychologist));
             this.matDialogRef.close();
           }
         });
@@ -77,7 +78,7 @@ export class DialogPasswordComponent implements OnInit {
     } else {
       if (
         this.passwordFormGroup.get('password').value !=
-        this.psychologistService.getPsychologist().userLoginDTO.password
+        this.psychologist.userLoginDTO.password
       ) {
         this.passwordFormGroup.get('password').setErrors({ incorrect: true });
       }

@@ -27,7 +27,7 @@ export class HelpComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
       this.getQuestionTypes();

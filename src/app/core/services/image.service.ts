@@ -47,4 +47,19 @@ export class ImageService {
       formData
     );
   }
+
+  getGuardianImageFromApi(dni, patientDni) {
+    return this.http.get(environment.api + `/guardian/image/?dni=${dni}&patientDni=${patientDni}`, {
+      responseType: 'blob',
+    });
+  }
+
+  setGuardianImageInApi(dni, patientDni, selectedFile) {
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    return this.http.post(
+      environment.api + `/guardian/image/?dni=${dni}&patientDni=${patientDni}`,
+      formData
+    );
+  }
 }

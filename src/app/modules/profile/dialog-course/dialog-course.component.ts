@@ -1,8 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CourseDTO } from 'src/app/core/models/courseDTO.model';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { CourseService } from 'src/app/core/services/course.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
@@ -18,6 +23,8 @@ export class DialogCourseComponent implements OnInit {
   courseFormGroup: FormGroup;
   title: string = 'Título de prueba';
   button: string = 'Botón de prueba';
+  psychologist: PsychologistDTO = null;
+
   constructor(
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,17 +38,18 @@ export class DialogCourseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
-    }
-    this.loadCourseFormGroup();
-    if (this.data.action == 'create') {
-      this.title = 'Agregar Curso';
-      this.button = 'Agregar';
     } else {
-      this.courseFormGroup.patchValue(this.data.entity);
-      this.title = 'Actualizar Curso';
-      this.button = 'Actualizar';
+      this.loadCourseFormGroup();
+      if (this.data.action == 'create') {
+        this.title = 'Agregar Curso';
+        this.button = 'Agregar';
+      } else {
+        this.courseFormGroup.patchValue(this.data.entity);
+        this.title = 'Actualizar Curso';
+        this.button = 'Actualizar';
+      }
     }
   }
 
@@ -64,12 +72,11 @@ export class DialogCourseComponent implements OnInit {
           this.courseFormGroup.get('description').value == null
             ? ''
             : this.courseFormGroup.get('description').value,
-        psychologistDni: this.psychologistService.getPsychologist().userLoginDTO
-          .dni,
+        psychologistDni: this.psychologist.userLoginDTO.dni,
       };
       if (this.data.action == 'create') {
         this.loadingService.changeStateShowLoading(true);
-    
+
         this.courseService.create(courseDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);

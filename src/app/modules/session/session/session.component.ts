@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoadingService } from 'src/app/core/services/loading.service';
-import { PsychologistService } from 'src/app/core/services/psychologist.service';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
-import { SessionService } from 'src/app/core/services/session.service';
-import { SessionDTO } from 'src/app/core/models/sessionDTO.model';
-import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogSessionComponent } from '../dialog-session/dialog-session.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
+import { SessionDTO } from 'src/app/core/models/sessionDTO.model';
+import { LoadingService } from 'src/app/core/services/loading.service';
+import { SessionService } from 'src/app/core/services/session.service';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
+import { DialogSessionComponent } from '../dialog-session/dialog-session.component';
 
 @Component({
   selector: 'app-session',
@@ -20,6 +20,7 @@ export class SessionComponent implements OnInit {
   sessionsWithLink: SessionDTO[] = [];
   sessionsFinished: SessionDTO[] = [];
   dniFormGroup: FormGroup;
+  psychologist: PsychologistDTO = null;
 
   constructor(
     private sessionService: SessionService,
@@ -27,15 +28,15 @@ export class SessionComponent implements OnInit {
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
     private matDialog: MatDialog,
-    private psychologistService: PsychologistService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadDniFormGroup();
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
       this.loadSessionsFinished();
       this.loadSessionsWithLink();
       this.loadSessionsWithoutLink();
@@ -51,7 +52,7 @@ export class SessionComponent implements OnInit {
   loadSessionsWithoutLink() {
     this.loadingService.changeStateShowLoading(true);
     this.sessionService
-      .listPending(this.psychologistService.getPsychologist().userLoginDTO.dni)
+      .listPending(this.psychologist.userLoginDTO.dni)
       .subscribe(
         (data: any) => {
           if (data.status == 1) {
@@ -70,7 +71,7 @@ export class SessionComponent implements OnInit {
   loadSessionsWithLink() {
     this.loadingService.changeStateShowLoading(true);
     this.sessionService
-      .listAcepted(this.psychologistService.getPsychologist().userLoginDTO.dni)
+      .listAcepted(this.psychologist.userLoginDTO.dni)
       .subscribe(
         (data: any) => {
           if (data.status == 1) {
@@ -89,7 +90,7 @@ export class SessionComponent implements OnInit {
   loadSessionsFinished() {
     this.loadingService.changeStateShowLoading(true);
     this.sessionService
-      .listFinished(this.psychologistService.getPsychologist().userLoginDTO.dni)
+      .listFinished(this.psychologist.userLoginDTO.dni)
       .subscribe(
         (data: any) => {
           if (data.status == 1) {
@@ -158,7 +159,7 @@ export class SessionComponent implements OnInit {
       this.loadingService.changeStateShowLoading(true);
       this.sessionService
         .listFinishedByDni(
-          this.psychologistService.getPsychologist().userLoginDTO.dni,
+          this.psychologist.userLoginDTO.dni,
           this.dniFormGroup.get('dni').value
         )
         .subscribe(

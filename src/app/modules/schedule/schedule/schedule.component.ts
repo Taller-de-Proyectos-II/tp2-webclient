@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogPatientComponent } from '../dialog-patient/dialog-patient.component';
@@ -29,20 +29,21 @@ export class ScheduleComponent implements OnInit {
   hours: HourDTO[] = [];
   hoursWithSessions: HourDTO[] = [];
   actualTab = 0;
+  psychologist: PsychologistDTO = null;
 
   constructor(
     private scheduleService: ScheduleService,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
-    private psychologistService: PsychologistService,
     private router: Router,
     private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
       this.createBasicSchedule();
     }
   }
@@ -168,9 +169,7 @@ export class ScheduleComponent implements OnInit {
     var index;
     this.loadingService.changeStateShowLoading(true);
     this.scheduleService
-      .listByPsychologistDni(
-        this.psychologistService.getPsychologist().userLoginDTO.dni
-      )
+      .listByPsychologistDni(this.psychologist.userLoginDTO.dni)
       .subscribe(
         (data: any) => {
           if (data.schedulesDTO) {
@@ -257,7 +256,7 @@ export class ScheduleComponent implements OnInit {
     this.scheduleService
       .listSchedulesByPsychologistDniSessionsInSchedule(
         dateString,
-        this.psychologistService.getPsychologist().userLoginDTO.dni
+        this.psychologist.userLoginDTO.dni
       )
       .subscribe(
         (data: any) => {
@@ -270,7 +269,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].monday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -280,7 +279,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].tuesday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -290,7 +289,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].wednesday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -300,7 +299,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].thursday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -310,7 +309,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].friday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -320,7 +319,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].saturday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
               index = this.hoursWithSessions.findIndex(
@@ -330,7 +329,7 @@ export class ScheduleComponent implements OnInit {
                 this.hoursWithSessions[index].sunday = {
                   id: element.idSchedule,
                   checked: true,
-                  patientDni: element.patientDni
+                  patientDni: element.patientDni,
                 };
               }
             });
@@ -356,8 +355,7 @@ export class ScheduleComponent implements OnInit {
       if (element.sunday.checked) schedules.push(element.sunday.id);
     });
     var scheduleDTO = {
-      psychologistDni: this.psychologistService.getPsychologist().userLoginDTO
-        .dni,
+      psychologistDni: this.psychologist.userLoginDTO.dni,
       schedules: schedules,
     };
     this.loadingService.changeStateShowLoading(true);
@@ -377,10 +375,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   openDialogPatient(patientDni) {
-    this.matDialog
-    .open(DialogPatientComponent, {
+    this.matDialog.open(DialogPatientComponent, {
       disableClose: true,
-      data: patientDni
+      data: patientDni,
     });
   }
 }

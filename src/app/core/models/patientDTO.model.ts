@@ -9,4 +9,5 @@ export interface PatientDTO {
   description: string;
   birthday: string;
   userLoginDTO: UserLoginDTO;
+  imageURL?: string;
 }

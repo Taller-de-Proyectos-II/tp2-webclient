@@ -1,15 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-
 import { ExperienceDTO } from '../models/experienceDTO.model';
-import { PsychologistDTO } from '../models/psychologistDTO.model';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class PsychologistService {
-  psychologist: PsychologistDTO = null;
   experience: ExperienceDTO = null;
 
   constructor(private http: HttpClient) {}
@@ -23,7 +21,10 @@ export class PsychologistService {
   }
 
   updatePassword(changePasswordDTO) {
-    return this.http.put(environment.api + `/psychologist/updatePassword/`, changePasswordDTO);
+    return this.http.put(
+      environment.api + `/psychologist/updatePassword/`,
+      changePasswordDTO
+    );
   }
 
   listByDni(dni) {
@@ -34,14 +35,6 @@ export class PsychologistService {
     return this.http.get(
       environment.api + `/psychologist/experience/?dni=${dni}`
     );
-  }
-
-  setPsychologist(psychologist: PsychologistDTO) {
-    this.psychologist = psychologist;
-  }
-
-  getPsychologist() {
-    return this.psychologist;
   }
 
   getExperience() {

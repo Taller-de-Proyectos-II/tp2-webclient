@@ -7,7 +7,7 @@
   "
 >
   <img
-    src="../../../assets/images/photo.png"
+    [src]="patient.imageURL"
     style="border-radius: 50%; width: 100px; height: 100px"
   />
   <br />
@@ -25,11 +25,17 @@
   <h2>Apoderados</h2>
   <label *ngIf="guardians.length == 0">No se registraron apoderados.</label>
   <div *ngFor="let guardian of guardians">
-    <mat-card style="padding-bottom: 0px; text-align: left !important">
+    <mat-card
+      style="
+        padding-bottom: 0px;
+        text-align: left !important;
+        background: #daf2f1;
+      "
+    >
       <div class="row">
         <div class="col-1" style="display: inline-block">
           <img
-            src="../../../assets/images/photo.png"
+            [src]="guardian.imageURL"
             style="
               border-radius: 50%;
               width: 50px;
@@ -54,6 +60,6 @@
   <br />
   <br />
   <p align="center">
-    <a (click)="cancel()">Volver</a>
+    <a class="a-link" (click)="cancel()">Volver</a>
   </p>
 </mat-card>

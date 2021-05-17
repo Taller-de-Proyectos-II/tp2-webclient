@@ -1,7 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
@@ -18,6 +23,7 @@ export class DialogReportComponent implements OnInit {
   reportFormGroup: FormGroup;
   title: string = 'Título de prueba';
   button: string = 'Botón de prueba';
+  psychologist: PsychologistDTO = null;
 
   dataSourceTypes = ['Semanal', 'Mensual', 'Final'];
 
@@ -25,11 +31,9 @@ export class DialogReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public matDialogRef: MatDialogRef<DialogReportComponent>,
-    private router: Router,
     private matDialog: MatDialog,
     private reportService: ReportService,
     private patientService: PatientService,
-    private psychologistService: PsychologistService,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService
   ) {}
@@ -45,12 +49,13 @@ export class DialogReportComponent implements OnInit {
       this.button = 'Actualizar';
       this.reportFormGroup.get('type').disable();
     }
+    this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
   }
 
   loadReportFormGroup() {
     this.reportFormGroup = this.formBuilder.group({
       description: '',
-      type: 'Semanal'
+      type: 'Semanal',
     });
   }
 
@@ -63,9 +68,8 @@ export class DialogReportComponent implements OnInit {
         reportDTO = {
           description: this.reportFormGroup.get('description').value,
           patientDni: this.patientService.getPatient().userLoginDTO.dni,
-          psychologistDni: this.psychologistService.getPsychologist()
-            .userLoginDTO.dni,
-          type: this.reportFormGroup.get('type').value
+          psychologistDni: this.psychologist.userLoginDTO.dni,
+          type: this.reportFormGroup.get('type').value,
         };
         console.log(reportDTO);
         this.reportService.create(reportDTO).subscribe(

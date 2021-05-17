@@ -1,12 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { GuardianDTO } from 'src/app/core/models/guardianDTO.model';
 import { PatientDTO } from 'src/app/core/models/patientDTO.model';
-import { GuardianService } from 'src/app/core/services/guardian.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
@@ -36,10 +34,8 @@ export class DialogPatientComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public matDialogRef: MatDialogRef<DialogPatientComponent>,
-    private matDialog: MatDialog,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
-    private guardianService: GuardianService,
     private patientService: PatientService
   ) {}
 

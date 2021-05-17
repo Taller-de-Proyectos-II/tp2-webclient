@@ -3,22 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { ConferenceDTO } from 'src/app/core/models/conferenceDTO.model';
 import { CourseDTO } from 'src/app/core/models/courseDTO.model';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { StudyDTO } from 'src/app/core/models/studyDTO.model';
 import { WorkExperienceDTO } from 'src/app/core/models/workExperienceDTO.model';
 import { ImageService } from 'src/app/core/services/image.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
-import * as moment from 'moment';
 import { DialogConferenceComponent } from '../dialog-conference/dialog-conference.component';
 import { DialogCourseComponent } from '../dialog-course/dialog-course.component';
 import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
 import { DialogPhotoComponent } from '../dialog-photo/dialog-photo.component';
 import { DialogStudyComponent } from '../dialog-study/dialog-study.component';
 import { DialogWorkExperienceComponent } from '../dialog-workExperience/dialog-workExperience.component';
-import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 
 @Component({
   selector: 'app-profile',
@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
   studies: StudyDTO[] = [];
   workExperiences: WorkExperienceDTO[] = [];
   retrieveURL: any = '../../../assets/images/loading.gif';
+  psychologist: PsychologistDTO = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,9 +49,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.loadPsychologistFormGroup();
 
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
       if (this.imageService.getPsychologistImage() == null) {
         this.loadPhoto();
       } else {
@@ -66,9 +68,7 @@ export class ProfileComponent implements OnInit {
   loadPhoto() {
     this.retrieveURL = '../../../assets/images/loading.gif';
     this.imageService
-      .getPsychologistImageFromApi(
-        this.psychologistService.getPsychologist().userLoginDTO.dni
-      )
+      .getPsychologistImageFromApi(this.psychologist.userLoginDTO.dni)
       .subscribe(
         (data: any) => {
           var reader = new FileReader();
@@ -86,30 +86,26 @@ export class ProfileComponent implements OnInit {
 
   loadFromService() {
     this.loadPhoto();
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
       this.psychologistFormGroup
         .get('names')
-        .patchValue(this.psychologistService.getPsychologist().names);
+        .patchValue(this.psychologist.names);
       this.psychologistFormGroup
         .get('lastNames')
-        .patchValue(this.psychologistService.getPsychologist().lastNames);
-      this.psychologistFormGroup
-        .get('cpsp')
-        .patchValue(this.psychologistService.getPsychologist().cpsp);
+        .patchValue(this.psychologist.lastNames);
+      this.psychologistFormGroup.get('cpsp').patchValue(this.psychologist.cpsp);
       this.psychologistFormGroup
         .get('email')
-        .patchValue(this.psychologistService.getPsychologist().email);
+        .patchValue(this.psychologist.email);
       this.psychologistFormGroup
         .get('phone')
-        .patchValue(this.psychologistService.getPsychologist().phone);
+        .patchValue(this.psychologist.phone);
       this.psychologistFormGroup
         .get('description')
-        .patchValue(this.psychologistService.getPsychologist().description);
-      var dateString = this.psychologistService
-        .getPsychologist()
-        .birthday.replace('-', '/');
+        .patchValue(this.psychologist.description);
+      var dateString = this.psychologist.birthday.replace('-', '/');
       dateString = dateString.replace('-', '/');
       var date = new Date(dateString);
       this.psychologistFormGroup.get('birthday').patchValue(date);
@@ -166,9 +162,7 @@ export class ProfileComponent implements OnInit {
   getExperience() {
     this.loadingService.changeStateShowLoading(true);
     this.psychologistService
-      .listExperienceByDni(
-        this.psychologistService.getPsychologist().userLoginDTO.dni
-      )
+      .listExperienceByDni(this.psychologist.userLoginDTO.dni)
       .subscribe(
         (data: any) => {
           if (data.experienceDTO) {
@@ -280,7 +274,7 @@ export class ProfileComponent implements OnInit {
       const cValue = formatDate(data.birthday, 'MM-dd-yyyy', 'en-US');
       var psychologist: PsychologistDTO = {
         userLoginDTO: {
-          dni: this.psychologistService.getPsychologist().userLoginDTO.dni,
+          dni: this.psychologist.userLoginDTO.dni,
           password: '',
         },
         names: data.names,
@@ -298,8 +292,8 @@ export class ProfileComponent implements OnInit {
         this.snackBarService.info(data.message);
         if (data.status == 1) {
           psychologist.userLoginDTO.password =
-            this.psychologistService.getPsychologist().userLoginDTO.password;
-          this.psychologistService.setPsychologist(psychologist);
+            this.psychologist.userLoginDTO.password;
+          localStorage.setItem('psychologist', JSON.stringify(psychologist));
         }
       });
     }

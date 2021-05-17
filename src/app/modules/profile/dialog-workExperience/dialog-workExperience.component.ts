@@ -13,6 +13,7 @@ import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 
 @Component({
   selector: 'app-dialog-workExperience',
@@ -24,6 +25,7 @@ export class DialogWorkExperienceComponent implements OnInit {
   title: string = 'Título de prueba';
   button: string = 'Botón de prueba';
   myDate = new Date();
+  psychologist: PsychologistDTO = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,25 +40,27 @@ export class DialogWorkExperienceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
-    }
-    this.loadWorkExperienceFormGroup();
-    if (this.data.action == 'create') {
-      this.title = 'Agregar Experiencia Laboral';
-      this.button = 'Agregar';
     } else {
-      this.workExperienceFormGroup.patchValue(this.data.entity);
-      var dateString = this.data.entity.startDate.replace('-', '/');
-      dateString = dateString.replace('-', '/');
-      var date = new Date(dateString);
-      this.workExperienceFormGroup.get('startDate').patchValue(date);
-      dateString = this.data.entity.endDate.replace('-', '/');
-      dateString = dateString.replace('-', '/');
-      date = new Date(dateString);
-      this.workExperienceFormGroup.get('endDate').patchValue(date);
-      this.title = 'Actualizar Experiencia Laboral';
-      this.button = 'Actualizar';
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
+      this.loadWorkExperienceFormGroup();
+      if (this.data.action == 'create') {
+        this.title = 'Agregar Experiencia Laboral';
+        this.button = 'Agregar';
+      } else {
+        this.workExperienceFormGroup.patchValue(this.data.entity);
+        var dateString = this.data.entity.startDate.replace('-', '/');
+        dateString = dateString.replace('-', '/');
+        var date = new Date(dateString);
+        this.workExperienceFormGroup.get('startDate').patchValue(date);
+        dateString = this.data.entity.endDate.replace('-', '/');
+        dateString = dateString.replace('-', '/');
+        date = new Date(dateString);
+        this.workExperienceFormGroup.get('endDate').patchValue(date);
+        this.title = 'Actualizar Experiencia Laboral';
+        this.button = 'Actualizar';
+      }
     }
   }
 
@@ -93,16 +97,15 @@ export class DialogWorkExperienceComponent implements OnInit {
           this.workExperienceFormGroup.get('description').value == null
             ? ''
             : this.workExperienceFormGroup.get('description').value,
-        psychologistDni: this.psychologistService.getPsychologist().userLoginDTO
-          .dni,
+        psychologistDni: this.psychologist.userLoginDTO.dni,
         current:
           this.workExperienceFormGroup.get('endDate').value > this.myDate
             ? true
             : false,
         startDate: cValue1.toString(),
         endDate: cValue2.toString(),
-        workingDayType: this.workExperienceFormGroup.get('workingDayType')
-          .value,
+        workingDayType:
+          this.workExperienceFormGroup.get('workingDayType').value,
       };
       if (this.data.action == 'create') {
         this.loadingService.changeStateShowLoading(true);
@@ -181,7 +184,9 @@ export class DialogWorkExperienceComponent implements OnInit {
         .setErrors({ required: true });
     }
     if (!this.workExperienceFormGroup.get('workingDayType').value) {
-      this.workExperienceFormGroup.get('workingDayType').setErrors({ required: true });
+      this.workExperienceFormGroup
+        .get('workingDayType')
+        .setErrors({ required: true });
     }
   }
 }

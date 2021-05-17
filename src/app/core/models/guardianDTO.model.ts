@@ -6,5 +6,5 @@ export interface GuardianDTO {
 	birthday: string;
 	patientDni: string;
 	dni: string;
-
+	imageURL?: string;
 }

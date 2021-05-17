@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PatientDTO } from 'src/app/core/models/patientDTO.model';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { TestDTO } from 'src/app/core/models/testDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
@@ -10,7 +11,6 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { TestService } from 'src/app/core/services/test.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
 import { DialogTestComponent } from '../dialog-test/dialog-test.component';
-
 
 @Component({
   selector: 'app-test',
@@ -23,9 +23,9 @@ export class TestComponent implements OnInit {
   testsAnsiedad: TestDTO[] = [];
   patient: PatientDTO = null;
   displayedColumns: string[] = ['id', 'question', 'score'];
+  psychologist: PsychologistDTO = null;
 
   constructor(
-    private psychologistService: PsychologistService,
     private loadingService: LoadingService,
     private patientService: PatientService,
     private snackBarService: SnackBarService,
@@ -35,9 +35,10 @@ export class TestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
     } else {
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
       if (this.patientService.getPatient() == null) {
         this.router.navigate(['/patients']).then();
       } else {

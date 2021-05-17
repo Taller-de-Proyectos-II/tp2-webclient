@@ -1,10 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuestionTypeDTO } from 'src/app/core/models/questionTypeDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { QuestionTypeService } from 'src/app/core/services/questionType.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { TestService } from 'src/app/core/services/test.service';
@@ -22,7 +19,6 @@ export class DialogTestComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
-    private router: Router,
     private questionTypeService: QuestionTypeService,
     private testService: TestService
   ) {

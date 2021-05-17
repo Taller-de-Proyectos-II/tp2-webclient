@@ -67,7 +67,10 @@ export class LoginComponent implements OnInit {
                     email: data2.psychologistDTO.email,
                     phone: data2.psychologistDTO.phone,
                   };
-                  this.psychologistService.setPsychologist(psychologist);
+                  localStorage.setItem(
+                    'psychologist',
+                    JSON.stringify(psychologist)
+                  );
                   this.loadingService.changeStateShowLoading(false);
                   this.router.navigate(['/welcome/']).then();
                 }

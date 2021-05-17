@@ -1,8 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConferenceDTO } from 'src/app/core/models/conferenceDTO.model';
+import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { ConferenceService } from 'src/app/core/services/conference.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
@@ -18,6 +23,8 @@ export class DialogConferenceComponent implements OnInit {
   conferenceFormGroup: FormGroup;
   title: string = 'Título de prueba';
   button: string = 'Botón de prueba';
+  psychologist: PsychologistDTO = null;
+
   constructor(
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,17 +38,19 @@ export class DialogConferenceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.psychologistService.getPsychologist() == null) {
+    if (!localStorage.getItem('psychologist')) {
       this.router.navigate(['/']).then();
-    }
-    this.loadConferenceFormGroup();
-    if (this.data.action == 'create') {
-      this.title = 'Agregar Seminario';
-      this.button = 'Agregar';
     } else {
-      this.conferenceFormGroup.patchValue(this.data.entity);
-      this.title = 'Actualizar Seminario';
-      this.button = 'Actualizar';
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
+      this.loadConferenceFormGroup();
+      if (this.data.action == 'create') {
+        this.title = 'Agregar Seminario';
+        this.button = 'Agregar';
+      } else {
+        this.conferenceFormGroup.patchValue(this.data.entity);
+        this.title = 'Actualizar Seminario';
+        this.button = 'Actualizar';
+      }
     }
   }
 
@@ -64,12 +73,11 @@ export class DialogConferenceComponent implements OnInit {
           this.conferenceFormGroup.get('description').value == null
             ? ''
             : this.conferenceFormGroup.get('description').value,
-        psychologistDni: this.psychologistService.getPsychologist().userLoginDTO
-          .dni,
+        psychologistDni: this.psychologist.userLoginDTO.dni,
       };
       if (this.data.action == 'create') {
         this.loadingService.changeStateShowLoading(true);
-    
+
         this.conferenceService.create(conferenceDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);
@@ -116,19 +124,21 @@ export class DialogConferenceComponent implements OnInit {
       .subscribe((confirm: boolean) => {
         if (confirm) {
           this.loadingService.changeStateShowLoading(true);
-          this.conferenceService.delete(this.data.entity.idConference).subscribe(
-            (data: any) => {
-              this.loadingService.changeStateShowLoading(false);
-              this.snackBarService.info(data.message);
-              if (data.status == 1) {
-                this.matDialogRef.close(true);
+          this.conferenceService
+            .delete(this.data.entity.idConference)
+            .subscribe(
+              (data: any) => {
+                this.loadingService.changeStateShowLoading(false);
+                this.snackBarService.info(data.message);
+                if (data.status == 1) {
+                  this.matDialogRef.close(true);
+                }
+              },
+              (error) => {
+                this.loadingService.changeStateShowLoading(false);
+                this.snackBarService.info('Error en el servidor');
               }
-            },
-            (error) => {
-              this.loadingService.changeStateShowLoading(false);
-              this.snackBarService.info('Error en el servidor');
-            }
-          );
+            );
         }
       });
   }
