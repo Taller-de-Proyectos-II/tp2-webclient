@@ -28,4 +28,11 @@ export class DashboardService {
         `/dashboard/listAlerts/?endDate=${endDate}&patientDni=${patientDni}&startDate=${startDate}`
     );
   }
+
+  listDashboardAllPatients(psychologistDni, startDate, endDate) {
+    return this.http.get(
+      environment.api +
+        `/dashboard/listDashboardAllPatients/?endDate=${endDate}&psychologistDni=${psychologistDni}&startDate=${startDate}`
+    );
+  }
 }

@@ -39,18 +39,37 @@
         <mat-divider></mat-divider>
         <br />
         <div class="row">
-          <button
-            mat-raised-button
-            color="primary"
-            style="position: absolute; right: 1rem"
-            mat-button
-            (click)="delete(reportSemanal)"
-          >
-            <i class="material-icons">delete</i>
-            &nbsp;Eliminar
-          </button>
-          <div class="col-10">
+          <div class="col-11">
             <label>{{ reportSemanal.description }}</label>
+          </div>
+          <div class="col-1">
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="right: 1rem"
+                mat-button
+                (click)="delete(reportSemanal)"
+              >
+                <i class="material-icons">delete</i>
+                &nbsp;Eliminar
+              </button>
+            </div>
+            <div class="row">
+              <br />
+            </div>
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="right: 1rem"
+                mat-button
+                (click)="export(reportSemanal)"
+              >
+                <i class="material-icons">print</i>
+                &nbsp;Imprimir
+              </button>
+            </div>
           </div>
         </div>
         <br />
@@ -76,18 +95,37 @@
         <mat-divider></mat-divider>
         <br />
         <div class="row">
-          <button
-            mat-raised-button
-            color="primary"
-            style="position: absolute; right: 1rem"
-            mat-button
-            (click)="delete(reportMensual)"
-          >
-            <i class="material-icons">delete</i>
-            &nbsp;Eliminar
-          </button>
-          <div class="col-10">
+          <div class="col-11">
             <label>{{ reportMensual.description }}</label>
+          </div>
+          <div class="col-1">
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="right: 1rem"
+                mat-button
+                (click)="delete(reportMensual)"
+              >
+                <i class="material-icons">delete</i>
+                &nbsp;Eliminar
+              </button>
+            </div>
+            <div class="row">
+              <br />
+            </div>
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="right: 1rem"
+                mat-button
+                (click)="export(reportMensual)"
+              >
+                <i class="material-icons">print</i>
+                &nbsp;Imprimir
+              </button>
+            </div>
           </div>
         </div>
         <br />
@@ -111,18 +149,37 @@
         <mat-divider></mat-divider>
         <br />
         <div class="row">
-          <button
-            mat-raised-button
-            color="primary"
-            style="position: absolute; right: 1rem"
-            mat-button
-            (click)="delete(reportFinal)"
-          >
-            <i class="material-icons">delete</i>
-            &nbsp;Eliminar
-          </button>
-          <div class="col-10">
+          <div class="col-11">
             <label>{{ reportFinal.description }}</label>
+          </div>
+          <div class="col-1">
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="right: 1rem"
+                mat-button
+                (click)="delete(reportFinal)"
+              >
+                <i class="material-icons">delete</i>
+                &nbsp;Eliminar
+              </button>
+            </div>
+            <div class="row">
+              <br />
+            </div>
+            <div class="row">
+              <button
+                mat-raised-button
+                color="primary"
+                style="right: 1rem"
+                mat-button
+                (click)="export(reportFinal)"
+              >
+                <i class="material-icons">print</i>
+                &nbsp;Imprimir
+              </button>
+            </div>
           </div>
         </div>
         <br />

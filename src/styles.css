@@ -6,7 +6,12 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Rockwell, sans-serif !important;
+}
+
+* {
+  font-family: Rockwell /* Replace with your custom font */, sans-serif !important; 
+  /* Add !important to overwrite all elements */
 }
 
 /**
@@ -1919,5 +1924,5 @@ td.mat-footer-cell {
 
 .material-icons {
   font-size: 24px;
-  font-family: "Material Icons", "Material Icons";
+  font-family: "Material Icons", "Material Icons" !important;
 }

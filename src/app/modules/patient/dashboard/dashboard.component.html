@@ -26,7 +26,7 @@
     <div class="col-2" style="margin-right: 15px">
       <mat-form-field class="grow-width" appearance="outline">
         <mat-label>Fecha Fin</mat-label>
-        <input matInput [matDatepicker]="picker2" formControlName="endDate" />
+        <input [max]="newDate" matInput [matDatepicker]="picker2" formControlName="endDate" />
         <mat-datepicker-toggle
           matSuffix
           [for]="picker2"

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
+import { DateService } from 'src/app/core/services/date.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogPatientComponent } from '../dialog-patient/dialog-patient.component';
 
@@ -30,13 +31,15 @@ export class ScheduleComponent implements OnInit {
   hoursWithSessions: HourDTO[] = [];
   actualTab = 0;
   psychologist: PsychologistDTO = null;
+  date = ['', '', '', '', '', '', ''];
 
   constructor(
     private scheduleService: ScheduleService,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
     private router: Router,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private dateService: DateService
   ) {}
 
   ngOnInit(): void {
@@ -44,8 +47,23 @@ export class ScheduleComponent implements OnInit {
       this.router.navigate(['/']).then();
     } else {
       this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
+      this.loadDates();
       this.createBasicSchedule();
     }
+  }
+
+  loadDates() {
+    var date = new Date();
+    const dateString = formatDate(
+      date,
+      'MM-dd-yyyy',
+      'en-US'
+    );
+    this.dateService.listDates(dateString).subscribe((data:any) => {
+      if(data.days) {
+        this.date = data.days;
+      }
+    });
   }
 
   createBasicSchedule() {

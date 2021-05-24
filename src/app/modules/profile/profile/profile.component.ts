@@ -13,6 +13,7 @@ import { ImageService } from 'src/app/core/services/image.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+
 import { DialogConferenceComponent } from '../dialog-conference/dialog-conference.component';
 import { DialogCourseComponent } from '../dialog-course/dialog-course.component';
 import { DialogPasswordComponent } from '../dialog-password/dialog-password.component';
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
   workExperiences: WorkExperienceDTO[] = [];
   retrieveURL: any = '../../../assets/images/loading.gif';
   psychologist: PsychologistDTO = null;
+  newDate = new Date();
 
   constructor(
     private formBuilder: FormBuilder,

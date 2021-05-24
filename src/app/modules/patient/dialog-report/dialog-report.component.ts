@@ -71,7 +71,6 @@ export class DialogReportComponent implements OnInit {
           psychologistDni: this.psychologist.userLoginDTO.dni,
           type: this.reportFormGroup.get('type').value,
         };
-        console.log(reportDTO);
         this.reportService.create(reportDTO).subscribe(
           (data: any) => {
             this.loadingService.changeStateShowLoading(false);

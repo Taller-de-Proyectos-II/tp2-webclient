@@ -1,16 +1,16 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
-import * as moment from 'moment';
 
 import { PsychologistDTO } from '../../../core/models/psychologistDTO.model';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogPolicityComponent } from '../dialog-policity/dialog-policity.component';
 import { DialogConsentComponent } from '../dialog-consent/dialog-consent.component';
+import { DialogPolicityComponent } from '../dialog-policity/dialog-policity.component';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +20,7 @@ import { DialogConsentComponent } from '../dialog-consent/dialog-consent.compone
 export class RegisterComponent implements OnInit {
   registerFormGroup: FormGroup;
   myDate = new Date();
+  newDate = new Date();
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

@@ -18,6 +18,11 @@ const routes: Routes = [
       import('./modules/patient/patient.module').then((m) => m.PatientModule),
   },
   {
+    path: 'general-view',
+    loadChildren: () =>
+      import('./modules/general-view/general-view.module').then((m) => m.GeneralViewModule),
+  },
+  {
     path: 'schedule',
     loadChildren: () =>
       import('./modules/schedule/schedule.module').then(

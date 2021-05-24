@@ -136,7 +136,6 @@ export class SessionComponent implements OnInit {
             })
             .subscribe(
               (data: any) => {
-                console.log(data);
                 this.loadingService.changeStateShowLoading(false);
                 if (data.status == 1) {
                   this.loadSessionsWithLink();

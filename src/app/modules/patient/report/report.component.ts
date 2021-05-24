@@ -10,7 +10,7 @@ import { ReportService } from 'src/app/core/services/report.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DialogConfirmationComponent } from 'src/app/shared/dialog-confirmation/dialog-confirmation.component';
 import { DialogReportComponent } from '../dialog-report/dialog-report.component';
-
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-report',
@@ -54,7 +54,6 @@ export class ReportComponent implements OnInit {
       .subscribe((dataFinal: any) => {
         if (dataFinal.reportsDTO) {
           this.reportsFinal = dataFinal.reportsDTO;
-          console.log(dataFinal.reportsDTO);
         }
       });
     this.reportService
@@ -62,7 +61,6 @@ export class ReportComponent implements OnInit {
       .subscribe((dataMensual: any) => {
         if (dataMensual.reportsDTO) {
           this.reportsMensual = dataMensual.reportsDTO;
-          console.log(dataMensual.reportsDTO);
         }
       });
     this.reportService
@@ -71,7 +69,6 @@ export class ReportComponent implements OnInit {
         (dataSemanal: any) => {
           if (dataSemanal.reportsDTO) {
             this.reportsSemanal = dataSemanal.reportsDTO;
-            console.log(dataSemanal.reportsDTO);
           }
           this.loadingService.changeStateShowLoading(false);
         },
@@ -128,5 +125,20 @@ export class ReportComponent implements OnInit {
           );
         }
       });
+  }
+
+  export(report) {
+    this.loadingService.changeStateShowLoading(true);
+    this.reportService
+      .export(report.idReport)
+      .subscribe(
+        (data) => {
+          this.loadingService.changeStateShowLoading(false);
+          saveAs(data, 'report.pdf');
+        },
+        (error) => {
+          this.loadingService.changeStateShowLoading(false);
+        }
+      );
   }
 }

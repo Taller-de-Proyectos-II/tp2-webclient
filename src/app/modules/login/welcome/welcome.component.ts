@@ -39,7 +39,6 @@ export class WelcomeComponent implements OnInit {
           this.articles = data.articles.results;
           this.articles.forEach((element) => {
             element.body = element.body.substring(0, 300) + '...';
-            console.log(element);
           });
         } else this.articles = [];
         this.loadingService.changeStateShowLoading(false);

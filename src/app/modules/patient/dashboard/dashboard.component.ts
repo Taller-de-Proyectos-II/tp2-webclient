@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   labelsManifestations: String[];
   labelsAlerts: String[];
   psychologist: PsychologistDTO = null;
+  newDate = new Date();
 
   displayedColumnsManifestations = ['id', 'question'];
 

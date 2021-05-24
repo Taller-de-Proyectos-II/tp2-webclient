@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -31,5 +32,12 @@ export class ReportService {
 
   delete(idReport) {
     return this.http.delete(environment.api + `/report/?idReport=${idReport}`);
+  }
+
+  export(idReport): Observable<Blob> {
+    return this.http.get(
+      environment.api + `/report/export/?idReport=${idReport}`,
+      { responseType: 'blob' }
+    );
   }
 }

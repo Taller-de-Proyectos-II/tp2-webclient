@@ -22,15 +22,15 @@
           &nbsp;Guardar
         </button>
         <button
-        mat-raised-button
-        color="primary"
-        style="position: absolute; right: 9rem"
-        mat-button
-        (click)="openPasswordDialog()"
-      >
-        <i class="material-icons">enhanced_encryption</i>
-        &nbsp;Cambiar contraseña
-      </button>
+          mat-raised-button
+          color="primary"
+          style="position: absolute; right: 9rem"
+          mat-button
+          (click)="openPasswordDialog()"
+        >
+          <i class="material-icons">enhanced_encryption</i>
+          &nbsp;Cambiar contraseña
+        </button>
       </h2>
       <div class="row">
         <div class="col-4">
@@ -73,6 +73,7 @@
           >
             <mat-label>Fecha de nacimiento</mat-label>
             <input
+              [max]="newDate"
               matInput
               [matDatepicker]="picker"
               formControlName="birthday"
@@ -163,155 +164,176 @@
 </div>
 <br />
 <div>
-  <h2>
-    Experiencia Laboral
-    <button
-      mat-raised-button
-      color="primary"
-      style="position: absolute; right: 0rem"
-      mat-button
-      (click)="openDialog('workExperience', 'create', {})"
-    >
-      <i class="material-icons">add</i>
-      &nbsp;Agregar
-    </button>
-  </h2>
-  <label *ngIf="workExperiences.length == 0"
-    >No se ha registrado experiencia laboral.</label
-  >
-  <div *ngFor="let workExperience of workExperiences">
-    <mat-card>
-      <button
-        mat-raised-button
-        color="primary"
-        style="position: absolute; right: 1rem"
-        mat-button
-        (click)="openDialog('workExperience', 'edit', workExperience)"
+  <div class="row">
+    <div class="col-6">
+      <h2>
+        Experiencia Laboral
+        <button
+          mat-raised-button
+          color="primary"
+          style="position: absolute; right: 1rem"
+          mat-button
+          (click)="openDialog('workExperience', 'create', {})"
+        >
+          <i class="material-icons">add</i>
+          &nbsp;Agregar
+        </button>
+      </h2>
+      <label *ngIf="workExperiences.length == 0"
+        >No se ha registrado experiencia laboral.</label
       >
-        <i class="material-icons">edit</i>
-        &nbsp;Editar
-      </button>
-      <mat-card-title>{{ workExperience.place }}</mat-card-title>
-      <mat-card-subtitle
-        >{{ workExperience.occupation }} · {{ workExperience.workingDayType }} ·
-        {{ workExperience.startDate }} -
-        {{
-          workExperience.current == true ? "Actualidad" : workExperience.endDate
-        }}</mat-card-subtitle
-      >
-      <label> {{ workExperience.description }}</label>
-    </mat-card>
+      <div style="overflow: scroll; height: 270px">
+        <div *ngFor="let workExperience of workExperiences">
+          <mat-card>
+            <button
+              mat-raised-button
+              color="primary"
+              style="position: absolute; right: 1rem"
+              mat-button
+              (click)="openDialog('workExperience', 'edit', workExperience)"
+            >
+              <i class="material-icons">edit</i>
+              &nbsp;Editar
+            </button>
+            <mat-card-title>{{ workExperience.place }}</mat-card-title>
+            <mat-card-subtitle
+              >{{ workExperience.occupation }} ·
+              {{ workExperience.workingDayType }} ·
+              {{ workExperience.startDate }} -
+              {{
+                workExperience.current == true
+                  ? "Actualidad"
+                  : workExperience.endDate
+              }}</mat-card-subtitle
+            >
+            <label> {{ workExperience.description }}</label>
+          </mat-card>
+          <br />
+        </div>
+      </div>
+    </div>
     <br />
+    <div class="col-6">
+      <h2>
+        Educación
+        <button
+          mat-raised-button
+          color="primary"
+          style="position: absolute; right: 1rem"
+          mat-button
+          (click)="openDialog('study', 'create', {})"
+        >
+          <i class="material-icons">add</i>
+          &nbsp;Agregar
+        </button>
+      </h2>
+      <label *ngIf="studies.length == 0">No se han registrado estudios.</label>
+      <div style="overflow: scroll; height: 270px">
+        <div *ngFor="let study of studies">
+          <mat-card>
+            <button
+              mat-raised-button
+              color="primary"
+              style="position: absolute; right: 1rem"
+              mat-button
+              (click)="openDialog('study', 'edit', study)"
+            >
+              <i class="material-icons">edit</i>
+              &nbsp;Editar
+            </button>
+            <mat-card-title>{{ study.studyCenter }}</mat-card-title>
+            <mat-card-subtitle
+              >{{ study.title }}, {{ study.academicDiscipline }} ·
+              {{ study.startDate }} -
+              {{ study.complete != true ? "Actualidad" : study.endDate }}
+            </mat-card-subtitle>
+            <label>{{ study.description }}</label>
+          </mat-card>
+          <br />
+        </div>
+      </div>
+      <br />
+    </div>
   </div>
 </div>
 <br />
-<div>
-  <h2>
-    Educación
-    <button
-      mat-raised-button
-      color="primary"
-      style="position: absolute; right: 0rem"
-      mat-button
-      (click)="openDialog('study', 'create', {})"
-    >
-      <i class="material-icons">add</i>
-      &nbsp;Agregar
-    </button>
-  </h2>
-  <label *ngIf="studies.length == 0">No se han registrado estudios.</label>
-  <div *ngFor="let study of studies">
-    <mat-card>
-      <button
-        mat-raised-button
-        color="primary"
-        style="position: absolute; right: 1rem"
-        mat-button
-        (click)="openDialog('study', 'edit', study)"
-      >
-        <i class="material-icons">edit</i>
-        &nbsp;Editar
-      </button>
-      <mat-card-title>{{ study.studyCenter }}</mat-card-title>
-      <mat-card-subtitle
-        >{{ study.title }}, {{ study.academicDiscipline }} ·
-        {{ study.startDate }} -
-        {{ study.complete != true ? "Actualidad" : study.endDate }}
-      </mat-card-subtitle>
-      <label>{{ study.description }}</label>
-    </mat-card>
-    <br />
-  </div>
-</div>
 <br />
 <div>
-  <h2>
-    Cursos
-    <button
-      mat-raised-button
-      color="primary"
-      style="position: absolute; right: 0rem"
-      mat-button
-      (click)="openDialog('course', 'create', {})"
-    >
-      <i class="material-icons">add</i>
-      &nbsp;Agregar
-    </button>
-  </h2>
-  <label *ngIf="courses.length == 0">No se han registrado cursos.</label>
-  <div *ngFor="let course of courses">
-    <mat-card>
-      <button
-        mat-raised-button
-        color="primary"
-        style="position: absolute; right: 1rem"
-        mat-button
-        (click)="openDialog('course', 'edit', course)"
+  <div class="row">
+    <div class="col-6">
+      <h2>
+        Cursos
+        <button
+          mat-raised-button
+          color="primary"
+          style="position: absolute; right: 1rem"
+          mat-button
+          (click)="openDialog('course', 'create', {})"
+        >
+          <i class="material-icons">add</i>
+          &nbsp;Agregar
+        </button>
+      </h2>
+      <label *ngIf="courses.length == 0">No se han registrado cursos.</label>
+      <div style="overflow: scroll; height: 270px">
+        <div *ngFor="let course of courses">
+          <mat-card>
+            <button
+              mat-raised-button
+              color="primary"
+              style="position: absolute; right: 1rem"
+              mat-button
+              (click)="openDialog('course', 'edit', course)"
+            >
+              <i class="material-icons">edit</i>
+              &nbsp;Editar
+            </button>
+            <mat-card-title>{{ course.name }}</mat-card-title>
+            <mat-card-subtitle>{{ course.studyCenter }}</mat-card-subtitle>
+            <label>{{ course.description }}</label>
+          </mat-card>
+          <br />
+        </div>
+      </div>
+      <br />
+    </div>
+    <div class="col-6">
+      <h2>
+        Seminarios
+        <button
+          mat-raised-button
+          color="primary"
+          style="position: absolute; right: 1rem"
+          mat-button
+          (click)="openDialog('conference', 'create', {})"
+        >
+          <i class="material-icons">add</i>
+          &nbsp;Agregar
+        </button>
+      </h2>
+      <label *ngIf="conferences.length == 0"
+        >No se han registrado seminarios.</label
       >
-        <i class="material-icons">edit</i>
-        &nbsp;Editar
-      </button>
-      <mat-card-title>{{ course.name }}</mat-card-title>
-      <mat-card-subtitle>{{ course.studyCenter }}</mat-card-subtitle>
-      <label>{{ course.description }}</label>
-    </mat-card>
-    <br />
-  </div>
-</div>
-<br />
-<div>
-  <h2>
-    Seminarios
-    <button
-      mat-raised-button
-      color="primary"
-      style="position: absolute; right: 0rem"
-      mat-button
-      (click)="openDialog('conference', 'create', {})"
-    >
-      <i class="material-icons">add</i>
-      &nbsp;Agregar
-    </button>
-  </h2>
-  <label *ngIf="conferences.length == 0"
-    >No se han registrado seminarios.</label
-  >
-  <div *ngFor="let conference of conferences">
-    <mat-card>
-      <button
-        mat-raised-button
-        color="primary"
-        style="position: absolute; right: 1rem"
-        mat-button
-        (click)="openDialog('conference', 'edit', conference)"
-      >
-        <i class="material-icons">edit</i>
-        &nbsp;Editar
-      </button>
-      <mat-card-title>{{ conference.name }}</mat-card-title>
-      <mat-card-subtitle>{{ conference.place }}</mat-card-subtitle>
-      <label>{{ conference.description }}</label>
-    </mat-card>
-    <br />
+      <div style="overflow: scroll; height: 270px">
+        <div *ngFor="let conference of conferences">
+          <mat-card>
+            <button
+              mat-raised-button
+              color="primary"
+              style="position: absolute; right: 1rem"
+              mat-button
+              (click)="openDialog('conference', 'edit', conference)"
+            >
+              <i class="material-icons">edit</i>
+              &nbsp;Editar
+            </button>
+            <mat-card-title>{{ conference.name }}</mat-card-title>
+            <mat-card-subtitle>{{ conference.place }}</mat-card-subtitle>
+            <label>{{ conference.description }}</label>
+          </mat-card>
+          <br />
+        </div>
+      </div>
+    </div>
   </div>
 </div>
