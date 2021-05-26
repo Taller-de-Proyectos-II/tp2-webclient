@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GuardianDTO } from 'src/app/core/models/guardianDTO.model';
 import { PatientDTO } from 'src/app/core/models/patientDTO.model';
+import { ImageService } from 'src/app/core/services/image.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
@@ -29,6 +27,7 @@ export class DialogPatientComponent implements OnInit {
       dni: '',
       password: '',
     },
+    imageURL: '../../../assets/images/photo.png'
   };
 
   constructor(
@@ -36,7 +35,8 @@ export class DialogPatientComponent implements OnInit {
     public matDialogRef: MatDialogRef<DialogPatientComponent>,
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private imageService: ImageService
   ) {}
 
   ngOnInit(): void {
@@ -50,12 +50,33 @@ export class DialogPatientComponent implements OnInit {
       (data: any) => {
         if (data.patientDTO) {
           this.patient = data.patientDTO;
+          this.patient.imageURL = '../../../assets/images/photo.png';
         }
         this.loadingService.changeStateShowLoading(false);
+        this.loadPhoto();
       },
       (error) => {
         this.loadingService.changeStateShowLoading(false);
         this.snackBarService.info('Error en el servidor');
+      }
+    );
+  }
+
+  loadPhoto() {
+    this.patient.imageURL = '../../../assets/images/loading.gif';
+    var retrieveURL = '../../../assets/images/loading.gif';
+    this.imageService.getPatientImageFromApi(this.patientDni).subscribe(
+      (data: any) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(data);
+        reader.onload = (_event) => {
+          retrieveURL = reader.result as string;
+          this.patient.imageURL = retrieveURL;
+        };
+      },
+      (error) => {
+        retrieveURL = '../../../assets/images/photo.png';
+        this.patient.imageURL = retrieveURL;
       }
     );
   }

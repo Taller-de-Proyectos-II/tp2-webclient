@@ -40,7 +40,7 @@
       <div class="col-1" style="display: inline-block">
         <img
           [src]="retrieveURL"
-          style="border-radius: 50%; width: 50px; height: 50px; display: block"
+          style="border-radius: 50%; width: 80px; height: 80px; display: block"
           (click)="openDialog(patientFound)"
         />
       </div>
@@ -63,6 +63,9 @@
           }}</mat-card-title
         >
         <mat-card-subtitle
+          ><b>Dni:</b> {{ patientFound.userLoginDTO.dni }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
           >{{ patientFound.birthday }} · {{ patientFound.phone }} ·
           {{ patientFound.email }}</mat-card-subtitle
         >
@@ -80,7 +83,7 @@
       <div class="col-1" style="display: inline-block">
         <img
           [src]="patient.imageURL"
-          style="border-radius: 50%; width: 50px; height: 50px; display: block"
+          style="border-radius: 50%; width: 80px; height: 80px; display: block"
           (click)="openDialog(patient)"
         />
       </div>

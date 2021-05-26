@@ -7,7 +7,7 @@
   "
 >
   <img
-    src="../../../assets/images/photo.png"
+    [src]="patient.imageURL"
     style="border-radius: 50%; width: 100px; height: 100px"
   />
   <br />
@@ -16,11 +16,13 @@
     patient.lastNames + ", " + patient.names
   }}</mat-card-title>
   <mat-card-subtitle
+    ><b>Dni:</b> {{ patient.userLoginDTO.dni }}</mat-card-subtitle
+  >
+  <mat-card-subtitle
     >{{ patient.birthday }} · {{ patient.phone }} ·
     {{ patient.email }}</mat-card-subtitle
   >
   <label> {{ patient.description }}</label>
-  <br />
   <br />
   <p align="center">
     <a class="a-link" (click)="cancel()">Volver</a>
