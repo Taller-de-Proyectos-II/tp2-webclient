@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
+import { JWTService } from 'src/app/core/services/jwt.service';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { PatientService } from 'src/app/core/services/patient.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private psychologistService: PsychologistService,
     private loadingService: LoadingService,
     private patientService: PatientService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private jwtService: JWTService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit {
           this.snackBarService.info(data.message);
           this.loadingService.changeStateShowLoading(false);
           if (data.status == 1) {
+            this.jwtService.setToken(data.token);
             this.loadingService.changeStateShowLoading(true);
             this.psychologistService.listByDni(userLoginDTO.dni).subscribe(
               (data2: any) => {

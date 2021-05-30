@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { LoginService } from 'src/app/core/services/login.service';
 import { PsychologistService } from 'src/app/core/services/psychologist.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private psychologistService: PsychologistService,
+    private loginService: LoginService,
     private snackBarService: SnackBarService,
     private loadingService: LoadingService,
     private matDialog: MatDialog
@@ -72,7 +73,7 @@ export class RegisterComponent implements OnInit {
         description: '',
       };
       this.loadingService.changeStateShowLoading(true);
-      this.psychologistService.register(psychologistDTO).subscribe(
+      this.loginService.createPsychologist(psychologistDTO).subscribe(
         (data: any) => {
           this.loadingService.changeStateShowLoading(false);
           this.snackBarService.info(data.message);

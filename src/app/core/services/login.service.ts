@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -12,6 +12,13 @@ export class LoginService {
 
   login(userLoginDTO) {
     return this.http.post(environment.api + `/login/`, userLoginDTO);
+  }
+
+  createPsychologist(psychologistDTO) {
+    return this.http.post(
+      environment.api + `/login/createPsychologist/`,
+      psychologistDTO
+    );
   }
 
   restorePasswordPsychologist(emailDTO) {
