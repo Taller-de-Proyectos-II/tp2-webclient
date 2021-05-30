@@ -182,7 +182,7 @@
       <label *ngIf="workExperiences.length == 0"
         >No se ha registrado experiencia laboral.</label
       >
-      <div style="overflow: scroll; height: 270px">
+      <div class="divScroll">
         <div *ngFor="let workExperience of workExperiences">
           <mat-card>
             <button
@@ -228,7 +228,7 @@
         </button>
       </h2>
       <label *ngIf="studies.length == 0">No se han registrado estudios.</label>
-      <div style="overflow: scroll; height: 270px">
+      <div class="divScroll">
         <div *ngFor="let study of studies">
           <mat-card>
             <button
@@ -275,7 +275,7 @@
         </button>
       </h2>
       <label *ngIf="courses.length == 0">No se han registrado cursos.</label>
-      <div style="overflow: scroll; height: 270px">
+      <div class="divScroll">
         <div *ngFor="let course of courses">
           <mat-card>
             <button
@@ -314,7 +314,7 @@
       <label *ngIf="conferences.length == 0"
         >No se han registrado seminarios.</label
       >
-      <div style="overflow: scroll; height: 270px">
+      <div class="divScroll">
         <div *ngFor="let conference of conferences">
           <mat-card>
             <button
