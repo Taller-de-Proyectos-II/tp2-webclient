@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(userLoginDTO) {
-    return this.http.post(environment.api + `/login/`, userLoginDTO);
+    return this.http.post(environment.api + `/login/loginPsychologist/`, userLoginDTO);
   }
 
   createPsychologist(psychologistDTO) {
