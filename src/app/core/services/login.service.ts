@@ -14,6 +14,10 @@ export class LoginService {
     return this.http.post(environment.api + `/login/loginPsychologist/`, userLoginDTO);
   }
 
+  loginAdmin(userLoginDTO) {
+    return this.http.post(environment.api + `/login/loginAdmin/`, userLoginDTO);
+  }
+
   createPsychologist(psychologistDTO) {
     return this.http.post(
       environment.api + `/login/createPsychologist/`,

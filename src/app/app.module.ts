@@ -11,6 +11,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AuthenticationInterceptor } from '../app/core/interceptors/authentication.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LayoutAdminModule } from './layout-admin/layout-admin.module';
 import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { LayoutModule } from './layout/layout.module';
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
+    LayoutAdminModule,
     FormsModule,
     ChartsModule,
     MDBBootstrapModule.forRoot() 
