@@ -1,4 +1,10 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
@@ -18,10 +24,18 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     let request = req;
 
     if (
-      token && 
+      token &&
       req.url.search('https://newsapi.ai/api/') === -1 &&
       req.url.search('https://www.youtube.com') === -1 &&
-      req.url.search('https://app-tp2-api.herokuapp.com/login/') === -1
+      req.url.search('https://app-tp2-api.herokuapp.com/login/') === -1 &&
+      request.url.search(
+        'https://app-tp2-api.herokuapp.com/psychologist/image/'
+      ) === -1 &&
+      request.url.search(
+        'https://app-tp2-api.herokuapp.com/guardian/image/'
+      ) === -1 &&
+      request.url.search('https://app-tp2-api.herokuapp.com/patient/image/') ===
+        -1
     ) {
       request = req.clone({
         setHeaders: {
@@ -32,7 +46,18 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 403 || err.status === 404) {
+        if (
+          (err.status === 403 || err.status === 404) &&
+          request.url.search(
+            'https://app-tp2-api.herokuapp.com/psychologist/image/'
+          ) === -1 &&
+          request.url.search(
+            'https://app-tp2-api.herokuapp.com/guardian/image/'
+          ) === -1 &&
+          request.url.search(
+            'https://app-tp2-api.herokuapp.com/patient/image/'
+          ) === -1
+        ) {
           this.router.navigate(['/']);
         }
 
