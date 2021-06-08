@@ -1,0 +1,39 @@
+<div class="login" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <div class="login__logo"></div>
+      <br />
+      <form [formGroup]="loginFormGroup">
+        <h2>Iniciar Sesión como Administrador</h2>
+        <h4>Ingrese la contraseña</h4>
+        <br />
+        <div class="row">
+          <mat-form-field
+            class="grow-width"
+            appearance="outline"
+            style="width: 100%"
+          >
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput formControlName="password" />
+            <mat-error
+              *ngIf="loginFormGroup.get('password').hasError('required')"
+            >
+              <strong> Ingrese la contraseña </strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <br />
+        <button
+          class="grow-width"
+          mat-raised-button
+          color="primary"
+          (click)="login()"
+        >
+          Ingresar
+        </button>
+      </form>
+      <br />
+      <br />
+      <a class="a-link" (click)="redirectTo('/')">Volver</a>
+    </mat-card>
+  </div>
+  

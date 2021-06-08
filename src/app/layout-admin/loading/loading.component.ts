@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
-  selector: 'app-loading-admin',
+  selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.css']
 })
-export class LoadingComponent implements OnInit, OnDestroy {
+export class LoadingAdminComponent implements OnInit, OnDestroy {
 
   toogleSuscription: Subscription;
   toggleMenu: boolean = false;

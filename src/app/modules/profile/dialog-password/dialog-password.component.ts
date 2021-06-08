@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PsychologistDTO } from 'src/app/core/models/psychologistDTO.model';
 import { LoadingService } from 'src/app/core/services/loading.service';
@@ -31,6 +31,7 @@ export class DialogPasswordComponent implements OnInit {
       this.router.navigate(['/']).then();
     } else {
       this.loadPasswordFormGroup();
+      this.psychologist = JSON.parse(localStorage.getItem('psychologist'));
     }
   }
 
@@ -47,11 +48,12 @@ export class DialogPasswordComponent implements OnInit {
   }
 
   save() {
+    this.passwordFormGroup.setErrors(null);
     this.validate();
     if (this.passwordFormGroup.valid) {
       var changePasswordDTO = {
         dni: this.psychologist.userLoginDTO.dni,
-        password: this.psychologist.userLoginDTO.password,
+        password: this.passwordFormGroup.get('password').value,
         newPassword: this.passwordFormGroup.get('newPassword').value,
       };
 
@@ -101,6 +103,8 @@ export class DialogPasswordComponent implements OnInit {
       this.passwordFormGroup.get('newPassword').value !=
         this.passwordFormGroup.get('confirmPassword').value
     ) {
+      console.log(this.passwordFormGroup.get('newPassword').value);
+      console.log(this.passwordFormGroup.get('confirmPassword').value);
       this.passwordFormGroup
         .get('confirmPassword')
         .setErrors({ incorrect: true });

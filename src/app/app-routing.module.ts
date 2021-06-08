@@ -8,6 +8,11 @@ const routes: Routes = [
       import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
+    path: 'login-admin',
+    loadChildren: () =>
+      import('./modules/login-admin/login-admin.module').then((m) => m.LoginAdminModule),
+  },
+  {
     path: 'myprofile',
     loadChildren: () =>
       import('./modules/profile/profile.module').then((m) => m.ProfileModule),
@@ -40,6 +45,16 @@ const routes: Routes = [
     path: 'help',
     loadChildren: () =>
       import('./modules/help/help.module').then((m) => m.HelpModule),
+  },
+  {
+    path: 'training-admin',
+    loadChildren: () =>
+      import('./modules/training-admin/training-admin.module').then((m) => m.TrainingAdminModule),
+  },
+  {
+    path: 'default-admin',
+    loadChildren: () =>
+      import('./modules/default-admin/default-admin.module').then((m) => m.DefaultAdminModule),
   },
   {
     path: '**',

@@ -41,7 +41,7 @@
         <img
           [src]="retrieveURL"
           style="border-radius: 50%; width: 80px; height: 80px; display: block"
-          (click)="openDialog(patientFound)"
+          (click)="patientFound.imageURL = retrieveURL; openDialog(patientFound)"
         />
       </div>
       <div class="col-11">
@@ -57,7 +57,7 @@
         </button>
         <mat-card-title
           style="margin-top: 0.5%"
-          (click)="openDialog(patientFound)"
+          (click)="patientFound.imageURL = retrieveURL; openDialog(patientFound)"
           >{{
             patientFound.lastNames + ", " + patientFound.names
           }}</mat-card-title

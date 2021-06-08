@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  api: 'http://ec2-54-221-183-159.compute-1.amazonaws.com:8080',
+  api: 'https://app-tp2-api.herokuapp.com',
+  api_ia: 'https://app-tp2-ia.herokuapp.com'
+  //api: 'http://ec2-54-172-179-183.compute-1.amazonaws.com:8080'
 };
