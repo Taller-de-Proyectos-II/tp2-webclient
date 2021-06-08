@@ -1,7 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { LayoutAdminComponent } from 'src/app/layout-admin/layout.component';
 
-const routes: Routes = [];
+import { TrainingAdminComponent } from './training-admin/training-admin.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LayoutAdminComponent,
+    children: [
+      {
+        path: '',
+        component: TrainingAdminComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

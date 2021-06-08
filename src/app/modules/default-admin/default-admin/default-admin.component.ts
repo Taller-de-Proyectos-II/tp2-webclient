@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingService } from 'src/app/core/services/loading.service';
+import { Router } from '@angular/router';
 import { DefaultAdminService } from 'src/app/core/services/default-admin.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
@@ -12,10 +13,15 @@ export class DefaultAdminComponent implements OnInit {
   constructor(
     private loadingService: LoadingService,
     private snackBarService: SnackBarService,
-    private defaultAdminService: DefaultAdminService
+    private defaultAdminService: DefaultAdminService,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!localStorage.getItem('admin')) {
+      this.router.navigate(['/']).then();
+    }
+  }
 
   createQuestionTypes() {
     this.loadingService.changeStateShowLoading(true);

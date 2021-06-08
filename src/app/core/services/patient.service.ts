@@ -19,6 +19,12 @@ export class PatientService {
     );
   }
 
+  listAll() {
+    return this.http.get(
+      environment.api + `/patient/listAll/`
+    );
+  }
+
   findByDni(dni) {
     return this.http.get(environment.api + `/patient/listByDni/?dni=${dni}`);
   }
